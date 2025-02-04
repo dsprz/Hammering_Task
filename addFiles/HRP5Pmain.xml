@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mujoco model="HRP5P">
+  <compiler angle="radian" meshdir="../meshes" />
+  <!-- <size njmax="4000" nconmax="2000" /> -->
+  <size njmax="500" nconmax="100" nuser_actuator="1" />
+
+  <option timestep="0.001" iterations="50" tolerance="1e-10" solver="Newton" jacobian="dense" cone="pyramidal" />
+
+  <default>
+    <joint limited="true" damping="0.2" pos="0 0 0" />
+    <motor ctrllimited="false" forcelimited="false"/>
+    <default class="collision">
+      <geom condim="3" material="matgeom" type="mesh" group="0" />
+    </default>
+    <default class="visual">
+      <geom condim="3" material="matgeom" type="mesh" group="1" conaffinity="0" contype="0" />
+    </default>
+  </default>
+
+  <visual>
+    <map force="0.01" zfar="30"/>
+    <rgba haze="0.15 0.25 0.35 1"/>
+    <quality shadowsize="2048"/>
+    <global offwidth="800" offheight="800"/>
+  </visual>
+
+  <asset>
+    <!-- collision meshes -->
+    <mesh name="Body_mesh" file="convex/Body_mesh.stl" />
+    <mesh name="Lleg_Link0_mesh" file="convex/Lleg_Link0_mesh.stl" />
+    <mesh name="Lleg_Link1_mesh" file="convex/Lleg_Link1_mesh.stl" />
+    <mesh name="Lleg_Link2_mesh" file="convex/Lleg_Link2_mesh.stl" />
+    <mesh name="Lleg_Link3_mesh" file="convex/Lleg_Link3_mesh.stl" />
+    <mesh name="Lleg_Link4_mesh" file="convex/Lleg_Link4_mesh.stl" />
+    <mesh name="Lleg_Link5_mesh" file="convex/Lleg_Link5_mesh.stl" />
+    <mesh name="Rleg_Link0_mesh" file="convex/Rleg_Link0_mesh.stl" />
+    <mesh name="Rleg_Link1_mesh" file="convex/Rleg_Link1_mesh.stl" />
+    <mesh name="Rleg_Link2_mesh" file="convex/Rleg_Link2_mesh.stl" />
+    <mesh name="Rleg_Link3_mesh" file="convex/Rleg_Link3_mesh.stl" />
+    <mesh name="Rleg_Link4_mesh" file="convex/Rleg_Link4_mesh.stl" />
+    <mesh name="Rleg_Link5_mesh" file="convex/Rleg_Link5_mesh.stl" />
+    <mesh name="Chest_Link0_mesh" file="convex/Chest_Link0_mesh.stl" />
+    <mesh name="Chest_Link1_mesh" file="convex/Chest_Link1_mesh.stl" />
+    <mesh name="Chest_Link2_mesh" file="convex/Chest_Link2_mesh.stl" />
+    <mesh name="Head_Link0_mesh" file="convex/Head_Link0_mesh.stl" />
+    <mesh name="Head_Link1_mesh" file="convex/Head_Link1_Plan2_mesh.stl" />
+    <mesh name="spindle_mesh" file="convex/spindle_mesh.stl" />
+    <mesh name="Lscap_Link0_mesh" file="convex/Lscap_Link0_mesh.stl" />
+    <mesh name="Larm_Link0_mesh" file="convex/Larm_Link0_mesh.stl" />
+    <mesh name="Larm_Link1_mesh" file="convex/Larm_Link1_mesh.stl" />
+    <mesh name="Larm_Link2_mesh" file="convex/Larm_Link2_mesh.stl" />
+    <mesh name="Larm_Link3_mesh" file="convex/Larm_Link3_mesh.stl" />
+    <mesh name="Larm_Link4_mesh" file="convex/Larm_Link4_mesh.stl" />
+    <mesh name="Larm_Link5_mesh" file="convex/Larm_Link5_mesh.stl" />
+    <mesh name="Larm_Link6_mesh" file="convex/Larm_Link6_mesh.stl" />
+    <mesh name="Lhand_Link0_Plan2_mesh" file="convex/Lhand_Link0_Plan2_mesh.stl" />
+    <mesh name="hammer_mesh" file="convex/hammer_scaled.stl"/>
+    <mesh name="Lindex_Link0_mesh" file="convex/Lindex_Link0_mesh.stl" />
+    <mesh name="Lindex_Link1_mesh" file="convex/Lindex_Link1_mesh.stl" />
+    <mesh name="Lindex_Link2_mesh" file="convex/Lindex_Link2_mesh.stl" />
+    <mesh name="Lmiddle_Link0_mesh" file="convex/Lmiddle_Link0_mesh.stl" />
+    <mesh name="Lmiddle_Link1_mesh" file="convex/Lmiddle_Link1_mesh.stl" />
+    <mesh name="Lmiddle_Link2_mesh" file="convex/Lmiddle_Link2_mesh.stl" />
+    <mesh name="Lthumb_Link0_mesh" file="convex/Lthumb_Link0_mesh.stl" />
+    <mesh name="Lthumb_Link1_mesh" file="convex/Lthumb_Link1_mesh.stl" />
+    <mesh name="Lthumb_Link2_mesh" file="convex/Lthumb_Link2_mesh.stl" />
+    <mesh name="Rscap_Link0_mesh" file="convex/Rscap_Link0_mesh.stl" />
+    <mesh name="Rarm_Link0_mesh" file="convex/Rarm_Link0_mesh.stl" />
+    <mesh name="Rarm_Link1_mesh" file="convex/Rarm_Link1_mesh.stl" />
+    <mesh name="Rarm_Link2_mesh" file="convex/Rarm_Link2_mesh.stl" />
+    <mesh name="Rarm_Link3_mesh" file="convex/Rarm_Link3_mesh.stl" />
+    <mesh name="Rarm_Link4_mesh" file="convex/Rarm_Link4_mesh.stl" />
+    <mesh name="Rarm_Link5_mesh" file="convex/Rarm_Link5_mesh.stl" />
+    <mesh name="Rarm_Link6_mesh" file="convex/Rarm_Link6_mesh.stl" />
+    <mesh name="Rhand_Link0_Plan2_mesh" file="convex/Rhand_Link0_Plan2_mesh.stl" />
+    <mesh name="Rindex_Link0_mesh" file="convex/Rindex_Link0_mesh.stl" />
+    <mesh name="Rindex_Link1_mesh" file="convex/Rindex_Link1_mesh.stl" />
+    <mesh name="Rindex_Link2_mesh" file="convex/Rindex_Link2_mesh.stl" />
+    <mesh name="Rmiddle_Link0_mesh" file="convex/Rmiddle_Link0_mesh.stl" />
+    <mesh name="Rmiddle_Link1_mesh" file="convex/Rmiddle_Link1_mesh.stl" />
+    <mesh name="Rmiddle_Link2_mesh" file="convex/Rmiddle_Link2_mesh.stl" />
+    <mesh name="Rthumb_Link0_mesh" file="convex/Rthumb_Link0_mesh.stl" />
+    <mesh name="Rthumb_Link1_mesh" file="convex/Rthumb_Link1_mesh.stl" />
+    <mesh name="Rthumb_Link2_mesh" file="convex/Rthumb_Link2_mesh.stl" />
+
+    <!-- visualization meshes -->
+    <mesh name="Body_vis" file="visual/Body_mesh.stl" />
+    <mesh name="Lleg_Link0_vis" file="visual/Lleg_Link0_mesh.stl" />
+    <mesh name="Lleg_Link1_vis" file="visual/Lleg_Link1_mesh.stl" />
+    <mesh name="Lleg_Link2_vis" file="visual/Lleg_Link2_mesh.stl" />
+    <mesh name="Lleg_Link3_vis" file="visual/Lleg_Link3_mesh.stl" />
+    <mesh name="Lleg_Link4_vis" file="visual/Lleg_Link4_mesh.stl" />
+    <mesh name="Lleg_Link5_vis" file="visual/Lleg_Link5_mesh.stl" />
+    <mesh name="Rleg_Link0_vis" file="visual/Rleg_Link0_mesh.stl" />
+    <mesh name="Rleg_Link1_vis" file="visual/Rleg_Link1_mesh.stl" />
+    <mesh name="Rleg_Link2_vis" file="visual/Rleg_Link2_mesh.stl" />
+    <mesh name="Rleg_Link3_vis" file="visual/Rleg_Link3_mesh.stl" />
+    <mesh name="Rleg_Link4_vis" file="visual/Rleg_Link4_mesh.stl" />
+    <mesh name="Rleg_Link5_vis" file="visual/Rleg_Link5_mesh.stl" />
+    <mesh name="Chest_Link0_vis" file="visual/Chest_Link0_mesh.stl" />
+    <mesh name="Chest_Link1_vis" file="visual/Chest_Link1_mesh.stl" />
+    <mesh name="Chest_Link2_vis" file="visual/Chest_Link2_mesh.stl" />
+    <mesh name="Head_Link0_vis" file="visual/Head_Link0_mesh.stl" />
+    <mesh name="Head_Link1_vis" file="visual/Head_Link1_Plan2_mesh.stl" />
+    <mesh name="spindle_vis" file="visual/spindle_mesh.stl" />
+    <mesh name="Lscap_Link0_vis" file="visual/Lscap_Link0_mesh.stl" />
+    <mesh name="Larm_Link0_vis" file="visual/Larm_Link0_mesh.stl" />
+    <mesh name="Larm_Link1_vis" file="visual/Larm_Link1_mesh.stl" />
+    <mesh name="Larm_Link2_vis" file="visual/Larm_Link2_mesh.stl" />
+    <mesh name="Larm_Link3_vis" file="visual/Larm_Link3_mesh.stl" />
+    <mesh name="Larm_Link4_vis" file="visual/Larm_Link4_mesh.stl" />
+    <mesh name="Larm_Link5_vis" file="visual/Larm_Link5_mesh.stl" />
+    <mesh name="Larm_Link6_vis" file="visual/Larm_Link6_mesh.stl" />
+    <mesh name="Lhand_Link0_Plan2_vis" file="visual/Lhand_Link0_Plan2_mesh.stl" />
+    <mesh name="hammer_vis" file="visual/hammer_scaled.stl"/>
+    <mesh name="Lindex_Link0_vis" file="visual/Lindex_Link0_mesh.stl" />
+    <mesh name="Lindex_Link1_vis" file="visual/Lindex_Link1_mesh.stl" />
+    <mesh name="Lindex_Link2_vis" file="visual/Lindex_Link2_mesh.stl" />
+    <mesh name="Lmiddle_Link0_vis" file="visual/Lmiddle_Link0_mesh.stl" />
+    <mesh name="Lmiddle_Link1_vis" file="visual/Lmiddle_Link1_mesh.stl" />
+    <mesh name="Lmiddle_Link2_vis" file="visual/Lmiddle_Link2_mesh.stl" />
+    <mesh name="Lthumb_Link0_vis" file="visual/Lthumb_Link0_mesh.stl" />
+    <mesh name="Lthumb_Link1_vis" file="visual/Lthumb_Link1_mesh.stl" />
+    <mesh name="Lthumb_Link2_vis" file="visual/Lthumb_Link2_mesh.stl" />
+    <mesh name="Rscap_Link0_vis" file="visual/Rscap_Link0_mesh.stl" />
+    <mesh name="Rarm_Link0_vis" file="visual/Rarm_Link0_mesh.stl" />
+    <mesh name="Rarm_Link1_vis" file="visual/Rarm_Link1_mesh.stl" />
+    <mesh name="Rarm_Link2_vis" file="visual/Rarm_Link2_mesh.stl" />
+    <mesh name="Rarm_Link3_vis" file="visual/Rarm_Link3_mesh.stl" />
+    <mesh name="Rarm_Link4_vis" file="visual/Rarm_Link4_mesh.stl" />
+    <mesh name="Rarm_Link5_vis" file="visual/Rarm_Link5_mesh.stl" />
+    <mesh name="Rarm_Link6_vis" file="visual/Rarm_Link6_mesh.stl" />
+    <mesh name="Rhand_Link0_Plan2_vis" file="visual/Rhand_Link0_Plan2_mesh.stl" />
+    <mesh name="Rindex_Link0_vis" file="visual/Rindex_Link0_mesh.stl" />
+    <mesh name="Rindex_Link1_vis" file="visual/Rindex_Link1_mesh.stl" />
+    <mesh name="Rindex_Link2_vis" file="visual/Rindex_Link2_mesh.stl" />
+    <mesh name="Rmiddle_Link0_vis" file="visual/Rmiddle_Link0_mesh.stl" />
+    <mesh name="Rmiddle_Link1_vis" file="visual/Rmiddle_Link1_mesh.stl" />
+    <mesh name="Rmiddle_Link2_vis" file="visual/Rmiddle_Link2_mesh.stl" />
+    <mesh name="Rthumb_Link0_vis" file="visual/Rthumb_Link0_mesh.stl" />
+    <mesh name="Rthumb_Link1_vis" file="visual/Rthumb_Link1_mesh.stl" />
+    <mesh name="Rthumb_Link2_vis" file="visual/Rthumb_Link2_mesh.stl" />
+
+    <texture type='skybox' builtin='gradient' width='128' height='128' rgb1='0.3 0.5 0.7' rgb2='0 0 0'/>
+    <texture name="texplane" type="2d" builtin="checker" rgb1=".2 .3 .4" rgb2=".1 0.15 0.2" width="512" height="512" mark="cross" markrgb=".8 .8 .8"/>  
+    <texture name="texgeom" type="cube" builtin="flat" mark="cross" width="127" height="1278" 
+             rgb1="0.8 0.6 0.4" rgb2="0.8 0.6 0.4" markrgb="1 1 1" random="0.01"/>  
+    <material name="matplane" reflectance="0.3" texture="texplane" texrepeat="1 1" texuniform="true"/>
+    <material name="matgeom" texture="texgeom" texuniform="true" rgba="0.8 0.6 .4 1"/>
+  </asset>
+
+  <contact>
+    <exclude body1="Larm_Link4" body2="Larm_Link6" />
+    <exclude body1="Larm_Link0" body2="Chest_Link2" />
+    <exclude body1="Larm_Link1" body2="Chest_Link2" />
+
+    <exclude body1="Lhand_Link0_Plan2" body2="Lindex_Link1" />
+    <exclude body1="Lhand_Link0_Plan2" body2="Lindex_Link2" />
+    <exclude body1="Lhand_Link0_Plan2" body2="Lmiddle_Link1" />
+    <exclude body1="Lhand_Link0_Plan2" body2="Lmiddle_Link2" />
+    <exclude body1="Lhand_Link0_Plan2" body2="Lthumb_Link1" />
+    <exclude body1="Lhand_Link0_Plan2" body2="Lthumb_Link2" />
+
+    <exclude body1="Rarm_Link4" body2="Rarm_Link6" />
+    <exclude body1="Rarm_Link0" body2="Chest_Link2" />
+    <exclude body1="Rarm_Link1" body2="Chest_Link2" />
+
+    <exclude body1="Rhand_Link0_Plan2" body2="Rindex_Link1" />
+    <exclude body1="Rhand_Link0_Plan2" body2="Rindex_Link2" />
+    <exclude body1="Rhand_Link0_Plan2" body2="Rmiddle_Link1" />
+    <exclude body1="Rhand_Link0_Plan2" body2="Rmiddle_Link2" />
+    <exclude body1="Rhand_Link0_Plan2" body2="Rthumb_Link1" />
+    <exclude body1="Rhand_Link0_Plan2" body2="Rthumb_Link2" />
+
+    <exclude body1="Lleg_Link0" body2="Body" />
+    <exclude body1="Lleg_Link1" body2="Body" />
+    <exclude body1="Lleg_Link2" body2="Body" />
+    <exclude body1="Lleg_Link0" body2="Lleg_Link2" />
+
+    <exclude body1="Rleg_Link0" body2="Body" />
+    <exclude body1="Rleg_Link1" body2="Body" />
+    <exclude body1="Rleg_Link2" body2="Body" />
+    <exclude body1="Rleg_Link0" body2="Rleg_Link2" />
+
+    <exclude body1="Chest_Link0" body2="Body" />
+    <exclude body1="Chest_Link1" body2="Body" />
+    <exclude body1="Chest_Link2" body2="Body" />
+
+    <exclude body1="Head_Link0" body2="Chest_Link2" />
+    <exclude body1="Head_Link1_Plan2" body2="Chest_Link2" />
+  </contact>
+
+  <worldbody>
+    <light directional="false" diffuse=".2 .2 .2" specular="0 0 0" pos="0 0 5" dir="0 0 -1" castshadow="false"/>
+    <light mode="targetbodycom" target="Chest_Link0" directional="false" diffuse=".8 .8 .8" specular="0.3 0.3 0.3" pos="0 0 4.0" dir="0 0 -1"/>       
+    <!-- body -->
+    <body name="Body" pos="0 0 1.4">
+      <freejoint name="root"/>
+      <geom class="collision" pos="0 0 0.862" mesh="Body_mesh" />
+      <geom class="visual"    pos="0 0 0.862" mesh="Body_vis" />
+      <inertial pos="-0.0308 0.0081 0.1756" mass="9.8635" fullinertia="0.36871 0.407036 0.11623 -0.002075 -0.045841 0.019256" />
+      <!-- site for root imu sensor -->
+      <site name="imu"  size="0.01" pos="-0.090000 0.000000 0.125000" />
+      <!-- right leg -->
+      <body name="Rleg_Link0" pos="0 -0.06 0">
+        <inertial pos="0.0046 -0.0004 0.0779" quat="0.732676 -0.00509391 0.00556339 0.680536" mass="2.5255" diaginertia="0.0236993 0.0232043 0.00314732" />
+        <joint name="RCY" axis="0 0 1" range="-0.785398 0.785398" armature="0.110084846291" />
+        <geom class="collision" pos="0 -0.06 0" mesh="Rleg_Link0_mesh" />
+        <geom class="visual"    pos="0 -0.06 0" mesh="Rleg_Link0_vis" />
+        <body name="Rleg_Link1" pos="0 0 0">
+          <inertial pos="-0.0048 -0.044 -0.0024" quat="0.58794 0.588031 -0.391757 0.393792" mass="1.4061" diaginertia="0.00619746 0.00611259 0.000870956" />
+          <joint name="RCR" axis="1 0 0" range="-0.785398 0.785398" armature="0.317032732584" />
+          <geom class="collision" mesh="Rleg_Link1_mesh" />
+          <geom class="visual"    mesh="Rleg_Link1_vis" />
+          <body name="Rleg_Link2" pos="0 0 0">
+            <inertial pos="-0.0027 -0.0892 -0.1996" quat="0.989003 0.1424 -0.00713623 0.0392982" mass="6.4744" diaginertia="0.437442 0.411212 0.0363566" />
+            <joint name="RCP" axis="0 1 0" range="-2.18166 1.3439" armature="0.317032732584" />
+            <geom class="collision" mesh="Rleg_Link2_mesh" />
+            <geom class="visual"    mesh="Rleg_Link2_vis" />
+            <body name="Rleg_Link3" pos="0 -0.035 -0.38">
+              <inertial pos="0.01 -0.0093 -0.1305" quat="0.992031 0.00607157 0.0188868 -0.12442" mass="3.1903" diaginertia="0.108886 0.107495 0.00568266" />
+              <joint name="RKP" axis="0 1 0" range="0 2.61799" armature="1.174334694856" />
+              <geom class="collision" pos="0 -0.035 -0.38" mesh="Rleg_Link3_mesh" />
+              <geom class="visual"    pos="0 -0.035 -0.38" mesh="Rleg_Link3_vis" />
+              <body name="Rleg_Link4" pos="0 0 -0.38">
+                <inertial pos="-0.0131 -0.0018 0.0181" quat="0.478578 0.521062 0.526689 0.471229" mass="1.1568" diaginertia="0.00275918 0.00169226 0.00133256" />
+                <joint name="RAP" axis="0 1 0" range="-1.48353 0.959931" armature="0.161699903568" />
+                <geom class="collision" pos="0 0 -0.38" mesh="Rleg_Link4_mesh" />
+                <geom class="visual"    pos="0 0 -0.38" mesh="Rleg_Link4_vis" />
+                <body name="Rleg_Link5" pos="0 0 0">
+                  <inertial pos="-0.0091 -0.0031 -0.0603" quat="0.688763 0.096996 0.0456961 0.717014" mass="1.6195" diaginertia="0.0119794 0.00861239 0.00594419" />
+                  <joint name="RAR" axis="1 0 0" range="-0.872665 0.785398" armature="0.112299753167" />
+                  <geom class="collision" size="0.1188 0.06885 0.0079" pos="0.0148 -0.0098 -0.094" type="box" />
+                  <geom class="visual"    mesh="Rleg_Link5_vis" />
+                  <!-- site for right foot f/t sensor -->
+                  <site name="rf_force"  size="0.01" pos="0.000000 0.000000 -0.102000" />
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <!-- left leg -->
+      <body name="Lleg_Link0" pos="0 0.06 0">
+        <inertial pos="0.0046 0.0004 0.0779" quat="0.680536 0.00556339 -0.00509391 0.732676" mass="2.5255" diaginertia="0.0236993 0.0232043 0.00314732" />
+        <joint name="LCY" axis="0 0 1" range="-0.785398 0.785398" armature="0.110084846291" />
+        <geom class="collision" pos="0 0.06 0" mesh="Lleg_Link0_mesh" />
+        <geom class="visual"    pos="0 0.06 0" mesh="Lleg_Link0_vis" />
+        <body name="Lleg_Link1" pos="0 0 0">
+          <inertial pos="-0.0048 0.044 -0.0024" quat="0.588031 0.58794 -0.393792 0.391757" mass="1.4061" diaginertia="0.00619746 0.00611259 0.000870956" />
+          <joint name="LCR" axis="1 0 0" range="-0.785398 0.785398" armature="0.317032732584" />
+          <geom class="collision" mesh="Lleg_Link1_mesh" />
+          <geom class="visual"    mesh="Lleg_Link1_vis" />
+          <body name="Lleg_Link2" pos="0 0 0">
+            <inertial pos="-0.0027 0.0892 -0.1996" quat="0.989003 -0.1424 -0.00713623 -0.0392982" mass="6.4744" diaginertia="0.437442 0.411212 0.0363566" />
+            <joint name="LCP" axis="0 1 0" range="-2.18166 1.3439" armature="0.317032732584" />
+            <geom class="collision" mesh="Lleg_Link2_mesh" />
+            <geom class="visual"    mesh="Lleg_Link2_vis" />
+            <body name="Lleg_Link3" pos="0 0.035 -0.38">
+              <inertial pos="0.01 0.0093 -0.1305" quat="0.992031 -0.00607157 0.0188868 0.12442" mass="3.1903" diaginertia="0.108886 0.107495 0.00568266" />
+              <joint name="LKP" axis="0 1 0" range="0 2.61799" armature="1.174334694856" />
+              <geom class="collision" pos="0 0.035 -0.38" mesh="Lleg_Link3_mesh" />
+              <geom class="visual"    pos="0 0.035 -0.38" mesh="Lleg_Link3_vis" />
+              <body name="Lleg_Link4" pos="0 0 -0.38">
+                <inertial pos="-0.0131 0.0018 0.0181" quat="0.471229 0.526689 0.521062 0.478578" mass="1.1568" diaginertia="0.00275918 0.00169226 0.00133256" />
+                <joint name="LAP" axis="0 1 0" range="-1.48353 0.959931" armature="0.161699903568" />
+                <geom class="collision" pos="0 0 -0.38" mesh="Lleg_Link4_mesh" />
+                <geom class="visual"    pos="0 0 -0.38" mesh="Lleg_Link4_vis" />
+                <body name="Lleg_Link5" pos="0 0 0">
+                  <inertial pos="-0.0091 0.0031 -0.0603" quat="0.717014 0.0456961 0.096996 0.688763" mass="1.6195" diaginertia="0.0119794 0.00861239 0.00594419" />
+                  <joint name="LAR" axis="1 0 0" range="-0.785398 0.872665" armature="0.112299753167" />
+                  <geom class="collision" size="0.1188 0.06885 0.0079" pos="0.0148 0.0098 -0.094" type="box" />
+                  <geom class="visual"    mesh="Lleg_Link5_vis" />
+                  <!-- site for left foot f/t sensor -->
+                  <site name="lf_force"  size="0.01" pos="0.000000 0.000000 -0.102000" />
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <!-- chest -->
+      <body name="Chest_Link0" pos="0.055 0 0.274">
+        <inertial pos="-0.0279 0.0051 0" quat="-0.000553165 0.707292 0.000551685 0.706921" mass="1.0948" diaginertia="0.002966 0.002342 0.001062" />
+        <joint name="WP" axis="0 1 0" range="-0.20944 1.5708" armature="0.782889796570" />
+        <geom class="collision" pos="0.055 0 0.274" mesh="Chest_Link0_mesh" />
+        <geom class="visual"    pos="0.055 0 0.274" mesh="Chest_Link0_vis" />
+        <body name="Chest_Link1" pos="0 0 0">
+          <inertial pos="-0.0617 -0.0019 0.0601" quat="0.650471 0.312668 0.326417 0.610392" mass="3.196" diaginertia="0.0379542 0.027882 0.0130119" />
+          <joint name="WR" axis="1 0 0" range="-0.785398 0.785398" armature="0.782889796570" />
+          <geom class="collision" mesh="Chest_Link1_mesh" />
+          <geom class="visual"    mesh="Chest_Link1_vis" />
+          <body name="Chest_Link2" pos="0 0 0">
+            <inertial pos="-0.145 -0.004 0.2482" quat="0.732481 0.134421 0.157222 0.648602" mass="24.4837" diaginertia="2.38329 2.20228 0.438879" />
+            <joint name="WY" axis="0 0 1" range="-1.91986 3.31613" armature="0.158516366292" />
+            <geom class="collision" mesh="Chest_Link2_mesh" />
+            <geom class="visual"    mesh="Chest_Link2_vis" />
+            <!-- head -->
+            <body name="Head_Link0" pos="0.032 0 0.549">
+              <inertial pos="0.0122 -0.0136 -0.0955" quat="0.998116 -0.00514042 0.00207866 -0.0611018" mass="0.9321" diaginertia="0.0159027 0.0119742 0.00501009" />
+              <joint name="HY" axis="0 0 1" range="-3.31613 1.91986" armature="0.023698573895" />
+              <geom class="collision" pos="0.032 0 0.549" mesh="Head_Link0_mesh" />
+              <geom class="visual"    pos="0.032 0 0.549" mesh="Head_Link0_vis" />
+              <body name="Head_Link1_Plan2" pos="0.04 0 0">
+                <inertial pos="0.00766 -1e-05 0.02739" quat="0.958541 0.00120261 0.284952 -0.00035192" mass="3.04836" diaginertia="0.0139086 0.010513 0.00907435" />
+                <joint name="HP" axis="0 1 0" range="-1.65806 1.5708" armature="0.024173043016" />
+                <geom class="collision" pos="0.04 0 0" mesh="Head_Link1_mesh" />
+                <geom class="visual"    pos="0.04 0 0" mesh="Head_Link1_vis" />
+              </body>
+            </body>
+            <!-- right arm -->
+            <body name="Rscap_Link0" pos="0.032 -0.08 0.268">
+              <inertial pos="0.0054 0.0004 -0.0061" quat="0.48384 -0.0665284 -0.0100686 0.872566" mass="1.7614" diaginertia="0.00523166 0.00493353 0.00139381" />
+              <joint name="RSC" axis="0 0 1" range="-0.349066 1.0472" armature="0.110084846291" />
+              <geom class="collision" pos="0.032 -0.08 0.268" mesh="Rscap_Link0_mesh" />
+              <geom class="visual"    pos="0.032 -0.08 0.268" mesh="Rscap_Link0_vis" />
+              <body name="Rarm_Link0" pos="0 -0.13 0">
+                <inertial pos="0.0237 0.0443 0.0036" quat="0.49576 0.529804 -0.449431 0.521096" mass="1.5836" diaginertia="0.00990398 0.00724037 0.00461165" />
+                <joint name="RSP" axis="0 1 0" range="-3.49066 1.22173" armature="0.391444898285" />
+                <geom class="collision" pos="0 -0.13 0" mesh="Rarm_Link0_mesh" />
+                <geom class="visual"    pos="0 -0.13 0" mesh="Rarm_Link0_vis" />
+                <body name="Rarm_Link1" pos="0 0 0">
+                  <inertial pos="0.0107 -0.021 -0.0227" quat="0.721264 0.319952 -0.163784 0.592101" mass="1.4994" diaginertia="0.0045622 0.00338868 0.00268911" />
+                  <joint name="RSR" axis="1 0 0" range="-1.65806 0.436332" armature="0.277300653884" />
+                  <geom class="collision" mesh="Rarm_Link1_mesh" />
+                  <geom class="visual"    mesh="Rarm_Link1_vis" />
+                  <body name="Rarm_Link2" pos="0 -0.02 0">
+                    <inertial pos="0.0027 0.0082 -0.1873" quat="0.876797 -0.01493 0.0302443 0.479676" mass="3.127" diaginertia="0.132805 0.130305 0.00522011" />
+                    <joint name="RSY" axis="0 0 1" range="-1.6057 2.0944" armature="0.110084846291" />
+                    <geom class="collision" pos="0 -0.02 0" mesh="Rarm_Link2_mesh" />
+                    <geom class="visual"    pos="0 -0.02 0" mesh="Rarm_Link2_vis" />
+                    <body name="Rarm_Link3" pos="0.05 0 -0.295804">
+                      <inertial pos="-0.0348 -0.0052 -0.0405" quat="0.904636 -0.101439 -0.293272 0.292123" mass="1.5959" diaginertia="0.00825865 0.00774235 0.001838" />
+                      <joint name="REP" axis="0 1 0" range="-3.14159 -0.282743" armature="0.325195312499" />
+                      <geom class="collision" pos="0.05 0 -0.295804" mesh="Rarm_Link3_mesh" />
+                      <geom class="visual"    pos="0.05 0 -0.295804" mesh="Rarm_Link3_vis" />
+                      <body name="Rarm_Link4" pos="-0.05 0 -0.295804">
+                        <inertial pos="-0.0154 -0.0001 0.112" quat="0.719236 0.0251182 0.0262519 0.693815" mass="1.9223" diaginertia="0.0336744 0.0325684 0.00282916" />
+                        <joint name="RWRY" axis="0 0 1" range="-2.1293 3.1765" armature="0.164700000000" />
+                        <geom class="collision" pos="-0.05 0 -0.295804" mesh="Rarm_Link4_mesh" />
+                        <geom class="visual"    pos="-0.05 0 -0.295804" mesh="Rarm_Link4_vis" />
+                        <body name="Rarm_Link5" pos="0 0 0">
+                          <inertial pos="-0.0019 -0.0108 -0.0011" quat="0.512008 0.487697 -0.487697 0.512008" mass="0.3476" diaginertia="0.000258292 0.000189 0.000134708" />
+                          <joint name="RWRR" axis="1 0 0" range="-0.820305 1.22173" armature="0.164700000000" />
+                          <geom class="collision" mesh="Rarm_Link5_mesh" />
+                          <geom class="visual"    mesh="Rarm_Link5_vis" />
+                          <body name="Rarm_Link6" pos="0 0 0">
+                            <inertial pos="0.0002 -0.0028 -0.052" quat="0.988203 -0.153132 0.0013105 0.00194951" mass="0.858" diaginertia="0.00477203 0.00397887 0.0010981" />
+                            <joint name="RWRP" axis="0 1 0" range="-0.733038 0.733038" armature="0.168010470000" />
+                            <geom class="collision" mesh="Rarm_Link6_mesh" />
+                            <geom class="visual"    mesh="Rarm_Link6_vis" />
+                            <body name="Rhand_Link0_Plan2" pos="0 0.017324 -0.078842" quat="0.92388 0.382683 0 0">
+                              <inertial pos="-0.0019 -0.0022 -0.0732" quat="0.997554 0.0110874 -0.0230916 0.0650334" mass="1.505" diaginertia="0.0105844 0.0098459 0.00313172" />
+                              <joint name="RHDY" axis="0 0 1" range="-2.61799 2.61799" armature="0.164609999999" />
+                              <geom class="collision" pos="0 0.017324 -0.078842" quat="0.92388 0.382683 0 0" mesh="Rhand_Link0_Plan2_mesh" />
+                              <geom class="visual"    pos="0 0.017324 -0.078842" quat="0.92388 0.382683 0 0" mesh="Rhand_Link0_Plan2_vis" />
+                              <!-- site for right hand f/t sensor -->
+                              <site name="rh_force"  size="0.01" pos="0.000000 0.017324 -0.078842" axisangle="1.000000 0.000000 0.000000 0.785398" />
+                              <body name="Rindex_Link0" pos="0.03 -0.047 -0.114" quat="1.32679e-06 -1 0 0">
+                                <inertial pos="0 -0.0249 0.0047" quat="0.653753 0.756708 0 0" mass="0.0495" diaginertia="4.9e-05 4.78806e-05 6.11939e-06" />
+                                <joint name="RIMP" axis="1 0 0" range="-2.0944 -0.05236" armature="0.181412627281" />
+                                <geom class="collision" pos="0.03 -0.047 -0.114" quat="1.32679e-06 -1 0 0" mesh="Rindex_Link0_mesh" />
+                                <geom class="visual"    pos="0.03 -0.047 -0.114" quat="1.32679e-06 -1 0 0" mesh="Rindex_Link0_vis" />
+                                <body name="Rindex_Link1" pos="0 -0.046 0">
+                                  <inertial pos="0 -0.0172 0.0027" quat="0.468459 0.529666 -0.529666 0.468459" mass="0.023" diaginertia="1.01231e-05 1e-05 1.87689e-06" />
+                                  <joint name="RIPIP" axis="1 0 0" range="0 1.5708" armature="0.181413385184" />
+                                  <geom class="collision" pos="0 -0.046 0" mesh="Rindex_Link1_mesh" />
+                                  <geom class="visual"    pos="0 -0.046 0" mesh="Rindex_Link1_vis" />
+                                  <body name="Rindex_Link2" pos="0 -0.027 0">
+                                    <inertial pos="0 -0.0119 0.0072" quat="0.486965 0.873422 0 0" mass="0.0137" diaginertia="4e-06 3.61803e-06 1.38197e-06" />
+                                    <joint name="RIDIP" axis="1 0 0" range="0 2.16717" armature="0.181413385184" />
+                                    <geom class="collision" pos="0 -0.027 0" mesh="Rindex_Link2_mesh" />
+                                    <geom class="visual"    pos="0 -0.027 0" mesh="Rindex_Link2_vis" />
+                                  </body>
+                                </body>
+                              </body>
+                              <body name="Rmiddle_Link0" pos="-0.03 -0.047 -0.114" quat="1.32679e-06 -1 0 0">
+                                <inertial pos="-0.0001 -0.0151 0.0023" quat="0.653753 0.756708 0 0" mass="0.0736" diaginertia="5.3e-05 4.98806e-05 8.11939e-06" />
+                                <joint name="RMMP" axis="1 0 0" range="-2.0944 -0.05236" armature="0.181413385184" />
+                                <geom class="collision" pos="-0.03 -0.047 -0.114" quat="1.32679e-06 -1 0 0" mesh="Rmiddle_Link0_mesh" />
+                                <geom class="visual"    pos="-0.03 -0.047 -0.114" quat="1.32679e-06 -1 0 0" mesh="Rmiddle_Link0_vis" />
+                                <body name="Rmiddle_Link1" pos="0 -0.046 0">
+                                  <inertial pos="0 -0.0172 0.0027" quat="0.468459 0.529666 -0.529666 0.468459" mass="0.023" diaginertia="1.01231e-05 1e-05 1.87689e-06" />
+                                  <joint name="RMPIP" axis="1 0 0" range="0 1.5708" armature="0.181413385184" />
+                                  <geom class="collision" pos="0 -0.046 0" mesh="Rmiddle_Link1_mesh" />
+                                  <geom class="visual"    pos="0 -0.046 0" mesh="Rmiddle_Link1_vis" />
+                                  <body name="Rmiddle_Link2" pos="0 -0.027 0">
+                                    <inertial pos="0 -0.0119 0.0072" quat="0.486965 0.873422 0 0" mass="0.0137" diaginertia="4e-06 3.61803e-06 1.38197e-06" />
+                                    <joint name="RMDIP" axis="1 0 0" range="0 2.16717" armature="0.181413385184" />
+                                    <geom class="collision" pos="0 -0.027 0" mesh="Rmiddle_Link2_mesh" />
+                                    <geom class="visual"    pos="0 -0.027 0" mesh="Rmiddle_Link2_vis" />
+                                  </body>
+                                </body>
+                              </body>
+                              <body name="Rthumb_Link0" pos="0 0.047 -0.114" quat="1.32679e-06 1 0 0">
+                                <inertial pos="0 0.0152 0.0023" quat="0.756708 0.653753 0 0" mass="0.0732" diaginertia="5.3e-05 4.98806e-05 8.11939e-06" />
+                                <joint name="RTMP" axis="1 0 0" range="0.0872665 2.00713" armature="0.181413385184" />
+                                <geom class="collision" pos="0 0.047 -0.114" quat="1.32679e-06 1 0 0" mesh="Rthumb_Link0_mesh" />
+                                <geom class="visual"    pos="0 0.047 -0.114" quat="1.32679e-06 1 0 0" mesh="Rthumb_Link0_vis" />
+                                <body name="Rthumb_Link1" pos="0 0.046 0">
+                                  <inertial pos="0 0.0172 0.0027" quat="0.529666 0.468459 -0.468459 0.529666" mass="0.023" diaginertia="1.01231e-05 1e-05 1.87689e-06" />
+                                  <joint name="RTPIP" axis="1 0 0" range="-1.5708 0" armature="0.181413385184" />
+                                  <geom class="collision" pos="0 0.046 0" mesh="Rthumb_Link1_mesh" />
+                                  <geom class="visual"    pos="0 0.046 0" mesh="Rthumb_Link1_vis" />
+                                  <body name="Rthumb_Link2" pos="0 0.027 0">
+                                    <inertial pos="0 0.0119 0.0072" quat="0.873422 0.486965 0 0" mass="0.0137" diaginertia="4e-06 3.61803e-06 1.38197e-06" />
+                                    <joint name="RTDIP" axis="1 0 0" range="-2.16717 0" armature="0.181413385184" />
+                                    <geom class="collision" pos="0 0.027 0" mesh="Rthumb_Link2_mesh" />
+                                    <geom class="visual"    pos="0 0.027 0" mesh="Rthumb_Link2_vis" />
+                                  </body>
+                                </body>
+                              </body>
+                            </body>
+                          </body>
+                        </body>
+                      </body>
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+            <!-- left arm -->
+            <body name="Lscap_Link0" pos="0.032 0.08 0.268">
+              <inertial pos="0.0054 -0.0004 -0.0061" quat="0.872566 -0.0100686 -0.0665284 0.48384" mass="1.7614" diaginertia="0.00523166 0.00493353 0.00139381" />
+              <joint name="LSC" axis="0 0 1" range="-1.0472 0.349066" armature="0.110084846291" />
+              <geom class="collision" pos="0.032 0.08 0.268" mesh="Lscap_Link0_mesh" />
+              <geom class="visual"    pos="0.032 0.08 0.268" mesh="Lscap_Link0_vis" />
+              <body name="Larm_Link0" pos="0 0.13 0">
+                <inertial pos="0.0237 -0.0443 0.0036" quat="0.529804 0.49576 -0.521096 0.449431" mass="1.5836" diaginertia="0.00990398 0.00724037 0.00461165" />
+                <joint name="LSP" axis="0 1 0" range="-3.49066 1.22173" armature="0.391444898285" />
+                <geom class="collision" pos="0 0.13 0" mesh="Larm_Link0_mesh" />
+                <geom class="visual"    pos="0 0.13 0" mesh="Larm_Link0_vis" />
+                <body name="Larm_Link1" pos="0 0 0">
+                  <inertial pos="0.0107 0.021 -0.0227" quat="0.592101 -0.163784 0.319952 0.721264" mass="1.4994" diaginertia="0.0045622 0.00338868 0.00268911" />
+                  <joint name="LSR" axis="1 0 0" range="-0.436332 1.65806" armature="0.277300653884" />
+                  <geom class="collision" mesh="Larm_Link1_mesh" />
+                  <geom class="visual"    mesh="Larm_Link1_vis" />
+                  <body name="Larm_Link2" pos="0 0.02 0">
+                    <inertial pos="0.0027 -0.0082 -0.1873" quat="0.479676 0.0302443 -0.01493 0.876797" mass="3.127" diaginertia="0.132805 0.130305 0.00522011" />
+                    <joint name="LSY" axis="0 0 1" range="-2.0944 1.6057" armature="0.110084846291" />
+                    <geom class="collision" pos="0 0.02 0" mesh="Larm_Link2_mesh" />
+                    <geom class="visual"    pos="0 0.02 0" mesh="Larm_Link2_vis" />
+                    <body name="Larm_Link3" pos="0.05 0 -0.295804">
+                      <inertial pos="-0.0348 0.0052 -0.0405" quat="0.904636 0.101439 -0.293272 -0.292123" mass="1.5959" diaginertia="0.00825865 0.00774235 0.001838" />
+                      <joint name="LEP" axis="0 1 0" range="-3.14159 -0.282743" armature="0.325195312499" />
+                      <geom class="collision" pos="0.05 0 -0.295804" mesh="Larm_Link3_mesh" />
+                      <geom class="visual"    pos="0.05 0 -0.295804" mesh="Larm_Link3_vis" />
+                      <body name="Larm_Link4" pos="-0.05 0 -0.295804">
+                        <inertial pos="-0.0154 0.0001 0.112" quat="0.693815 0.0262519 0.0251182 0.719236" mass="1.9223" diaginertia="0.0336744 0.0325684 0.00282916" />
+                        <joint name="LWRY" axis="0 0 1" range="-3.1765 2.1293" armature="0.164700000000" />
+                        <geom class="collision" pos="-0.05 0 -0.295804" mesh="Larm_Link4_mesh" />
+                        <geom class="visual"    pos="-0.05 0 -0.295804" mesh="Larm_Link4_vis" />
+                        <body name="Larm_Link5" pos="0 0 0">
+                          <inertial pos="-0.0019 0.0108 -0.0011" quat="0.487697 0.512008 -0.512008 0.487697" mass="0.3476" diaginertia="0.000258292 0.000189 0.000134708" />
+                          <joint name="LWRR" axis="1 0 0" range="-1.22173 0.820305" armature="0.164700000000" />
+                          <geom class="collision" mesh="Larm_Link5_mesh" />
+                          <geom class="visual"    mesh="Larm_Link5_vis" />
+                          <body name="Larm_Link6" pos="0 0 0">
+                            <inertial pos="0.0002 0.0028 -0.052" quat="0.988203 0.153132 0.0013105 -0.00194951" mass="0.858" diaginertia="0.00477203 0.00397887 0.0010981" />
+                            <joint name="LWRP" axis="0 1 0" range="-0.733038 0.733038" armature="0.168010470000" />
+                            <geom class="collision" mesh="Larm_Link6_mesh" />
+                            <geom class="visual"    mesh="Larm_Link6_vis" />
+                            <body name="Lhand_Link0_Plan2" pos="0 -0.017324 -0.078842" quat="0.92388 -0.382683 0 0">
+                              <inertial pos="-0.0019 0.0022 -0.0732" quat="0.997554 -0.0110874 -0.0230916 -0.0650334" mass="1.505" diaginertia="0.0105844 0.0098459 0.00313172" />
+                              <joint name="LHDY" axis="0 0 1" range="-2.61799 2.61799" armature="0.164609999999" />
+                              <geom class="collision" pos="0 -0.017324 -0.078842" quat="0.92388 -0.382683 0 0" mesh="Lhand_Link0_Plan2_mesh" />
+                              <geom class="visual"    pos="0 -0.017324 -0.078842" quat="0.92388 -0.382683 0 0" mesh="Lhand_Link0_Plan2_vis" />
+                              <!-- site for left hand f/t sensor -->
+                              <site name="lh_force"  size="0.01" pos="0.000000 -0.017324 -0.078842" axisangle="1.000000 0.000000 0.000000 -0.785398" />
+                              
+                              <body name="Hammer" pos="0.06 -0.03 -0.114" euler="0 1.57 3.14">
+                                <inertial pos="0.177584 -0.002853 0.511187" euler="0 1.57 3.14" mass="0.792" diaginertia="0.005283 0.197739 0.193665" />
+                                <geom class="collision" pos="0 -0.024 0" euler="0 1.57 0" mesh="hammer_mesh" />
+                                <geom class="visual"    pos="0 -0.024 0" euler="0 1.57 0" mesh="hammer_vis"/>
+                                <body name="Hammer_Head" pos="0.17 0.01 0.21" euler="1.57 0.0 0.0"/>
+                              </body>
+                              
+                              <body name="Lindex_Link0" pos="0.03 0.047 -0.114" quat="1.32679e-06 1 0 0">
+                                <inertial pos="0 0.0249 0.0047" quat="0.756708 0.653753 0 0" mass="0.0495" diaginertia="4.9e-05 4.78806e-05 6.11939e-06" />
+                                <joint name="LIMP" axis="1 0 0" range="0.05236 2.0944" armature="0.181412627281" />
+                                <geom class="collision" pos="0.03 0.047 -0.114" quat="1.32679e-06 1 0 0" mesh="Lindex_Link0_mesh" />
+                                <geom class="visual"    pos="0.03 0.047 -0.114" quat="1.32679e-06 1 0 0" mesh="Lindex_Link0_vis" />
+                                <body name="Lindex_Link1" pos="0 0.046 0">
+                                  <inertial pos="0 0.0172 0.0027" quat="0.529666 0.468459 -0.468459 0.529666" mass="0.023" diaginertia="1.01231e-05 1e-05 1.87689e-06" />
+                                  <joint name="LIPIP" axis="1 0 0" range="-1.5708 0" armature="0.181412627281" />
+                                  <geom class="collision" pos="0 0.046 0" mesh="Lindex_Link1_mesh" />
+                                  <geom class="visual"    pos="0 0.046 0" mesh="Lindex_Link1_vis" />
+                                  <body name="Lindex_Link2" pos="0 0.027 0">
+                                    <inertial pos="0 0.0119 0.0072" quat="0.873422 0.486965 0 0" mass="0.0137" diaginertia="4e-06 3.61803e-06 1.38197e-06" />
+                                    <joint name="LIDIP" axis="1 0 0" range="-2.16717 0" armature="0.181412627281" />
+                                    <geom class="collision" pos="0 0.027 0" mesh="Lindex_Link2_mesh" />
+                                    <geom class="visual"    pos="0 0.027 0" mesh="Lindex_Link2_vis" />
+                                  </body>
+                                </body>
+                              </body>
+                              <body name="Lmiddle_Link0" pos="-0.03 0.047 -0.114" quat="1.32679e-06 1 0 0">
+                                <inertial pos="-0.0001 0.0151 0.0023" quat="0.756708 0.653753 0 0" mass="0.0736" diaginertia="5.3e-05 4.98806e-05 8.11939e-06" />
+                                <joint name="LMMP" axis="1 0 0" range="0.05236 2.0944" armature="0.181412627281" />
+                                <geom class="collision" pos="-0.03 0.047 -0.114" quat="1.32679e-06 1 0 0" mesh="Lmiddle_Link0_mesh" />
+                                <geom class="visual"    pos="-0.03 0.047 -0.114" quat="1.32679e-06 1 0 0" mesh="Lmiddle_Link0_vis" />
+                                <body name="Lmiddle_Link1" pos="0 0.046 0">
+                                  <inertial pos="0 0.0172 0.0027" quat="0.529666 0.468459 -0.468459 0.529666" mass="0.023" diaginertia="1.01231e-05 1e-05 1.87689e-06" />
+                                  <joint name="LMPIP" axis="1 0 0" range="-1.5708 0" armature="0.181412627281" />
+                                  <geom class="collision" pos="0 0.046 0" mesh="Lmiddle_Link1_mesh" />
+                                  <geom class="visual"    pos="0 0.046 0" mesh="Lmiddle_Link1_vis" />
+                                  <body name="Lmiddle_Link2" pos="0 0.027 0">
+                                    <inertial pos="0 0.0119 0.0072" quat="0.873422 0.486965 0 0" mass="0.0137" diaginertia="4e-06 3.61803e-06 1.38197e-06" />
+                                    <joint name="LMDIP" axis="1 0 0" range="-2.16717 0" armature="0.181412627281" />
+                                    <geom class="collision" pos="0 0.027 0" mesh="Lmiddle_Link2_mesh" />
+                                    <geom class="visual"    pos="0 0.027 0" mesh="Lmiddle_Link2_vis" />
+                                  </body>
+                                </body>
+                              </body>
+                              <body name="Lthumb_Link0" pos="0 -0.047 -0.114" quat="1.32679e-06 -1 0 0">
+                                <inertial pos="0 -0.0152 0.0023" quat="0.653753 0.756708 0 0" mass="0.0732" diaginertia="5.3e-05 4.98806e-05 8.11939e-06" />
+                                <joint name="LTMP" axis="1 0 0" range="-2.00713 -0.0872665" armature="0.181412627281" />
+                                <geom class="collision" pos="0 -0.047 -0.114" quat="1.32679e-06 -1 0 0" mesh="Lthumb_Link0_mesh" />
+                                <geom class="visual"    pos="0 -0.047 -0.114" quat="1.32679e-06 -1 0 0" mesh="Lthumb_Link0_vis" />
+                                <body name="Lthumb_Link1" pos="0 -0.046 0">
+                                  <inertial pos="0 -0.0172 0.0027" quat="0.468459 0.529666 -0.529666 0.468459" mass="0.023" diaginertia="1.01231e-05 1e-05 1.87689e-06" />
+                                  <joint name="LTPIP" axis="1 0 0" range="0 1.5708" armature="0.181412627281" />
+                                  <geom class="collision" pos="0 -0.046 0" mesh="Lthumb_Link1_mesh" />
+                                  <geom class="visual"    pos="0 -0.046 0" mesh="Lthumb_Link1_vis" />
+                                  <body name="Lthumb_Link2" pos="0 -0.027 0">
+                                    <inertial pos="0 -0.0119 0.0072" quat="0.486965 0.873422 0 0" mass="0.0137" diaginertia="4e-06 3.61803e-06 1.38197e-06" />
+                                    <joint name="LTDIP" axis="1 0 0" range="0 2.16717" armature="0.181412627281" />
+                                    <geom class="collision" pos="0 -0.027 0" mesh="Lthumb_Link2_mesh" />
+                                    <geom class="visual"    pos="0 -0.027 0" mesh="Lthumb_Link2_vis" />
+                                  </body>
+                                </body>
+                              </body>
+                            </body>
+                          </body>
+                        </body>
+                      </body>
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <!-- order is important here -->
+  <!-- 'user' element is speed limit of actuator (not joint) in RPM (not rad/s). -->
+  <actuator>
+    <!-- right leg -->
+    <motor name="RCY_motor"   ctrlrange="-1.380 1.380" gear="181.820000" joint="RCY" user="17874.73" />
+    <motor name="RCR_motor"   ctrlrange="-2.760 2.760" gear="218.180000" joint="RCR" user="16363.54" />
+    <motor name="RCP_motor"   ctrlrange="-2.760 2.760" gear="218.180000" joint="RCP" user="17874.05" />
+    <motor name="RKP_motor"   ctrlrange="-4.140 4.140" gear="342.857143" joint="RKP" user="15257.05" />
+    <motor name="RAP_motor"   ctrlrange="-1.380 1.380" gear="220.360000" joint="RAP" user="17873.78" />
+    <motor name="RAR_motor"   ctrlrange="-1.380 1.380" gear="183.640000" joint="RAR" user="17874.78" />
+    <!-- left leg -->
+    <motor name="LCY_motor"   ctrlrange="-1.380 1.380" gear="181.820000" joint="LCY" user="17874.73" />
+    <motor name="LCR_motor"   ctrlrange="-2.760 2.760" gear="218.180000" joint="LCR" user="16363.54" />
+    <motor name="LCP_motor"   ctrlrange="-2.760 2.760" gear="218.180000" joint="LCP" user="17874.05" />
+    <motor name="LKP_motor"   ctrlrange="-4.140 4.140" gear="342.857143" joint="LKP" user="15257.05" />
+    <motor name="LAP_motor"   ctrlrange="-1.380 1.380" gear="220.360000" joint="LAP" user="17873.78" />
+    <motor name="LAR_motor"   ctrlrange="-1.380 1.380" gear="183.640000" joint="LAR" user="17874.78" />
+    <!-- waist -->
+    <motor name="WP_motor"    ctrlrange="-2.760 2.760" gear="342.857143" joint="WP" user="17873.01" />
+    <motor name="WR_motor"    ctrlrange="-2.760 2.760" gear="342.857143" joint="WR" user="17876.28" />
+    <motor name="WY_motor"    ctrlrange="-1.380 1.380" gear="218.180000" joint="WY" user="16363.54" />
+    <!-- head-->
+    <motor name="HY_motor"    ctrlrange="-0.319 0.319" gear="163.640000" joint="HY" user="10941.65" />
+    <motor name="HP_motor"    ctrlrange="-0.319 0.319" gear="165.270000" joint="HP" user="10941.75" />
+    <!-- right arm -->
+    <motor name="RSC_motor"   ctrlrange="-1.380 1.380" gear="181.820000" joint="RSC" user="13636.53" />
+    <motor name="RSP_motor"   ctrlrange="-1.380 1.380" gear="342.857143" joint="RSP" user="13636.40" />
+    <motor name="RSR_motor"   ctrlrange="-1.380 1.380" gear="288.571429" joint="RSR" user="17875.93" />
+    <motor name="RSY_motor"   ctrlrange="-1.380 1.380" gear="181.820000" joint="RSY" user="13636.53" />
+    <motor name="REP_motor"   ctrlrange="-1.380 1.380" gear="312.500000" joint="REP" user="17875.09" />
+    <motor name="RWRY_motor"  ctrlrange="-1.275 1.275" gear="300.000000" joint="RWRY" user="19079.49" />
+    <motor name="RWRR_motor"  ctrlrange="-1.197 1.197" gear="300.000000" joint="RWRR" user="13937.20" />
+    <motor name="RWRP_motor"  ctrlrange="-0.524 0.524" gear="303.000000" joint="RWRP" user="13937.69" />
+    <motor name="RHDY_motor"  ctrlrange="-0.113 0.113" gear="300.000000" joint="RHDY" user="13759.58" />
+    <motor name="RIMP_motor"  ctrlrange="-0.062 0.062" gear="623.27"     joint="RIMP" user="11683.36" />
+    <motor name="RIPIP_motor" ctrlrange="-0.062 0.062" gear="623.27"     joint="RIPIP" user="11683.36" />
+    <motor name="RIDIP_motor" ctrlrange="-0.062 0.062" gear="623.27"     joint="RIDIP" user="11683.36" />
+    <motor name="RMMP_motor"  ctrlrange="-0.062 0.062" gear="623.27"     joint="RMMP" user="11683.36" />
+    <motor name="RMPIP_motor" ctrlrange="-0.062 0.062" gear="623.27"     joint="RMPIP" user="11683.36" />
+    <motor name="RMDIP_motor" ctrlrange="-0.062 0.062" gear="623.27"     joint="RMDIP" user="11683.36" />
+    <motor name="RTMP_motor"  ctrlrange="-0.062 0.062" gear="623.27"     joint="RTMP" user="11445.27" />
+    <motor name="RTPIP_motor" ctrlrange="-0.062 0.062" gear="623.27"     joint="RTPIP" user="11683.36" />
+    <motor name="RTDIP_motor" ctrlrange="-0.062 0.062" gear="623.27"     joint="RTDIP" user="11683.36" />
+    <!-- left arm -->
+    <motor name="LSC_motor"   ctrlrange="-1.380 1.380" gear="181.820000" joint="LSC" user="13636.53" />
+    <motor name="LSP_motor"   ctrlrange="-1.380 1.380" gear="342.857143" joint="LSP" user="13636.40" />
+    <motor name="LSR_motor"   ctrlrange="-1.380 1.380" gear="288.571429" joint="LSR" user="17875.93" />
+    <motor name="LSY_motor"   ctrlrange="-1.380 1.380" gear="181.820000" joint="LSY" user="13636.53" />
+    <motor name="LEP_motor"   ctrlrange="-1.380 1.380" gear="312.500000" joint="LEP" user="17875.09" />
+    <motor name="LWRY_motor"  ctrlrange="-1.275 1.275" gear="300.000000" joint="LWRY" user="19079.49" />
+    <motor name="LWRR_motor"  ctrlrange="-1.197 1.197" gear="300.000000" joint="LWRR" user="13937.20" />
+    <motor name="LWRP_motor"  ctrlrange="-0.524 0.524" gear="303.000000" joint="LWRP" user="13937.69" />
+    <motor name="LHDY_motor"  ctrlrange="-0.113 0.113" gear="300.000000" joint="LHDY" user="13759.58" />
+    <motor name="LIMP_motor"  ctrlrange="-0.062 0.062" gear="623.27"     joint="LIMP" user="11683.36" />
+    <motor name="LIPIP_motor" ctrlrange="-0.062 0.062" gear="623.27"     joint="LIPIP" user="11683.36" />
+    <motor name="LIDIP_motor" ctrlrange="-0.062 0.062" gear="623.27"     joint="LIDIP" user="11683.36" />
+    <motor name="LMMP_motor"  ctrlrange="-0.062 0.062" gear="623.27"     joint="LMMP" user="11683.36" />
+    <motor name="LMPIP_motor" ctrlrange="-0.062 0.062" gear="623.27"     joint="LMPIP" user="11683.36" />
+    <motor name="LMDIP_motor" ctrlrange="-0.062 0.062" gear="623.27"     joint="LMDIP" user="11683.36" />
+    <motor name="LTMP_motor"  ctrlrange="-0.062 0.062" gear="623.27"     joint="LTMP" user="11445.27" />
+    <motor name="LTPIP_motor" ctrlrange="-0.062 0.062" gear="623.27"     joint="LTPIP" user="11683.36" />
+    <motor name="LTDIP_motor" ctrlrange="-0.062 0.062" gear="623.27"     joint="LTDIP" user="11683.36" />
+  </actuator>
+
+  <sensor>
+    <subtreecom    name="subtreecom"    body="Body"/>
+    <subtreelinvel name="subtreelinvel" body="Body"/>
+    <subtreeangmom name="subtreeangmom" body="Body"/>
+
+    <!-- F/T sensors -->
+    <!-- right foot -->
+    <force         name="RightFootForceSensor_fsensor"    site="rf_force" />
+    <torque        name="RightFootForceSensor_tsensor"    site="rf_force" />
+    <!-- left foot -->
+    <force         name="LeftFootForceSensor_fsensor"    site="lf_force" />
+    <torque        name="LeftFootForceSensor_tsensor"    site="lf_force" />
+    <!-- right hand -->
+    <force         name="RightHandForceSensor_fsensor"    site="rh_force" />
+    <torque        name="RightHandForceSensor_tsensor"    site="rh_force" />
+    <!-- left hand -->
+    <force         name="LeftHandForceSensor_fsensor"    site="lh_force" />
+    <torque        name="LeftHandForceSensor_tsensor"    site="lh_force" />
+
+    <!-- imu -->
+    <gyro          name="Accelerometer_gyro"     site="imu" />
+    <accelerometer name="Accelerometer_accelerometer"    site="imu" />
+  </sensor>
+
+</mujoco>

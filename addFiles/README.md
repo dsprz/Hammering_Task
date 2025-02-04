@@ -1,5 +1,3 @@
-# Files modified:
-
 ## Add the hammer and nail:
 
 - workspace/src/catkin_data_ws/src/mc_rtc_data/mc_int_obj_description:

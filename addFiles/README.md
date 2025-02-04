@@ -1,5 +1,7 @@
 # Files modified:
 
+## Add the hammer and nail:
+
 - workspace/src/catkin_data_ws/src/mc_rtc_data/mc_int_obj_description:
     - /meshes: create nail folder and add nail.stl
     - /convex: create nail folder and add nail-ch.txt
@@ -9,6 +11,8 @@
 - workspace/sandbox/hrp5p_mj_description:
     - /xml: upload new version of HRP5Pmain.xml (same as the urdf, adds the hammer at the end of hrp5p's left hand)
     - /meshes: add hammer_scaled.stl to both /visual and /convex
+
+## Add the table:
 
 ```bash
 nano ~/.config/mc_mujoco/mc_mujoco.yaml

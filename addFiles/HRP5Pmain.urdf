@@ -2086,10 +2086,11 @@
     <origin xyz="0 -0.024 0" rpy="0 1.57 0"/>
   </joint>
 
+  <!-- turned hammer -->
   <joint name="hammer_head" type="fixed">
     <parent link="Hammer"/>
     <child  link="Hammer_Head"/>
-    <origin xyz="0.17 0.01 0.21" rpy="1.57 0.0 0.0"/>
+    <origin xyz="0.118 -0.02 0.21" rpy="1.57 0 -1.57"/>
   </joint>
 
   <joint name="LIMP" type="revolute">

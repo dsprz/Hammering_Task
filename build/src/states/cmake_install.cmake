@@ -2,7 +2,7 @@
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/usr/local")
+  set(CMAKE_INSTALL_PREFIX "/home/helene/workspace/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -74,29 +74,29 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  if(EXISTS "$ENV{DESTDIR}/home/helene/workspace/install/lib/mc_controller/HammeringFSM/states/BSpline.so" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}/home/helene/workspace/install/lib/mc_controller/HammeringFSM/states/BSpline.so")
+  if(EXISTS "$ENV{DESTDIR}/home/helene/workspace/install/lib/mc_controller/HammeringFSM/states/BSplineVelState.so" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}/home/helene/workspace/install/lib/mc_controller/HammeringFSM/states/BSplineVelState.so")
     file(RPATH_CHECK
-         FILE "$ENV{DESTDIR}/home/helene/workspace/install/lib/mc_controller/HammeringFSM/states/BSpline.so"
+         FILE "$ENV{DESTDIR}/home/helene/workspace/install/lib/mc_controller/HammeringFSM/states/BSplineVelState.so"
          RPATH "/home/helene/workspace/install/lib/mc_controller/fsm/states:/home/helene/workspace/install/lib/mc_controller/HammeringFSM/states")
   endif()
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/helene/workspace/install/lib/mc_controller/HammeringFSM/states/BSpline.so")
+   "/home/helene/workspace/install/lib/mc_controller/HammeringFSM/states/BSplineVelState.so")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-  file(INSTALL DESTINATION "/home/helene/workspace/install/lib/mc_controller/HammeringFSM/states" TYPE SHARED_LIBRARY FILES "/home/helene/src/hammering_fsm/build/src/states/BSpline.so")
-  if(EXISTS "$ENV{DESTDIR}/home/helene/workspace/install/lib/mc_controller/HammeringFSM/states/BSpline.so" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}/home/helene/workspace/install/lib/mc_controller/HammeringFSM/states/BSpline.so")
+  file(INSTALL DESTINATION "/home/helene/workspace/install/lib/mc_controller/HammeringFSM/states" TYPE SHARED_LIBRARY FILES "/home/helene/src/hammering_fsm/build/src/states/BSplineVelState.so")
+  if(EXISTS "$ENV{DESTDIR}/home/helene/workspace/install/lib/mc_controller/HammeringFSM/states/BSplineVelState.so" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}/home/helene/workspace/install/lib/mc_controller/HammeringFSM/states/BSplineVelState.so")
     file(RPATH_CHANGE
-         FILE "$ENV{DESTDIR}/home/helene/workspace/install/lib/mc_controller/HammeringFSM/states/BSpline.so"
+         FILE "$ENV{DESTDIR}/home/helene/workspace/install/lib/mc_controller/HammeringFSM/states/BSplineVelState.so"
          OLD_RPATH "/home/helene/src/hammering_fsm/build/src:/home/helene/workspace/install/lib:::::::::::::::::::::::::::::::::::::::::::::::::::::"
          NEW_RPATH "/home/helene/workspace/install/lib/mc_controller/fsm/states:/home/helene/workspace/install/lib/mc_controller/HammeringFSM/states")
     if(CMAKE_INSTALL_DO_STRIP)
-      execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}/home/helene/workspace/install/lib/mc_controller/HammeringFSM/states/BSpline.so")
+      execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}/home/helene/workspace/install/lib/mc_controller/HammeringFSM/states/BSplineVelState.so")
     endif()
   endif()
 endif()

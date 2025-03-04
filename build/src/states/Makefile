@@ -176,18 +176,18 @@ GeometricMove/fast:
 .PHONY : GeometricMove/fast
 
 # Convenience name for target.
-src/states/CMakeFiles/BSpline.dir/rule:
-	cd /home/helene/src/hammering_fsm/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/states/CMakeFiles/BSpline.dir/rule
-.PHONY : src/states/CMakeFiles/BSpline.dir/rule
+src/states/CMakeFiles/BSplineVelState.dir/rule:
+	cd /home/helene/src/hammering_fsm/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/states/CMakeFiles/BSplineVelState.dir/rule
+.PHONY : src/states/CMakeFiles/BSplineVelState.dir/rule
 
 # Convenience name for target.
-BSpline: src/states/CMakeFiles/BSpline.dir/rule
-.PHONY : BSpline
+BSplineVelState: src/states/CMakeFiles/BSplineVelState.dir/rule
+.PHONY : BSplineVelState
 
 # fast build rule for target.
-BSpline/fast:
-	cd /home/helene/src/hammering_fsm/build && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/BSpline.dir/build.make src/states/CMakeFiles/BSpline.dir/build
-.PHONY : BSpline/fast
+BSplineVelState/fast:
+	cd /home/helene/src/hammering_fsm/build && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/BSplineVelState.dir/build.make src/states/CMakeFiles/BSplineVelState.dir/build
+.PHONY : BSplineVelState/fast
 
 # Convenience name for target.
 src/states/CMakeFiles/HammeringFSM_Initial.dir/rule:
@@ -203,29 +203,29 @@ HammeringFSM_Initial/fast:
 	cd /home/helene/src/hammering_fsm/build && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/HammeringFSM_Initial.dir/build.make src/states/CMakeFiles/HammeringFSM_Initial.dir/build
 .PHONY : HammeringFSM_Initial/fast
 
-BSpline.o: BSpline.cpp.o
-.PHONY : BSpline.o
+BSplineVelState.o: BSplineVelState.cpp.o
+.PHONY : BSplineVelState.o
 
 # target to build an object file
-BSpline.cpp.o:
-	cd /home/helene/src/hammering_fsm/build && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/BSpline.dir/build.make src/states/CMakeFiles/BSpline.dir/BSpline.cpp.o
-.PHONY : BSpline.cpp.o
+BSplineVelState.cpp.o:
+	cd /home/helene/src/hammering_fsm/build && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/BSplineVelState.dir/build.make src/states/CMakeFiles/BSplineVelState.dir/BSplineVelState.cpp.o
+.PHONY : BSplineVelState.cpp.o
 
-BSpline.i: BSpline.cpp.i
-.PHONY : BSpline.i
+BSplineVelState.i: BSplineVelState.cpp.i
+.PHONY : BSplineVelState.i
 
 # target to preprocess a source file
-BSpline.cpp.i:
-	cd /home/helene/src/hammering_fsm/build && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/BSpline.dir/build.make src/states/CMakeFiles/BSpline.dir/BSpline.cpp.i
-.PHONY : BSpline.cpp.i
+BSplineVelState.cpp.i:
+	cd /home/helene/src/hammering_fsm/build && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/BSplineVelState.dir/build.make src/states/CMakeFiles/BSplineVelState.dir/BSplineVelState.cpp.i
+.PHONY : BSplineVelState.cpp.i
 
-BSpline.s: BSpline.cpp.s
-.PHONY : BSpline.s
+BSplineVelState.s: BSplineVelState.cpp.s
+.PHONY : BSplineVelState.s
 
 # target to generate assembly for a file
-BSpline.cpp.s:
-	cd /home/helene/src/hammering_fsm/build && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/BSpline.dir/build.make src/states/CMakeFiles/BSpline.dir/BSpline.cpp.s
-.PHONY : BSpline.cpp.s
+BSplineVelState.cpp.s:
+	cd /home/helene/src/hammering_fsm/build && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/BSplineVelState.dir/build.make src/states/CMakeFiles/BSplineVelState.dir/BSplineVelState.cpp.s
+.PHONY : BSplineVelState.cpp.s
 
 GeometricMove.o: GeometricMove.cpp.o
 .PHONY : GeometricMove.o
@@ -287,12 +287,12 @@ help:
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... BSpline"
+	@echo "... BSplineVelState"
 	@echo "... GeometricMove"
 	@echo "... HammeringFSM_Initial"
-	@echo "... BSpline.o"
-	@echo "... BSpline.i"
-	@echo "... BSpline.s"
+	@echo "... BSplineVelState.o"
+	@echo "... BSplineVelState.i"
+	@echo "... BSplineVelState.s"
 	@echo "... GeometricMove.o"
 	@echo "... GeometricMove.i"
 	@echo "... GeometricMove.s"

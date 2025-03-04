@@ -97,7 +97,7 @@ src/states/HammeringFSM_Initial.so: /home/helene/workspace/install/lib/libmc_con
 src/states/HammeringFSM_Initial.so: /home/helene/workspace/install/lib/libmc_control.so.2.12.0
 src/states/HammeringFSM_Initial.so: /home/helene/workspace/install/lib/libmc_tasks.so.2.12.0
 src/states/HammeringFSM_Initial.so: /home/helene/workspace/install/lib/libmc_trajectory.so.2.12.0
-src/states/HammeringFSM_Initial.so: /home/helene/workspace/install/lib/libstate-observation.so.1.6.1
+src/states/HammeringFSM_Initial.so: /usr/lib/libstate-observation.so.1.6.1
 src/states/HammeringFSM_Initial.so: /home/helene/workspace/install/lib/libmc_solver.so.2.12.0
 src/states/HammeringFSM_Initial.so: /home/helene/workspace/install/lib/libmc_rtc_gui.so.2.12.0
 src/states/HammeringFSM_Initial.so: /usr/lib/x86_64-linux-gnu/libnanomsg.so
@@ -125,8 +125,8 @@ src/states/HammeringFSM_Initial.so: /home/helene/workspace/install/lib/libsch-co
 src/states/HammeringFSM_Initial.so: /usr/lib/x86_64-linux-gnu/libboost_serialization.so.1.71.0
 src/states/HammeringFSM_Initial.so: /usr/lib/x86_64-linux-gnu/libgeos.so
 src/states/HammeringFSM_Initial.so: /home/helene/workspace/install/lib/libTVM.so.0.9.2
-src/states/HammeringFSM_Initial.so: /home/helene/workspace/install/lib/libeigen-quadprog.so.1.1.2
-src/states/HammeringFSM_Initial.so: /home/helene/workspace/install/lib/libeigen-qld.so.1.2.4
+src/states/HammeringFSM_Initial.so: /usr/lib/x86_64-linux-gnu/libeigen-quadprog.so.1.1.2
+src/states/HammeringFSM_Initial.so: /usr/lib/x86_64-linux-gnu/libeigen-qld.so.1.2.4
 src/states/HammeringFSM_Initial.so: src/states/CMakeFiles/HammeringFSM_Initial.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/helene/src/hammering_fsm/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX shared library HammeringFSM_Initial.so"
 	cd /home/helene/src/hammering_fsm/build/src/states && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/HammeringFSM_Initial.dir/link.txt --verbose=$(VERBOSE)

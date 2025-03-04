@@ -19,14 +19,44 @@
 },
 {
   "directory": "/home/helene/src/hammering_fsm/build/src/states",
-  "command": "/usr/bin/c++ -DBOOST_ALL_NO_LIB -DBOOST_CHRONO_DYN_LINK -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_SERIALIZATION_DYN_LINK -DBOOST_STACKTRACE_BACKTRACE_DYN_LINK -DBOOST_STACKTRACE_USE_BACKTRACE -DBOOST_TIMER_DYN_LINK -DBSpline_EXPORTS -DSPDLOG_COMPILED_LIB -DUSE_UNSTABLE_GEOS_CPP_API -isystem /home/helene/workspace/install/include -isystem /usr/include/eigen3 -isystem /usr/include/gdk-pixbuf-2.0 -isystem /usr/include/libmount -isystem /usr/include/blkid -isystem /usr/include/glib-2.0 -isystem /usr/lib/x86_64-linux-gnu/glib-2.0/include -isystem /home/helene/workspace/install/include/tvm/3rd-party -O2 -g -DNDEBUG -std=gnu++17 -fPIC -DMC_CONTROL_FSM_STATE_EXPORTS -mfpmath=sse -msse2 -pthread -o CMakeFiles/BSpline.dir/BSpline.cpp.o -c /home/helene/src/hammering_fsm/src/states/BSpline.cpp",
-  "file": "/home/helene/src/hammering_fsm/src/states/BSpline.cpp",
-  "output": "src/states/CMakeFiles/BSpline.dir/BSpline.cpp.o"
+  "command": "/usr/bin/c++ -DBOOST_ALL_NO_LIB -DBOOST_CHRONO_DYN_LINK -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_SERIALIZATION_DYN_LINK -DBOOST_STACKTRACE_BACKTRACE_DYN_LINK -DBOOST_STACKTRACE_USE_BACKTRACE -DBOOST_TIMER_DYN_LINK -DBSplineVelState_EXPORTS -DSPDLOG_COMPILED_LIB -DUSE_UNSTABLE_GEOS_CPP_API -isystem /home/helene/workspace/install/include -isystem /usr/include/eigen3 -isystem /usr/include/gdk-pixbuf-2.0 -isystem /usr/include/libmount -isystem /usr/include/blkid -isystem /usr/include/glib-2.0 -isystem /usr/lib/x86_64-linux-gnu/glib-2.0/include -isystem /home/helene/workspace/install/include/tvm/3rd-party -O2 -g -DNDEBUG -std=gnu++17 -fPIC -DMC_CONTROL_FSM_STATE_EXPORTS -mfpmath=sse -msse2 -pthread -o CMakeFiles/BSplineVelState.dir/BSplineVelState.cpp.o -c /home/helene/src/hammering_fsm/src/states/BSplineVelState.cpp",
+  "file": "/home/helene/src/hammering_fsm/src/states/BSplineVelState.cpp",
+  "output": "src/states/CMakeFiles/BSplineVelState.dir/BSplineVelState.cpp.o"
 },
 {
   "directory": "/home/helene/src/hammering_fsm/build/src/states",
   "command": "/usr/bin/c++ -DBOOST_ALL_NO_LIB -DBOOST_CHRONO_DYN_LINK -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_SERIALIZATION_DYN_LINK -DBOOST_STACKTRACE_BACKTRACE_DYN_LINK -DBOOST_STACKTRACE_USE_BACKTRACE -DBOOST_TIMER_DYN_LINK -DHammeringFSM_Initial_EXPORTS -DSPDLOG_COMPILED_LIB -DUSE_UNSTABLE_GEOS_CPP_API -isystem /home/helene/workspace/install/include -isystem /usr/include/eigen3 -isystem /usr/include/gdk-pixbuf-2.0 -isystem /usr/include/libmount -isystem /usr/include/blkid -isystem /usr/include/glib-2.0 -isystem /usr/lib/x86_64-linux-gnu/glib-2.0/include -isystem /home/helene/workspace/install/include/tvm/3rd-party -O2 -g -DNDEBUG -std=gnu++17 -fPIC -DMC_CONTROL_FSM_STATE_EXPORTS -mfpmath=sse -msse2 -pthread -o CMakeFiles/HammeringFSM_Initial.dir/HammeringFSM_Initial.cpp.o -c /home/helene/src/hammering_fsm/src/states/HammeringFSM_Initial.cpp",
   "file": "/home/helene/src/hammering_fsm/src/states/HammeringFSM_Initial.cpp",
   "output": "src/states/CMakeFiles/HammeringFSM_Initial.dir/HammeringFSM_Initial.cpp.o"
+},
+{
+  "directory": "/home/helene/src/hammering_fsm/build/plugin",
+  "command": "/usr/bin/c++ -DBOOST_ALL_NO_LIB -DBOOST_CHRONO_DYN_LINK -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_SERIALIZATION_DYN_LINK -DBOOST_STACKTRACE_BACKTRACE_DYN_LINK -DBOOST_STACKTRACE_USE_BACKTRACE -DBOOST_TIMER_DYN_LINK -DNailSensorPlugin_EXPORTS -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"NailSensorPlugin\\\" -DSPDLOG_COMPILED_LIB -DUSE_UNSTABLE_GEOS_CPP_API -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -isystem /opt/ros/noetic/include -isystem /home/helene/workspace/install/include -isystem /usr/include/eigen3 -isystem /usr/include/gdk-pixbuf-2.0 -isystem /usr/include/libmount -isystem /usr/include/blkid -isystem /usr/include/glib-2.0 -isystem /usr/lib/x86_64-linux-gnu/glib-2.0/include -isystem /home/helene/workspace/install/include/tvm/3rd-party -isystem /home/helene/workspace_torque/src/catkin_data_ws/devel/include -O2 -g -DNDEBUG -std=gnu++17 -fPIC -mfpmath=sse -msse2 -pthread -o CMakeFiles/NailSensorPlugin.dir/src/NailSensorPlugin.cpp.o -c /home/helene/src/hammering_fsm/plugin/src/NailSensorPlugin.cpp",
+  "file": "/home/helene/src/hammering_fsm/plugin/src/NailSensorPlugin.cpp",
+  "output": "plugin/CMakeFiles/NailSensorPlugin.dir/src/NailSensorPlugin.cpp.o"
+},
+{
+  "directory": "/home/helene/src/hammering_fsm/build/gtest/googlemock",
+  "command": "/usr/bin/c++ -DGTEST_CREATE_SHARED_LIBRARY=1 -Dgmock_EXPORTS -I/usr/src/googletest/googlemock/include -I/usr/src/googletest/googlemock -isystem /usr/src/googletest/googletest/include -isystem /usr/src/googletest/googletest -O2 -g -DNDEBUG -std=c++11 -fPIC -Wall -Wshadow -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/gmock.dir/src/gmock-all.cc.o -c /usr/src/googletest/googlemock/src/gmock-all.cc",
+  "file": "/usr/src/googletest/googlemock/src/gmock-all.cc",
+  "output": "gtest/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.o"
+},
+{
+  "directory": "/home/helene/src/hammering_fsm/build/gtest/googlemock",
+  "command": "/usr/bin/c++ -DGTEST_CREATE_SHARED_LIBRARY=1 -Dgmock_main_EXPORTS -isystem /usr/src/googletest/googlemock/include -isystem /usr/src/googletest/googlemock -isystem /usr/src/googletest/googletest/include -isystem /usr/src/googletest/googletest -O2 -g -DNDEBUG -std=c++11 -fPIC -Wall -Wshadow -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/gmock_main.dir/src/gmock_main.cc.o -c /usr/src/googletest/googlemock/src/gmock_main.cc",
+  "file": "/usr/src/googletest/googlemock/src/gmock_main.cc",
+  "output": "gtest/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o"
+},
+{
+  "directory": "/home/helene/src/hammering_fsm/build/gtest/googletest",
+  "command": "/usr/bin/c++ -DGTEST_CREATE_SHARED_LIBRARY=1 -Dgtest_EXPORTS -I/usr/src/googletest/googletest/include -I/usr/src/googletest/googletest -O2 -g -DNDEBUG -std=c++11 -fPIC -Wall -Wshadow -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -o CMakeFiles/gtest.dir/src/gtest-all.cc.o -c /usr/src/googletest/googletest/src/gtest-all.cc",
+  "file": "/usr/src/googletest/googletest/src/gtest-all.cc",
+  "output": "gtest/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.o"
+},
+{
+  "directory": "/home/helene/src/hammering_fsm/build/gtest/googletest",
+  "command": "/usr/bin/c++ -DGTEST_CREATE_SHARED_LIBRARY=1 -Dgtest_main_EXPORTS -isystem /usr/src/googletest/googletest/include -isystem /usr/src/googletest/googletest -O2 -g -DNDEBUG -std=c++11 -fPIC -Wall -Wshadow -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/gtest_main.dir/src/gtest_main.cc.o -c /usr/src/googletest/googletest/src/gtest_main.cc",
+  "file": "/usr/src/googletest/googletest/src/gtest_main.cc",
+  "output": "gtest/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o"
 }
 ]

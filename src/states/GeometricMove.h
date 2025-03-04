@@ -15,8 +15,6 @@ struct GeometricMove : mc_control::fsm::State
 
   void teardown(mc_control::fsm::Controller & ctl) override;
 
-  void switch_target();
-
   private: 
     std::shared_ptr<mc_tasks::TransformTask> transformTaskLeft;
     sva::PTransformd initial_pose_left;

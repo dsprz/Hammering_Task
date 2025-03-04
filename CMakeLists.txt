@@ -15,6 +15,7 @@ if(NOT TARGET mc_rtc::mc_control)
 endif()
 
 add_subdirectory(src)
+add_subdirectory(plugin)
 
 set(AROBASE "@")
 configure_file(etc/HammeringFSM.in.yaml "${CMAKE_CURRENT_BINARY_DIR}/etc/HammeringFSM.yaml")

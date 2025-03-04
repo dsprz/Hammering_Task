@@ -13,7 +13,6 @@ void HammeringFSM_Initial::start(mc_control::fsm::Controller & ctl_)
 
 bool HammeringFSM_Initial::run(mc_control::fsm::Controller & ctl_)
 {
-  mc_rtc::log::info("initial");
   if(hammering_)
   {
     output("Hammering");

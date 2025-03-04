@@ -104,11 +104,7 @@ states:
   Hammer::HammeringFSM:
     base: Meta 
     transitions:
-      # - [Hammer::HammeringFSM_Initial, Hammering, Hammer::GeometricMove, Auto]
-      # - [Hammer::GeometricMove, OK , Hammer::BSpline, Auto]
       - [Hammer::HammeringFSM_Initial, Hammering, Hammer::BSpline, Auto]
-      # - [Hammer::BSpline, OK , Hammer::HammeringFSM_Initial, Auto]
-      # - [Hammer::GeometricMove, Stop , Hammer::HammeringFSM_Initial, Auto]
       - [Hammer::BSpline, Stop , Hammer::HammeringFSM_Initial, Auto]
 
 # Transitions map

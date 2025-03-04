@@ -6,7 +6,7 @@
 HammeringFSM::HammeringFSM(mc_rbdyn::RobotModulePtr rm, double dt, const mc_rtc::Configuration & config)
 : mc_control::fsm::Controller(rm, dt, config, Backend::Tasks)
 {
-
+  robot().frame("Hammer_Head").velocity(); 
   
   mc_rtc::log::success("HammeringFSM init done ");
 

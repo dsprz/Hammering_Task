@@ -1,5 +1,5 @@
 add_fsm_state_simple(GeometricMove)
-add_fsm_state_simple(BSpline)
+add_fsm_state_simple(BSplineVelState)
 add_fsm_state_simple(HammeringFSM_Initial)
 
 add_fsm_data_directory(data)

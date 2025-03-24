@@ -15,4 +15,9 @@ struct HammeringFSM_DLLAPI HammeringFSM : public mc_control::fsm::Controller
 
   void reset(const mc_control::ControllerResetData & reset_data) override;
 
+  std::unique_ptr<mc_solver::ContactConstraint> contactConstraintTest;
+  std::unique_ptr<mc_solver::DynamicsConstraint> dynamicConstraintTest;
+
+  double ctlTime_;
+
 };

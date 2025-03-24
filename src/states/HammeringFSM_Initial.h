@@ -2,6 +2,7 @@
 
 #include <mc_control/fsm/State.h>
 #include <mc_tasks/TransformTask.h>
+#include <mc_tasks/PostureTask.h>
 
 struct HammeringFSM_Initial : mc_control::fsm::State
 {
@@ -14,5 +15,6 @@ struct HammeringFSM_Initial : mc_control::fsm::State
   void teardown(mc_control::fsm::Controller & ctl) override;
 
   private:
-   bool hammering_ = false;
+  std::shared_ptr<mc_tasks::PostureTask> PostureTask;
+  bool hammering_ = false;
 };

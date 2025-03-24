@@ -13,7 +13,7 @@
 #include <ndcurves/curve_constraint.h>
 
 
-struct BSplineVelState : mc_control::fsm::State
+struct HammeringFSM_Finish : mc_control::fsm::State
 {
 
   typedef Eigen::Vector3d Point;
@@ -34,5 +34,5 @@ struct BSplineVelState : mc_control::fsm::State
     curve_constraints_t constr;
 
     bool hammering = false;
-    bool stop = false;
+    bool Start = false;
 };

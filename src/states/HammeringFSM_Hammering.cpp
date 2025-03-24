@@ -1,4 +1,4 @@
-#include "BSplineVelState.h"
+#include "HammeringFSM_Hammering.h"
 
 #include "../HammeringFSM.h"
 #include <Eigen/src/Core/Matrix.h>
@@ -12,11 +12,11 @@
 #include <mc_tasks/BSplineTrajectoryTask.h>
 #include <mc_trajectory/BSpline.h>
 
-void BSplineVelState::configure(const mc_rtc::Configuration & config)
+void HammeringFSM_Hammering::configure(const mc_rtc::Configuration & config)
 {
 }
 
-void BSplineVelState::start(mc_control::fsm::Controller & ctl_)
+void HammeringFSM_Hammering::start(mc_control::fsm::Controller & ctl_)
 {
  
   auto & ctl = static_cast<HammeringFSM &>(ctl_);
@@ -25,11 +25,9 @@ void BSplineVelState::start(mc_control::fsm::Controller & ctl_)
 
   ctl.gui()->addElement({}, mc_rtc::gui::Button("Stop hammering", [this]() { stop = true; }));
 
-  Eigen::VectorXd dimW(6);
-  dimW << 1, 1, 0, 1, 1, 1; 
-
   constr.end_vel.z() = -1;
   constr.end_acc.z() = 5;
+  // constr.end_jerk.z() = 5;
 
   double x = initial_pose_left.translation().x();
   double y = initial_pose_left.translation().y();
@@ -46,22 +44,23 @@ void BSplineVelState::start(mc_control::fsm::Controller & ctl_)
                                                       Eigen::Vector3d({0.55, 0.30, 1}),
                                                       Eigen::Vector3d({0.55, 0.30, 0.90})};
 
+
+  const std::vector<std::pair<double, Eigen::Matrix3d>> & oriWp = {std::make_pair(4, Eigen::Quaterniond({0.51, -0.28, 0.24, 0.77}).matrix())};
+
   const sva::PTransformd & target = sva::PTransformd(Eigen::Quaterniond({0, -0.7, 0, 0.7}), Eigen::Vector3d({0.55, 0.30, 0.90}));
   
-  BSplineVel = std::make_shared<mc_tasks::BSplineTrajectoryTask>(ctl.robot().frame("Hammer_Head"),5, 5.0, 1000, target, constr, posWp);
+  BSplineVel = std::make_shared<mc_tasks::BSplineTrajectoryTask>(ctl.robot().frame("Hammer_Head"),5, 5.0, 1000, target, constr, posWp, oriWp);
 
-  BSplineVel->stiffness(10);
+  BSplineVel->stiffness(100);
   BSplineVel->weight(1000);
-
-  BSplineVel->dimWeight(dimW);
 
   ctl.getPostureTask(ctl.robot().name())->weight(1);
   ctl.solver().addTask(BSplineVel);
 }
 
-bool BSplineVelState::run(mc_control::fsm::Controller & ctl_)
+bool HammeringFSM_Hammering::run(mc_control::fsm::Controller & ctl_)
 {
-    if( BSplineVel->eval().norm() < 0.02 or stop)
+    if( BSplineVel->eval().norm() < 0.07 or stop)
     {
         output("Stop");
         return true;
@@ -70,11 +69,8 @@ bool BSplineVelState::run(mc_control::fsm::Controller & ctl_)
   return false;
 }
 
-void BSplineVelState::teardown(mc_control::fsm::Controller & ctl_)
+void HammeringFSM_Hammering::teardown(mc_control::fsm::Controller & ctl_)
 {
-  
-  mc_rtc::log::info("teardown BSpline");
-
   auto & ctl = static_cast<HammeringFSM &>(ctl_);
 
   ctl_.gui()->removeElement({}, "Stop hammering");
@@ -83,4 +79,4 @@ void BSplineVelState::teardown(mc_control::fsm::Controller & ctl_)
   ctl.getPostureTask(ctl.robot().name())->weight(10);
 }
  
-EXPORT_SINGLE_STATE("BSplineVelState", BSplineVelState)
+EXPORT_SINGLE_STATE("HammeringFSM_Hammering", HammeringFSM_Hammering)

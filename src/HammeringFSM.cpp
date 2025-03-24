@@ -4,9 +4,10 @@
 #include <mc_rbdyn/Collision.h>
 
 HammeringFSM::HammeringFSM(mc_rbdyn::RobotModulePtr rm, double dt, const mc_rtc::Configuration & config)
-: mc_control::fsm::Controller(rm, dt, config, Backend::Tasks)
+: mc_control::fsm::Controller(rm, dt, config, Backend::Tasks), ctlTime_(0)
 {
-  robot().frame("Hammer_Head").velocity(); 
+  datastore().make<std::string>("ControlMode", "Torque");
+  datastore().make<std::string>("Coriolis", "Yes"); 
   
   mc_rtc::log::success("HammeringFSM init done ");
 
@@ -14,8 +15,7 @@ HammeringFSM::HammeringFSM(mc_rbdyn::RobotModulePtr rm, double dt, const mc_rtc:
 
 bool HammeringFSM::run()
 {
-  this->robot().frame("Hammer_Head").body();
-  return mc_control::fsm::Controller::run();
+  return mc_control::fsm::Controller::run(mc_solver::FeedbackType::ClosedLoopIntegrateReal);
 }
 
 void HammeringFSM::reset(const mc_control::ControllerResetData & reset_data)

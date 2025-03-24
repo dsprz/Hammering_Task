@@ -468,8 +468,9 @@
                               <!-- site for left hand f/t sensor -->
                               <site name="lh_force"  size="0.01" pos="0.000000 -0.017324 -0.078842" axisangle="1.000000 0.000000 0.000000 -0.785398" />
                               
-                              <body name="Hammer" pos="0.06 -0.03 -0.114" euler="0 1.57 3.14">
-                                <inertial pos="0.177584 -0.002853 0.511187" euler="0 1.57 3.14" mass="0.792" diaginertia="0.005283 0.197739 0.193665" />
+                              <!-- Hammer turned -->
+                              <body name="Hammer" pos="0.06 0.015 -0.095" euler="0 1.57 1.57">
+                                <inertial pos="0.177584 -0.002853 0.511187" euler="0 1.57 1.57" mass="0.792" diaginertia="0.005283 0.197739 0.193665" />
                                 <geom class="collision" pos="0 -0.024 0" euler="0 1.57 0" mesh="hammer_mesh" />
                                 <geom class="visual"    pos="0 -0.024 0" euler="0 1.57 0" mesh="hammer_vis"/>
                                 <body name="Hammer_Head" pos="0.17 0.01 0.21" euler="1.57 0.0 0.0"/>

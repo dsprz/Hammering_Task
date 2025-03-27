@@ -15,7 +15,7 @@
 ## Add the table:
 
 ```bash
-nano ~/.config/mc_mujoco/mc_mujoco.yaml
+nano ~/.config/mc_rtc/mc_mujoco/mc_mujoco.yaml
 ```
 Add the following code to the nano file  
 

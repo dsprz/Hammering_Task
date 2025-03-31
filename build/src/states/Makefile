@@ -162,32 +162,18 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-src/states/CMakeFiles/GeometricMove.dir/rule:
-	cd /home/helene/src/hammering_fsm/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/states/CMakeFiles/GeometricMove.dir/rule
-.PHONY : src/states/CMakeFiles/GeometricMove.dir/rule
+src/states/CMakeFiles/HammeringFSM_Hammering.dir/rule:
+	cd /home/helene/src/hammering_fsm/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/states/CMakeFiles/HammeringFSM_Hammering.dir/rule
+.PHONY : src/states/CMakeFiles/HammeringFSM_Hammering.dir/rule
 
 # Convenience name for target.
-GeometricMove: src/states/CMakeFiles/GeometricMove.dir/rule
-.PHONY : GeometricMove
+HammeringFSM_Hammering: src/states/CMakeFiles/HammeringFSM_Hammering.dir/rule
+.PHONY : HammeringFSM_Hammering
 
 # fast build rule for target.
-GeometricMove/fast:
-	cd /home/helene/src/hammering_fsm/build && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/GeometricMove.dir/build.make src/states/CMakeFiles/GeometricMove.dir/build
-.PHONY : GeometricMove/fast
-
-# Convenience name for target.
-src/states/CMakeFiles/BSplineVelState.dir/rule:
-	cd /home/helene/src/hammering_fsm/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/states/CMakeFiles/BSplineVelState.dir/rule
-.PHONY : src/states/CMakeFiles/BSplineVelState.dir/rule
-
-# Convenience name for target.
-BSplineVelState: src/states/CMakeFiles/BSplineVelState.dir/rule
-.PHONY : BSplineVelState
-
-# fast build rule for target.
-BSplineVelState/fast:
-	cd /home/helene/src/hammering_fsm/build && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/BSplineVelState.dir/build.make src/states/CMakeFiles/BSplineVelState.dir/build
-.PHONY : BSplineVelState/fast
+HammeringFSM_Hammering/fast:
+	cd /home/helene/src/hammering_fsm/build && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/HammeringFSM_Hammering.dir/build.make src/states/CMakeFiles/HammeringFSM_Hammering.dir/build
+.PHONY : HammeringFSM_Hammering/fast
 
 # Convenience name for target.
 src/states/CMakeFiles/HammeringFSM_Initial.dir/rule:
@@ -203,53 +189,67 @@ HammeringFSM_Initial/fast:
 	cd /home/helene/src/hammering_fsm/build && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/HammeringFSM_Initial.dir/build.make src/states/CMakeFiles/HammeringFSM_Initial.dir/build
 .PHONY : HammeringFSM_Initial/fast
 
-BSplineVelState.o: BSplineVelState.cpp.o
-.PHONY : BSplineVelState.o
+# Convenience name for target.
+src/states/CMakeFiles/HammeringFSM_Finish.dir/rule:
+	cd /home/helene/src/hammering_fsm/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/states/CMakeFiles/HammeringFSM_Finish.dir/rule
+.PHONY : src/states/CMakeFiles/HammeringFSM_Finish.dir/rule
+
+# Convenience name for target.
+HammeringFSM_Finish: src/states/CMakeFiles/HammeringFSM_Finish.dir/rule
+.PHONY : HammeringFSM_Finish
+
+# fast build rule for target.
+HammeringFSM_Finish/fast:
+	cd /home/helene/src/hammering_fsm/build && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/HammeringFSM_Finish.dir/build.make src/states/CMakeFiles/HammeringFSM_Finish.dir/build
+.PHONY : HammeringFSM_Finish/fast
+
+HammeringFSM_Finish.o: HammeringFSM_Finish.cpp.o
+.PHONY : HammeringFSM_Finish.o
 
 # target to build an object file
-BSplineVelState.cpp.o:
-	cd /home/helene/src/hammering_fsm/build && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/BSplineVelState.dir/build.make src/states/CMakeFiles/BSplineVelState.dir/BSplineVelState.cpp.o
-.PHONY : BSplineVelState.cpp.o
+HammeringFSM_Finish.cpp.o:
+	cd /home/helene/src/hammering_fsm/build && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/HammeringFSM_Finish.dir/build.make src/states/CMakeFiles/HammeringFSM_Finish.dir/HammeringFSM_Finish.cpp.o
+.PHONY : HammeringFSM_Finish.cpp.o
 
-BSplineVelState.i: BSplineVelState.cpp.i
-.PHONY : BSplineVelState.i
+HammeringFSM_Finish.i: HammeringFSM_Finish.cpp.i
+.PHONY : HammeringFSM_Finish.i
 
 # target to preprocess a source file
-BSplineVelState.cpp.i:
-	cd /home/helene/src/hammering_fsm/build && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/BSplineVelState.dir/build.make src/states/CMakeFiles/BSplineVelState.dir/BSplineVelState.cpp.i
-.PHONY : BSplineVelState.cpp.i
+HammeringFSM_Finish.cpp.i:
+	cd /home/helene/src/hammering_fsm/build && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/HammeringFSM_Finish.dir/build.make src/states/CMakeFiles/HammeringFSM_Finish.dir/HammeringFSM_Finish.cpp.i
+.PHONY : HammeringFSM_Finish.cpp.i
 
-BSplineVelState.s: BSplineVelState.cpp.s
-.PHONY : BSplineVelState.s
+HammeringFSM_Finish.s: HammeringFSM_Finish.cpp.s
+.PHONY : HammeringFSM_Finish.s
 
 # target to generate assembly for a file
-BSplineVelState.cpp.s:
-	cd /home/helene/src/hammering_fsm/build && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/BSplineVelState.dir/build.make src/states/CMakeFiles/BSplineVelState.dir/BSplineVelState.cpp.s
-.PHONY : BSplineVelState.cpp.s
+HammeringFSM_Finish.cpp.s:
+	cd /home/helene/src/hammering_fsm/build && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/HammeringFSM_Finish.dir/build.make src/states/CMakeFiles/HammeringFSM_Finish.dir/HammeringFSM_Finish.cpp.s
+.PHONY : HammeringFSM_Finish.cpp.s
 
-GeometricMove.o: GeometricMove.cpp.o
-.PHONY : GeometricMove.o
+HammeringFSM_Hammering.o: HammeringFSM_Hammering.cpp.o
+.PHONY : HammeringFSM_Hammering.o
 
 # target to build an object file
-GeometricMove.cpp.o:
-	cd /home/helene/src/hammering_fsm/build && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/GeometricMove.dir/build.make src/states/CMakeFiles/GeometricMove.dir/GeometricMove.cpp.o
-.PHONY : GeometricMove.cpp.o
+HammeringFSM_Hammering.cpp.o:
+	cd /home/helene/src/hammering_fsm/build && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/HammeringFSM_Hammering.dir/build.make src/states/CMakeFiles/HammeringFSM_Hammering.dir/HammeringFSM_Hammering.cpp.o
+.PHONY : HammeringFSM_Hammering.cpp.o
 
-GeometricMove.i: GeometricMove.cpp.i
-.PHONY : GeometricMove.i
+HammeringFSM_Hammering.i: HammeringFSM_Hammering.cpp.i
+.PHONY : HammeringFSM_Hammering.i
 
 # target to preprocess a source file
-GeometricMove.cpp.i:
-	cd /home/helene/src/hammering_fsm/build && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/GeometricMove.dir/build.make src/states/CMakeFiles/GeometricMove.dir/GeometricMove.cpp.i
-.PHONY : GeometricMove.cpp.i
+HammeringFSM_Hammering.cpp.i:
+	cd /home/helene/src/hammering_fsm/build && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/HammeringFSM_Hammering.dir/build.make src/states/CMakeFiles/HammeringFSM_Hammering.dir/HammeringFSM_Hammering.cpp.i
+.PHONY : HammeringFSM_Hammering.cpp.i
 
-GeometricMove.s: GeometricMove.cpp.s
-.PHONY : GeometricMove.s
+HammeringFSM_Hammering.s: HammeringFSM_Hammering.cpp.s
+.PHONY : HammeringFSM_Hammering.s
 
 # target to generate assembly for a file
-GeometricMove.cpp.s:
-	cd /home/helene/src/hammering_fsm/build && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/GeometricMove.dir/build.make src/states/CMakeFiles/GeometricMove.dir/GeometricMove.cpp.s
-.PHONY : GeometricMove.cpp.s
+HammeringFSM_Hammering.cpp.s:
+	cd /home/helene/src/hammering_fsm/build && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/HammeringFSM_Hammering.dir/build.make src/states/CMakeFiles/HammeringFSM_Hammering.dir/HammeringFSM_Hammering.cpp.s
+.PHONY : HammeringFSM_Hammering.cpp.s
 
 HammeringFSM_Initial.o: HammeringFSM_Initial.cpp.o
 .PHONY : HammeringFSM_Initial.o
@@ -287,15 +287,15 @@ help:
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... BSplineVelState"
-	@echo "... GeometricMove"
+	@echo "... HammeringFSM_Finish"
+	@echo "... HammeringFSM_Hammering"
 	@echo "... HammeringFSM_Initial"
-	@echo "... BSplineVelState.o"
-	@echo "... BSplineVelState.i"
-	@echo "... BSplineVelState.s"
-	@echo "... GeometricMove.o"
-	@echo "... GeometricMove.i"
-	@echo "... GeometricMove.s"
+	@echo "... HammeringFSM_Finish.o"
+	@echo "... HammeringFSM_Finish.i"
+	@echo "... HammeringFSM_Finish.s"
+	@echo "... HammeringFSM_Hammering.o"
+	@echo "... HammeringFSM_Hammering.i"
+	@echo "... HammeringFSM_Hammering.s"
 	@echo "... HammeringFSM_Initial.o"
 	@echo "... HammeringFSM_Initial.i"
 	@echo "... HammeringFSM_Initial.s"

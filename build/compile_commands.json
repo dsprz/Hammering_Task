@@ -13,21 +13,21 @@
 },
 {
   "directory": "/home/helene/src/hammering_fsm/build/src/states",
-  "command": "/usr/bin/c++ -DBOOST_ALL_NO_LIB -DBOOST_CHRONO_DYN_LINK -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_SERIALIZATION_DYN_LINK -DBOOST_STACKTRACE_BACKTRACE_DYN_LINK -DBOOST_STACKTRACE_USE_BACKTRACE -DBOOST_TIMER_DYN_LINK -DGeometricMove_EXPORTS -DSPDLOG_COMPILED_LIB -DUSE_UNSTABLE_GEOS_CPP_API -isystem /home/helene/workspace/install/include -isystem /usr/include/eigen3 -isystem /usr/include/gdk-pixbuf-2.0 -isystem /usr/include/libmount -isystem /usr/include/blkid -isystem /usr/include/glib-2.0 -isystem /usr/lib/x86_64-linux-gnu/glib-2.0/include -isystem /home/helene/workspace/install/include/tvm/3rd-party -O2 -g -DNDEBUG -std=gnu++17 -fPIC -DMC_CONTROL_FSM_STATE_EXPORTS -mfpmath=sse -msse2 -pthread -o CMakeFiles/GeometricMove.dir/GeometricMove.cpp.o -c /home/helene/src/hammering_fsm/src/states/GeometricMove.cpp",
-  "file": "/home/helene/src/hammering_fsm/src/states/GeometricMove.cpp",
-  "output": "src/states/CMakeFiles/GeometricMove.dir/GeometricMove.cpp.o"
-},
-{
-  "directory": "/home/helene/src/hammering_fsm/build/src/states",
-  "command": "/usr/bin/c++ -DBOOST_ALL_NO_LIB -DBOOST_CHRONO_DYN_LINK -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_SERIALIZATION_DYN_LINK -DBOOST_STACKTRACE_BACKTRACE_DYN_LINK -DBOOST_STACKTRACE_USE_BACKTRACE -DBOOST_TIMER_DYN_LINK -DBSplineVelState_EXPORTS -DSPDLOG_COMPILED_LIB -DUSE_UNSTABLE_GEOS_CPP_API -isystem /home/helene/workspace/install/include -isystem /usr/include/eigen3 -isystem /usr/include/gdk-pixbuf-2.0 -isystem /usr/include/libmount -isystem /usr/include/blkid -isystem /usr/include/glib-2.0 -isystem /usr/lib/x86_64-linux-gnu/glib-2.0/include -isystem /home/helene/workspace/install/include/tvm/3rd-party -O2 -g -DNDEBUG -std=gnu++17 -fPIC -DMC_CONTROL_FSM_STATE_EXPORTS -mfpmath=sse -msse2 -pthread -o CMakeFiles/BSplineVelState.dir/BSplineVelState.cpp.o -c /home/helene/src/hammering_fsm/src/states/BSplineVelState.cpp",
-  "file": "/home/helene/src/hammering_fsm/src/states/BSplineVelState.cpp",
-  "output": "src/states/CMakeFiles/BSplineVelState.dir/BSplineVelState.cpp.o"
+  "command": "/usr/bin/c++ -DBOOST_ALL_NO_LIB -DBOOST_CHRONO_DYN_LINK -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_SERIALIZATION_DYN_LINK -DBOOST_STACKTRACE_BACKTRACE_DYN_LINK -DBOOST_STACKTRACE_USE_BACKTRACE -DBOOST_TIMER_DYN_LINK -DHammeringFSM_Hammering_EXPORTS -DSPDLOG_COMPILED_LIB -DUSE_UNSTABLE_GEOS_CPP_API -isystem /home/helene/workspace/install/include -isystem /usr/include/eigen3 -isystem /usr/include/gdk-pixbuf-2.0 -isystem /usr/include/libmount -isystem /usr/include/blkid -isystem /usr/include/glib-2.0 -isystem /usr/lib/x86_64-linux-gnu/glib-2.0/include -isystem /home/helene/workspace/install/include/tvm/3rd-party -O2 -g -DNDEBUG -std=gnu++17 -fPIC -DMC_CONTROL_FSM_STATE_EXPORTS -mfpmath=sse -msse2 -pthread -o CMakeFiles/HammeringFSM_Hammering.dir/HammeringFSM_Hammering.cpp.o -c /home/helene/src/hammering_fsm/src/states/HammeringFSM_Hammering.cpp",
+  "file": "/home/helene/src/hammering_fsm/src/states/HammeringFSM_Hammering.cpp",
+  "output": "src/states/CMakeFiles/HammeringFSM_Hammering.dir/HammeringFSM_Hammering.cpp.o"
 },
 {
   "directory": "/home/helene/src/hammering_fsm/build/src/states",
   "command": "/usr/bin/c++ -DBOOST_ALL_NO_LIB -DBOOST_CHRONO_DYN_LINK -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_SERIALIZATION_DYN_LINK -DBOOST_STACKTRACE_BACKTRACE_DYN_LINK -DBOOST_STACKTRACE_USE_BACKTRACE -DBOOST_TIMER_DYN_LINK -DHammeringFSM_Initial_EXPORTS -DSPDLOG_COMPILED_LIB -DUSE_UNSTABLE_GEOS_CPP_API -isystem /home/helene/workspace/install/include -isystem /usr/include/eigen3 -isystem /usr/include/gdk-pixbuf-2.0 -isystem /usr/include/libmount -isystem /usr/include/blkid -isystem /usr/include/glib-2.0 -isystem /usr/lib/x86_64-linux-gnu/glib-2.0/include -isystem /home/helene/workspace/install/include/tvm/3rd-party -O2 -g -DNDEBUG -std=gnu++17 -fPIC -DMC_CONTROL_FSM_STATE_EXPORTS -mfpmath=sse -msse2 -pthread -o CMakeFiles/HammeringFSM_Initial.dir/HammeringFSM_Initial.cpp.o -c /home/helene/src/hammering_fsm/src/states/HammeringFSM_Initial.cpp",
   "file": "/home/helene/src/hammering_fsm/src/states/HammeringFSM_Initial.cpp",
   "output": "src/states/CMakeFiles/HammeringFSM_Initial.dir/HammeringFSM_Initial.cpp.o"
+},
+{
+  "directory": "/home/helene/src/hammering_fsm/build/src/states",
+  "command": "/usr/bin/c++ -DBOOST_ALL_NO_LIB -DBOOST_CHRONO_DYN_LINK -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_SERIALIZATION_DYN_LINK -DBOOST_STACKTRACE_BACKTRACE_DYN_LINK -DBOOST_STACKTRACE_USE_BACKTRACE -DBOOST_TIMER_DYN_LINK -DHammeringFSM_Finish_EXPORTS -DSPDLOG_COMPILED_LIB -DUSE_UNSTABLE_GEOS_CPP_API -isystem /home/helene/workspace/install/include -isystem /usr/include/eigen3 -isystem /usr/include/gdk-pixbuf-2.0 -isystem /usr/include/libmount -isystem /usr/include/blkid -isystem /usr/include/glib-2.0 -isystem /usr/lib/x86_64-linux-gnu/glib-2.0/include -isystem /home/helene/workspace/install/include/tvm/3rd-party -O2 -g -DNDEBUG -std=gnu++17 -fPIC -DMC_CONTROL_FSM_STATE_EXPORTS -mfpmath=sse -msse2 -pthread -o CMakeFiles/HammeringFSM_Finish.dir/HammeringFSM_Finish.cpp.o -c /home/helene/src/hammering_fsm/src/states/HammeringFSM_Finish.cpp",
+  "file": "/home/helene/src/hammering_fsm/src/states/HammeringFSM_Finish.cpp",
+  "output": "src/states/CMakeFiles/HammeringFSM_Finish.dir/HammeringFSM_Finish.cpp.o"
 },
 {
   "directory": "/home/helene/src/hammering_fsm/build/plugin",

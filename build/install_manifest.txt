@@ -1,9 +1,9 @@
 /home/helene/workspace/install/lib/mc_controller/etc/HammeringFSM.yaml
 /home/helene/workspace/install/lib/libHammeringFSM.so
 /home/helene/workspace/install/lib/mc_controller/HammeringFSM_controller.so
-/home/helene/workspace/install/lib/mc_controller/HammeringFSM/states/GeometricMove.so
-/home/helene/workspace/install/lib/mc_controller/HammeringFSM/states/BSplineVelState.so
+/home/helene/workspace/install/lib/mc_controller/HammeringFSM/states/HammeringFSM_Hammering.so
 /home/helene/workspace/install/lib/mc_controller/HammeringFSM/states/HammeringFSM_Initial.so
+/home/helene/workspace/install/lib/mc_controller/HammeringFSM/states/HammeringFSM_Finish.so
 /home/helene/workspace/install/lib/mc_controller/HammeringFSM/states/data/states.json
 /home/helene/workspace/install/lib/mc_plugins/etc/NailSensorPlugin.yaml
 /home/helene/workspace/install/lib/mc_plugins/NailSensorPlugin.so

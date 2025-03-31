@@ -16,6 +16,7 @@ HammeringFSM::HammeringFSM(mc_rbdyn::RobotModulePtr rm, double dt, const mc_rtc:
 bool HammeringFSM::run()
 {
   return mc_control::fsm::Controller::run(mc_solver::FeedbackType::ClosedLoopIntegrateReal);
+  // return mc_control::fsm::Controller::run();
 }
 
 void HammeringFSM::reset(const mc_control::ControllerResetData & reset_data)

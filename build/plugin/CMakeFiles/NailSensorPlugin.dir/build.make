@@ -113,7 +113,7 @@ plugin/NailSensorPlugin.so: /usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0
 plugin/NailSensorPlugin.so: /usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4
 plugin/NailSensorPlugin.so: /home/helene/workspace/install/lib/libmc_tasks.so.2.12.0
 plugin/NailSensorPlugin.so: /home/helene/workspace/install/lib/libmc_trajectory.so.2.12.0
-plugin/NailSensorPlugin.so: /usr/lib/libstate-observation.so.1.6.1
+plugin/NailSensorPlugin.so: /home/helene/workspace/install/lib/libstate-observation.so.1.6.1
 plugin/NailSensorPlugin.so: /home/helene/workspace/install/lib/libmc_solver.so.2.12.0
 plugin/NailSensorPlugin.so: /home/helene/workspace/install/lib/libmc_rtc_gui.so.2.12.0
 plugin/NailSensorPlugin.so: /usr/lib/x86_64-linux-gnu/libnanomsg.so
@@ -140,8 +140,8 @@ plugin/NailSensorPlugin.so: /home/helene/workspace/install/lib/libsch-core.so.1.
 plugin/NailSensorPlugin.so: /usr/lib/x86_64-linux-gnu/libboost_serialization.so.1.71.0
 plugin/NailSensorPlugin.so: /usr/lib/x86_64-linux-gnu/libgeos.so
 plugin/NailSensorPlugin.so: /home/helene/workspace/install/lib/libTVM.so.0.9.2
-plugin/NailSensorPlugin.so: /usr/lib/x86_64-linux-gnu/libeigen-quadprog.so.1.1.2
-plugin/NailSensorPlugin.so: /usr/lib/x86_64-linux-gnu/libeigen-qld.so.1.2.4
+plugin/NailSensorPlugin.so: /home/helene/workspace/install/lib/libeigen-quadprog.so.1.1.2
+plugin/NailSensorPlugin.so: /home/helene/workspace/install/lib/libeigen-qld.so.1.2.4
 plugin/NailSensorPlugin.so: /usr/lib/x86_64-linux-gnu/libboost_chrono.so.1.71.0
 plugin/NailSensorPlugin.so: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.71.0
 plugin/NailSensorPlugin.so: /usr/lib/x86_64-linux-gnu/liblog4cxx.so

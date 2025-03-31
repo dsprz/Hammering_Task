@@ -93,19 +93,21 @@ states:
     base: Parallel
     states: [Hammer::Standing, HammeringFSM_Initial]
 
-  Hammer::GeometricMove: 
+  Hammer::HammeringFSM_Hammering: 
     base: Parallel
-    states: [Hammer::Standing, GeometricMove]
-  
-  Hammer::BSpline: 
+    states: [Hammer::Standing, HammeringFSM_Hammering]
+
+  Hammer::HammeringFSM_Finish: 
     base: Parallel
-    states: [Hammer::Standing, BSplineVelState]
+    states: [Hammer::Standing, HammeringFSM_Finish]
   
   Hammer::HammeringFSM:
     base: Meta 
     transitions:
-      - [Hammer::HammeringFSM_Initial, Hammering, Hammer::BSpline, Auto]
-      - [Hammer::BSpline, Stop , Hammer::HammeringFSM_Initial, Auto]
+      - [Hammer::HammeringFSM_Initial, Hammering, Hammer::HammeringFSM_Hammering, Auto]
+      - [Hammer::HammeringFSM_Hammering, Stop , Hammer::HammeringFSM_Finish, Auto]
+      - [Hammer::HammeringFSM_Finish, Auto , Hammer::HammeringFSM_Initial, Auto]
+      - [Hammer::HammeringFSM_Finish, Start , Hammer::HammeringFSM_Hammering, Auto]
 
 # Transitions map
 transitions:
@@ -120,13 +122,20 @@ hrp5_p:
     weight: 1
 
 ObserverPipelines:
-  name: MainRobotObservation
+  name: "ObserverPipeline"
+  gui: true
   observers:
     - type: Encoder
       config:
-        position: control
-        velocity: control
-    - type: BodySensor
+        velocity: encoderVelocities
+    - type: Attitude
+      update: true
+    - type: KinematicInertial
+      update: true
       config:
-        method: control
-
+        anchorFrame:
+          maxAnchorFrameDiscontinuity: 0.05 # [m]
+    - type: BodySensor
+      update: true
+      config:  
+        bodySensor: FloatingBase

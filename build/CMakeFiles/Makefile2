@@ -185,9 +185,9 @@ src/clean: src/states/clean
 # Directory level rules for directory src/states
 
 # Recursive "all" directory target.
-src/states/all: src/states/CMakeFiles/GeometricMove.dir/all
-src/states/all: src/states/CMakeFiles/BSplineVelState.dir/all
+src/states/all: src/states/CMakeFiles/HammeringFSM_Hammering.dir/all
 src/states/all: src/states/CMakeFiles/HammeringFSM_Initial.dir/all
+src/states/all: src/states/CMakeFiles/HammeringFSM_Finish.dir/all
 .PHONY : src/states/all
 
 # Recursive "preinstall" directory target.
@@ -195,9 +195,9 @@ src/states/preinstall:
 .PHONY : src/states/preinstall
 
 # Recursive "clean" directory target.
-src/states/clean: src/states/CMakeFiles/GeometricMove.dir/clean
-src/states/clean: src/states/CMakeFiles/BSplineVelState.dir/clean
+src/states/clean: src/states/CMakeFiles/HammeringFSM_Hammering.dir/clean
 src/states/clean: src/states/CMakeFiles/HammeringFSM_Initial.dir/clean
+src/states/clean: src/states/CMakeFiles/HammeringFSM_Finish.dir/clean
 .PHONY : src/states/clean
 
 #=============================================================================
@@ -207,7 +207,7 @@ src/states/clean: src/states/CMakeFiles/HammeringFSM_Initial.dir/clean
 src/CMakeFiles/HammeringFSM.dir/all:
 	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/HammeringFSM.dir/build.make src/CMakeFiles/HammeringFSM.dir/depend
 	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/HammeringFSM.dir/build.make src/CMakeFiles/HammeringFSM.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/helene/src/hammering_fsm/build/CMakeFiles --progress-num=5,6 "Built target HammeringFSM"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/helene/src/hammering_fsm/build/CMakeFiles --progress-num=1,2 "Built target HammeringFSM"
 .PHONY : src/CMakeFiles/HammeringFSM.dir/all
 
 # Build rule for subdir invocation for target.
@@ -253,56 +253,30 @@ src/CMakeFiles/HammeringFSM_controller.dir/clean:
 .PHONY : src/CMakeFiles/HammeringFSM_controller.dir/clean
 
 #=============================================================================
-# Target rules for target src/states/CMakeFiles/GeometricMove.dir
+# Target rules for target src/states/CMakeFiles/HammeringFSM_Hammering.dir
 
 # All Build rule for target.
-src/states/CMakeFiles/GeometricMove.dir/all: src/CMakeFiles/HammeringFSM.dir/all
-	$(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/GeometricMove.dir/build.make src/states/CMakeFiles/GeometricMove.dir/depend
-	$(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/GeometricMove.dir/build.make src/states/CMakeFiles/GeometricMove.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/helene/src/hammering_fsm/build/CMakeFiles --progress-num=3,4 "Built target GeometricMove"
-.PHONY : src/states/CMakeFiles/GeometricMove.dir/all
+src/states/CMakeFiles/HammeringFSM_Hammering.dir/all: src/CMakeFiles/HammeringFSM.dir/all
+	$(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/HammeringFSM_Hammering.dir/build.make src/states/CMakeFiles/HammeringFSM_Hammering.dir/depend
+	$(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/HammeringFSM_Hammering.dir/build.make src/states/CMakeFiles/HammeringFSM_Hammering.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/helene/src/hammering_fsm/build/CMakeFiles --progress-num=5,6 "Built target HammeringFSM_Hammering"
+.PHONY : src/states/CMakeFiles/HammeringFSM_Hammering.dir/all
 
 # Build rule for subdir invocation for target.
-src/states/CMakeFiles/GeometricMove.dir/rule: cmake_check_build_system
+src/states/CMakeFiles/HammeringFSM_Hammering.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/helene/src/hammering_fsm/build/CMakeFiles 4
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/states/CMakeFiles/GeometricMove.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/states/CMakeFiles/HammeringFSM_Hammering.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/helene/src/hammering_fsm/build/CMakeFiles 0
-.PHONY : src/states/CMakeFiles/GeometricMove.dir/rule
+.PHONY : src/states/CMakeFiles/HammeringFSM_Hammering.dir/rule
 
 # Convenience name for target.
-GeometricMove: src/states/CMakeFiles/GeometricMove.dir/rule
-.PHONY : GeometricMove
+HammeringFSM_Hammering: src/states/CMakeFiles/HammeringFSM_Hammering.dir/rule
+.PHONY : HammeringFSM_Hammering
 
 # clean rule for target.
-src/states/CMakeFiles/GeometricMove.dir/clean:
-	$(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/GeometricMove.dir/build.make src/states/CMakeFiles/GeometricMove.dir/clean
-.PHONY : src/states/CMakeFiles/GeometricMove.dir/clean
-
-#=============================================================================
-# Target rules for target src/states/CMakeFiles/BSplineVelState.dir
-
-# All Build rule for target.
-src/states/CMakeFiles/BSplineVelState.dir/all: src/CMakeFiles/HammeringFSM.dir/all
-	$(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/BSplineVelState.dir/build.make src/states/CMakeFiles/BSplineVelState.dir/depend
-	$(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/BSplineVelState.dir/build.make src/states/CMakeFiles/BSplineVelState.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/helene/src/hammering_fsm/build/CMakeFiles --progress-num=1,2 "Built target BSplineVelState"
-.PHONY : src/states/CMakeFiles/BSplineVelState.dir/all
-
-# Build rule for subdir invocation for target.
-src/states/CMakeFiles/BSplineVelState.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/helene/src/hammering_fsm/build/CMakeFiles 4
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/states/CMakeFiles/BSplineVelState.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/helene/src/hammering_fsm/build/CMakeFiles 0
-.PHONY : src/states/CMakeFiles/BSplineVelState.dir/rule
-
-# Convenience name for target.
-BSplineVelState: src/states/CMakeFiles/BSplineVelState.dir/rule
-.PHONY : BSplineVelState
-
-# clean rule for target.
-src/states/CMakeFiles/BSplineVelState.dir/clean:
-	$(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/BSplineVelState.dir/build.make src/states/CMakeFiles/BSplineVelState.dir/clean
-.PHONY : src/states/CMakeFiles/BSplineVelState.dir/clean
+src/states/CMakeFiles/HammeringFSM_Hammering.dir/clean:
+	$(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/HammeringFSM_Hammering.dir/build.make src/states/CMakeFiles/HammeringFSM_Hammering.dir/clean
+.PHONY : src/states/CMakeFiles/HammeringFSM_Hammering.dir/clean
 
 #=============================================================================
 # Target rules for target src/states/CMakeFiles/HammeringFSM_Initial.dir
@@ -329,6 +303,32 @@ HammeringFSM_Initial: src/states/CMakeFiles/HammeringFSM_Initial.dir/rule
 src/states/CMakeFiles/HammeringFSM_Initial.dir/clean:
 	$(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/HammeringFSM_Initial.dir/build.make src/states/CMakeFiles/HammeringFSM_Initial.dir/clean
 .PHONY : src/states/CMakeFiles/HammeringFSM_Initial.dir/clean
+
+#=============================================================================
+# Target rules for target src/states/CMakeFiles/HammeringFSM_Finish.dir
+
+# All Build rule for target.
+src/states/CMakeFiles/HammeringFSM_Finish.dir/all: src/CMakeFiles/HammeringFSM.dir/all
+	$(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/HammeringFSM_Finish.dir/build.make src/states/CMakeFiles/HammeringFSM_Finish.dir/depend
+	$(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/HammeringFSM_Finish.dir/build.make src/states/CMakeFiles/HammeringFSM_Finish.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/helene/src/hammering_fsm/build/CMakeFiles --progress-num=3,4 "Built target HammeringFSM_Finish"
+.PHONY : src/states/CMakeFiles/HammeringFSM_Finish.dir/all
+
+# Build rule for subdir invocation for target.
+src/states/CMakeFiles/HammeringFSM_Finish.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/helene/src/hammering_fsm/build/CMakeFiles 4
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/states/CMakeFiles/HammeringFSM_Finish.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/helene/src/hammering_fsm/build/CMakeFiles 0
+.PHONY : src/states/CMakeFiles/HammeringFSM_Finish.dir/rule
+
+# Convenience name for target.
+HammeringFSM_Finish: src/states/CMakeFiles/HammeringFSM_Finish.dir/rule
+.PHONY : HammeringFSM_Finish
+
+# clean rule for target.
+src/states/CMakeFiles/HammeringFSM_Finish.dir/clean:
+	$(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/HammeringFSM_Finish.dir/build.make src/states/CMakeFiles/HammeringFSM_Finish.dir/clean
+.PHONY : src/states/CMakeFiles/HammeringFSM_Finish.dir/clean
 
 #=============================================================================
 # Target rules for target plugin/CMakeFiles/download_extra_data.dir

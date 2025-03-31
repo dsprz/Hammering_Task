@@ -60,7 +60,7 @@ void HammeringFSM_Hammering::start(mc_control::fsm::Controller & ctl_)
 
 bool HammeringFSM_Hammering::run(mc_control::fsm::Controller & ctl_)
 {
-    if( BSplineVel->eval().norm() < 0.07 or stop)
+    if( BSplineVel->eval().norm() < 0.09 or stop)
     {
         output("Stop");
         return true;

@@ -188,30 +188,17 @@ HammeringFSM_controller/fast:
 .PHONY : HammeringFSM_controller/fast
 
 #=============================================================================
-# Target rules for targets named GeometricMove
+# Target rules for targets named HammeringFSM_Hammering
 
 # Build rule for target.
-GeometricMove: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 GeometricMove
-.PHONY : GeometricMove
+HammeringFSM_Hammering: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 HammeringFSM_Hammering
+.PHONY : HammeringFSM_Hammering
 
 # fast build rule for target.
-GeometricMove/fast:
-	$(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/GeometricMove.dir/build.make src/states/CMakeFiles/GeometricMove.dir/build
-.PHONY : GeometricMove/fast
-
-#=============================================================================
-# Target rules for targets named BSplineVelState
-
-# Build rule for target.
-BSplineVelState: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 BSplineVelState
-.PHONY : BSplineVelState
-
-# fast build rule for target.
-BSplineVelState/fast:
-	$(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/BSplineVelState.dir/build.make src/states/CMakeFiles/BSplineVelState.dir/build
-.PHONY : BSplineVelState/fast
+HammeringFSM_Hammering/fast:
+	$(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/HammeringFSM_Hammering.dir/build.make src/states/CMakeFiles/HammeringFSM_Hammering.dir/build
+.PHONY : HammeringFSM_Hammering/fast
 
 #=============================================================================
 # Target rules for targets named HammeringFSM_Initial
@@ -225,6 +212,19 @@ HammeringFSM_Initial: cmake_check_build_system
 HammeringFSM_Initial/fast:
 	$(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/HammeringFSM_Initial.dir/build.make src/states/CMakeFiles/HammeringFSM_Initial.dir/build
 .PHONY : HammeringFSM_Initial/fast
+
+#=============================================================================
+# Target rules for targets named HammeringFSM_Finish
+
+# Build rule for target.
+HammeringFSM_Finish: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 HammeringFSM_Finish
+.PHONY : HammeringFSM_Finish
+
+# fast build rule for target.
+HammeringFSM_Finish/fast:
+	$(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/HammeringFSM_Finish.dir/build.make src/states/CMakeFiles/HammeringFSM_Finish.dir/build
+.PHONY : HammeringFSM_Finish/fast
 
 #=============================================================================
 # Target rules for targets named download_extra_data
@@ -583,9 +583,9 @@ help:
 	@echo "... std_msgs_generate_messages_nodejs"
 	@echo "... std_msgs_generate_messages_py"
 	@echo "... tests"
-	@echo "... BSplineVelState"
-	@echo "... GeometricMove"
 	@echo "... HammeringFSM"
+	@echo "... HammeringFSM_Finish"
+	@echo "... HammeringFSM_Hammering"
 	@echo "... HammeringFSM_Initial"
 	@echo "... HammeringFSM_controller"
 	@echo "... NailSensorPlugin"

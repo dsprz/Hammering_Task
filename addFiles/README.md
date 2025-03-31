@@ -15,7 +15,7 @@
 ## Add the table:
 
 ```bash
-nano ~/.config/mc_mujoco/mc_mujoco.yaml
+nano ~/.config/mc_rtc/mc_mujoco/mc_mujoco.yaml
 ```
 Add the following code to the nano file  
 
@@ -24,5 +24,5 @@ objects:
   table:
     module: "longtable"
     init_pos:
-      translation: [0.8, 0, 0.8]
+      translation: [0.8, -0.4, 0.8]
       rotation: [3.14, 0, 0]

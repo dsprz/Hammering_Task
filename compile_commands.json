@@ -1,0 +1,20 @@
+[
+{
+  "directory": "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/src",
+  "command": "/usr/bin/c++ -DBOOST_ALL_NO_LIB -DBOOST_CHRONO_DYN_LINK -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_SERIALIZATION_DYN_LINK -DBOOST_STACKTRACE_BACKTRACE_DYN_LINK -DBOOST_STACKTRACE_USE_BACKTRACE -DBOOST_TIMER_DYN_LINK -DFMT_LOCALE -DFMT_SHARED -DGEOS_INLINE -DHammering_FSM_Controller_EXPORTS -DNDEBUG -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -DUSE_UNSTABLE_GEOS_CPP_API -isystem /home/jimmyvu/Documents/mc_rtc/install/include -isystem /usr/include/eigen3 -isystem /usr/include/gdk-pixbuf-2.0 -isystem /usr/include/libpng16 -isystem /usr/include/libmount -isystem /usr/include/blkid -isystem /usr/include/glib-2.0 -isystem /usr/lib/x86_64-linux-gnu/glib-2.0/include -isystem /usr/include/geos -isystem /home/jimmyvu/Documents/mc_rtc/install/include/tvm/3rd-party -std=gnu++17 -fPIC -DHammering_FSM_Controller_EXPORTS -mfpmath=sse -msse2 -pthread -ffp-contract=off -o CMakeFiles/Hammering_FSM_Controller.dir/Hammering_FSM_Controller.cpp.o -c /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/src/Hammering_FSM_Controller.cpp",
+  "file": "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/src/Hammering_FSM_Controller.cpp",
+  "output": "src/CMakeFiles/Hammering_FSM_Controller.dir/Hammering_FSM_Controller.cpp.o"
+},
+{
+  "directory": "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/src",
+  "command": "/usr/bin/c++ -DBOOST_ALL_NO_LIB -DBOOST_CHRONO_DYN_LINK -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_SERIALIZATION_DYN_LINK -DBOOST_STACKTRACE_BACKTRACE_DYN_LINK -DBOOST_STACKTRACE_USE_BACKTRACE -DBOOST_TIMER_DYN_LINK -DFMT_LOCALE -DFMT_SHARED -DGEOS_INLINE -DHammering_FSM_Controller_controller_EXPORTS -DNDEBUG -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -DUSE_UNSTABLE_GEOS_CPP_API -isystem /home/jimmyvu/Documents/mc_rtc/install/include -isystem /usr/include/eigen3 -isystem /usr/include/gdk-pixbuf-2.0 -isystem /usr/include/libpng16 -isystem /usr/include/libmount -isystem /usr/include/blkid -isystem /usr/include/glib-2.0 -isystem /usr/lib/x86_64-linux-gnu/glib-2.0/include -isystem /usr/include/geos -isystem /home/jimmyvu/Documents/mc_rtc/install/include/tvm/3rd-party -std=gnu++17 -fPIC -mfpmath=sse -msse2 -pthread -ffp-contract=off -o CMakeFiles/Hammering_FSM_Controller_controller.dir/lib.cpp.o -c /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/src/lib.cpp",
+  "file": "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/src/lib.cpp",
+  "output": "src/CMakeFiles/Hammering_FSM_Controller_controller.dir/lib.cpp.o"
+},
+{
+  "directory": "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/src/states",
+  "command": "/usr/bin/c++ -DBOOST_ALL_NO_LIB -DBOOST_CHRONO_DYN_LINK -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_SERIALIZATION_DYN_LINK -DBOOST_STACKTRACE_BACKTRACE_DYN_LINK -DBOOST_STACKTRACE_USE_BACKTRACE -DBOOST_TIMER_DYN_LINK -DFMT_LOCALE -DFMT_SHARED -DGEOS_INLINE -DHammering_FSM_Controller_Initial_EXPORTS -DNDEBUG -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -DSPDLOG_SHARED_LIB -DUSE_UNSTABLE_GEOS_CPP_API -isystem /home/jimmyvu/Documents/mc_rtc/install/include -isystem /usr/include/eigen3 -isystem /usr/include/gdk-pixbuf-2.0 -isystem /usr/include/libpng16 -isystem /usr/include/libmount -isystem /usr/include/blkid -isystem /usr/include/glib-2.0 -isystem /usr/lib/x86_64-linux-gnu/glib-2.0/include -isystem /usr/include/geos -isystem /home/jimmyvu/Documents/mc_rtc/install/include/tvm/3rd-party -std=gnu++17 -fPIC -DMC_CONTROL_FSM_STATE_EXPORTS -mfpmath=sse -msse2 -pthread -ffp-contract=off -o CMakeFiles/Hammering_FSM_Controller_Initial.dir/Hammering_FSM_Controller_Initial.cpp.o -c /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/src/states/Hammering_FSM_Controller_Initial.cpp",
+  "file": "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/src/states/Hammering_FSM_Controller_Initial.cpp",
+  "output": "src/states/CMakeFiles/Hammering_FSM_Controller_Initial.dir/Hammering_FSM_Controller_Initial.cpp.o"
+}
+]

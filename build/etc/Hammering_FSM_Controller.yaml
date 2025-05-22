@@ -1,0 +1,103 @@
+---
+# If true, the FSM transitions are managed by an external tool
+Managed: false
+# If true and the FSM is self-managed, transitions should be triggered
+StepByStep: true
+# Change idle behaviour, if true the state is kept until transition,
+# otherwise the FSM holds the last state until transition
+IdleKeepState: false
+# Where to look for state libraries
+StatesLibraries:
+- "/home/jimmyvu/Documents/mc_rtc/install/lib/mc_controller/fsm/states"
+- "/home/jimmyvu/Documents/mc_rtc/install/lib/mc_controller/Hammering_FSM_Controller/states"
+# Where to look for state files
+StatesFiles:
+- "/home/jimmyvu/Documents/mc_rtc/install/lib/mc_controller/fsm/states/data"
+- "/home/jimmyvu/Documents/mc_rtc/install/lib/mc_controller/Hammering_FSM_Controller/states/data"
+# If true, state factory will be more verbose, displays more messages in the terminal
+VerboseStateFactory: true
+# Additional robots to load
+robots:
+  ground:
+    module: env/ground
+  
+  # To include the nail, go to ~/mc_rtc_installation_folder/install/lib/mc_robot/
+  # In my case, it is ~/Documents/mc_rtc/install/lib/mc_robot/
+
+  nail:
+    module: object/nail
+    init_pos:
+      translation: [0.55, 0.30 , 0.9]
+      rotation: [0.0, 0.0, 1.57]
+
+# General constraints, always on and must always be respected
+constraints:
+- type: contact
+- type: dynamics
+  damper: [0.1, 0.01, 0.5]
+- type: compoundJoint
+# Collision constraint
+collisions:
+- type: collision
+  useMinimal: true
+# Initial set of contacts
+contacts:
+
+# contact between the feet and the ground 
+- r2: ground
+  r1Surface: LeftFoot
+  r2Surface: AllGround
+- r2: ground
+  r1Surface: RightFoot
+  r2Surface: AllGround
+
+# Some options for a specific robot
+hrp5_p:
+  posture:
+    stiffness: 1
+    weight: 10
+  ff:
+    stiffness: 2
+    weight: 100
+
+
+# Implement some additional text states
+# We must implement transitions, otherwise it does not work
+states:  
+  # Name of the state
+  # MoveLeftHandUp:
+  #   base: MetaTasks
+  #   tasks:
+  #   # Name of the task 
+  #     EndEffectorTaskLeft:
+  #       type: body6d
+  #       frame: Body
+  #       weight: 1000
+  #       stiffness: 5
+
+  #       # orientation: [0, 0.0, 0, 0.7]
+  #       position: [0.0, 0.0, 0.7]
+
+  #       # on completion
+  #       completion:
+  #         AND: 
+  #           # true when criteria1 and criteria2 are both true
+  #           - eval: 0.05
+  #           - speed: 1e-4
+
+
+    
+# Dynamics constraint and no CoM can cause the robot to fall ?
+  CoM:
+    base: MetaTasks
+    tasks:
+      CoM:
+        type: com
+        com: [0.0, 0.0, 1.00]
+        weight: 3000
+        stiffness: 100
+# Transitions map
+transitions:
+- [Hammering_FSM_Controller_Initial, OK, Posture, Auto]
+# Initial state
+init: Hammering_FSM_Controller_Initial

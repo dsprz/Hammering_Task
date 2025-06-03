@@ -57,6 +57,7 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/src/cmake_install.cmake")
+  include("/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/plugin/cmake_install.cmake")
 
 endif()
 

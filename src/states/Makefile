@@ -185,6 +185,44 @@ Hammering_FSM_Controller_Initial/fast:
 	cd /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/Hammering_FSM_Controller_Initial.dir/build.make src/states/CMakeFiles/Hammering_FSM_Controller_Initial.dir/build
 .PHONY : Hammering_FSM_Controller_Initial/fast
 
+# Convenience name for target.
+src/states/CMakeFiles/Get_In_Position_Task.dir/rule:
+	cd /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/states/CMakeFiles/Get_In_Position_Task.dir/rule
+.PHONY : src/states/CMakeFiles/Get_In_Position_Task.dir/rule
+
+# Convenience name for target.
+Get_In_Position_Task: src/states/CMakeFiles/Get_In_Position_Task.dir/rule
+.PHONY : Get_In_Position_Task
+
+# fast build rule for target.
+Get_In_Position_Task/fast:
+	cd /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/Get_In_Position_Task.dir/build.make src/states/CMakeFiles/Get_In_Position_Task.dir/build
+.PHONY : Get_In_Position_Task/fast
+
+Get_In_Position_Task.o: Get_In_Position_Task.cpp.o
+.PHONY : Get_In_Position_Task.o
+
+# target to build an object file
+Get_In_Position_Task.cpp.o:
+	cd /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/Get_In_Position_Task.dir/build.make src/states/CMakeFiles/Get_In_Position_Task.dir/Get_In_Position_Task.cpp.o
+.PHONY : Get_In_Position_Task.cpp.o
+
+Get_In_Position_Task.i: Get_In_Position_Task.cpp.i
+.PHONY : Get_In_Position_Task.i
+
+# target to preprocess a source file
+Get_In_Position_Task.cpp.i:
+	cd /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/Get_In_Position_Task.dir/build.make src/states/CMakeFiles/Get_In_Position_Task.dir/Get_In_Position_Task.cpp.i
+.PHONY : Get_In_Position_Task.cpp.i
+
+Get_In_Position_Task.s: Get_In_Position_Task.cpp.s
+.PHONY : Get_In_Position_Task.s
+
+# target to generate assembly for a file
+Get_In_Position_Task.cpp.s:
+	cd /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/Get_In_Position_Task.dir/build.make src/states/CMakeFiles/Get_In_Position_Task.dir/Get_In_Position_Task.cpp.s
+.PHONY : Get_In_Position_Task.cpp.s
+
 Hammering_FSM_Controller_Initial.o: Hammering_FSM_Controller_Initial.cpp.o
 .PHONY : Hammering_FSM_Controller_Initial.o
 
@@ -222,7 +260,11 @@ help:
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... test"
+	@echo "... Get_In_Position_Task"
 	@echo "... Hammering_FSM_Controller_Initial"
+	@echo "... Get_In_Position_Task.o"
+	@echo "... Get_In_Position_Task.i"
+	@echo "... Get_In_Position_Task.s"
 	@echo "... Hammering_FSM_Controller_Initial.o"
 	@echo "... Hammering_FSM_Controller_Initial.i"
 	@echo "... Hammering_FSM_Controller_Initial.s"

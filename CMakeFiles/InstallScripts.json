@@ -3,7 +3,8 @@
 	[
 		"/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/cmake_install.cmake",
 		"/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/src/cmake_install.cmake",
-		"/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/src/states/cmake_install.cmake"
+		"/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/src/states/cmake_install.cmake",
+		"/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/plugin/cmake_install.cmake"
 	],
 	"Parallel" : false
 }

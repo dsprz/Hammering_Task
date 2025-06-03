@@ -210,6 +210,32 @@ Hammering_FSM_Controller_Initial/fast:
 	$(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/Hammering_FSM_Controller_Initial.dir/build.make src/states/CMakeFiles/Hammering_FSM_Controller_Initial.dir/build
 .PHONY : Hammering_FSM_Controller_Initial/fast
 
+#=============================================================================
+# Target rules for targets named Get_In_Position_Task
+
+# Build rule for target.
+Get_In_Position_Task: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Get_In_Position_Task
+.PHONY : Get_In_Position_Task
+
+# fast build rule for target.
+Get_In_Position_Task/fast:
+	$(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/Get_In_Position_Task.dir/build.make src/states/CMakeFiles/Get_In_Position_Task.dir/build
+.PHONY : Get_In_Position_Task/fast
+
+#=============================================================================
+# Target rules for targets named NailSensorPlugin
+
+# Build rule for target.
+NailSensorPlugin: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 NailSensorPlugin
+.PHONY : NailSensorPlugin
+
+# fast build rule for target.
+NailSensorPlugin/fast:
+	$(MAKE) $(MAKESILENT) -f plugin/CMakeFiles/NailSensorPlugin.dir/build.make plugin/CMakeFiles/NailSensorPlugin.dir/build
+.PHONY : NailSensorPlugin/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -223,9 +249,11 @@ help:
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... test"
+	@echo "... Get_In_Position_Task"
 	@echo "... Hammering_FSM_Controller"
 	@echo "... Hammering_FSM_Controller_Initial"
 	@echo "... Hammering_FSM_Controller_controller"
+	@echo "... NailSensorPlugin"
 .PHONY : help
 
 

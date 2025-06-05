@@ -28,6 +28,10 @@ struct Get_In_Position_Task : mc_control::fsm::State
     std::shared_ptr<mc_tasks::BSplineTrajectoryTask> BSplineVel;
     sva::PTransformd initial_hammer_head_position;    
     bool stop = false;
-    // curve_constraints_t constr;
+
+    typedef Eigen::Vector3d Point;
+    typedef Point point_t;
+    typedef ndcurves::curve_constraints<point_t> curve_constraints_t;
+    curve_constraints_t constr;
 
 };

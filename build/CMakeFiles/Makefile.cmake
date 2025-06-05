@@ -69,6 +69,8 @@ set(CMAKE_MAKEFILE_DEPENDS
   "ament_cmake_package_templates/templates.cmake"
   "cmake/tmp-cxx-standard.cpp"
   "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/etc/Hammering_FSM_Controller.in.yaml"
+  "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/plugin/CMakeLists.txt"
+  "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/plugin/etc/NailSensorPlugin.in.yaml"
   "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/src/CMakeLists.txt"
   "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/src/states/CMakeLists.txt"
   "/home/jimmyvu/Documents/mc_rtc/src/catkin_data_ws/install/share/mc_rtc_msgs/cmake/ament_cmake_export_dependencies-extras.cmake"
@@ -979,6 +981,8 @@ set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   "src/CMakeFiles/CMakeDirectoryInformation.cmake"
   "src/states/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "plugin/etc/NailSensorPlugin.yaml"
+  "plugin/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
@@ -986,4 +990,6 @@ set(CMAKE_DEPEND_INFO_FILES
   "src/CMakeFiles/Hammering_FSM_Controller.dir/DependInfo.cmake"
   "src/CMakeFiles/Hammering_FSM_Controller_controller.dir/DependInfo.cmake"
   "src/states/CMakeFiles/Hammering_FSM_Controller_Initial.dir/DependInfo.cmake"
+  "src/states/CMakeFiles/Get_In_Position_Task.dir/DependInfo.cmake"
+  "plugin/CMakeFiles/NailSensorPlugin.dir/DependInfo.cmake"
   )

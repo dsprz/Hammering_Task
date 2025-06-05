@@ -74,6 +74,37 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
+  if(EXISTS "$ENV{DESTDIR}/home/jimmyvu/Documents/mc_rtc/install/lib/mc_controller/Hammering_FSM_Controller/states/Get_In_Position_Task.so" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}/home/jimmyvu/Documents/mc_rtc/install/lib/mc_controller/Hammering_FSM_Controller/states/Get_In_Position_Task.so")
+    file(RPATH_CHECK
+         FILE "$ENV{DESTDIR}/home/jimmyvu/Documents/mc_rtc/install/lib/mc_controller/Hammering_FSM_Controller/states/Get_In_Position_Task.so"
+         RPATH "/home/jimmyvu/Documents/mc_rtc/install/lib/mc_controller/fsm/states:/home/jimmyvu/Documents/mc_rtc/install/lib/mc_controller/Hammering_FSM_Controller/states")
+  endif()
+  list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
+   "/home/jimmyvu/Documents/mc_rtc/install/lib/mc_controller/Hammering_FSM_Controller/states/Get_In_Position_Task.so")
+  if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
+    message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+  endif()
+  if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
+    message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+  endif()
+  file(INSTALL DESTINATION "/home/jimmyvu/Documents/mc_rtc/install/lib/mc_controller/Hammering_FSM_Controller/states" TYPE SHARED_LIBRARY FILES "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/build/src/states/Get_In_Position_Task.so")
+  if(EXISTS "$ENV{DESTDIR}/home/jimmyvu/Documents/mc_rtc/install/lib/mc_controller/Hammering_FSM_Controller/states/Get_In_Position_Task.so" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}/home/jimmyvu/Documents/mc_rtc/install/lib/mc_controller/Hammering_FSM_Controller/states/Get_In_Position_Task.so")
+    file(RPATH_CHANGE
+         FILE "$ENV{DESTDIR}/home/jimmyvu/Documents/mc_rtc/install/lib/mc_controller/Hammering_FSM_Controller/states/Get_In_Position_Task.so"
+         OLD_RPATH "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/build/src:/home/jimmyvu/Documents/mc_rtc/install/lib::::::::::::::::::::::::::::::::::::::::"
+         NEW_RPATH "/home/jimmyvu/Documents/mc_rtc/install/lib/mc_controller/fsm/states:/home/jimmyvu/Documents/mc_rtc/install/lib/mc_controller/Hammering_FSM_Controller/states")
+    if(CMAKE_INSTALL_DO_STRIP)
+      execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}/home/jimmyvu/Documents/mc_rtc/install/lib/mc_controller/Hammering_FSM_Controller/states/Get_In_Position_Task.so")
+    endif()
+  endif()
+endif()
+
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
+endif()
+
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
    "/home/jimmyvu/Documents/mc_rtc/install/lib/mc_controller/Hammering_FSM_Controller/states/data")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)

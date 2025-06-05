@@ -1995,3 +1995,47 @@ events:
         201103
       exitCode: 0
 ...
+
+---
+events:
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/ndcurves/cxx-standard.cmake:62 (try_run)"
+      - "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/ndcurves/ndcurvesConfig.cmake:182 (CHECK_MINIMAL_CXX_STANDARD)"
+      - "/usr/share/cmake-4.0/Modules/CMakeFindDependencyMacro.cmake:78 (find_package)"
+      - "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/mc_rtc/mc_rtcConfig.cmake:157 (find_dependency)"
+      - "CMakeLists.txt:14 (find_package)"
+    directories:
+      source: "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/build/CMakeFiles/CMakeTmp"
+      binary: "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/build/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/RBDyn"
+    buildResult:
+      variable: "_cxx_standard_build_status"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/build/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_abbdf/fast
+        gmake[1]: Entering directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/build/CMakeFiles/CMakeTmp'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_abbdf.dir/build.make CMakeFiles/cmTC_abbdf.dir/build
+        gmake[2]: Entering directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/build/CMakeFiles/CMakeTmp'
+        Building CXX object CMakeFiles/cmTC_abbdf.dir/tmp-cxx-standard.cpp.o
+        /usr/bin/c++    -o CMakeFiles/cmTC_abbdf.dir/tmp-cxx-standard.cpp.o -c /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/build/cmake/tmp-cxx-standard.cpp
+        Linking CXX executable cmTC_abbdf
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_abbdf.dir/link.txt --verbose=1
+        /usr/bin/c++ "CMakeFiles/cmTC_abbdf.dir/tmp-cxx-standard.cpp.o" -o cmTC_abbdf
+        gmake[2]: Leaving directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/build/CMakeFiles/CMakeTmp'
+        gmake[1]: Leaving directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/build/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "_cxx_standard_run_status"
+      cached: true
+      stdout: |
+        201703
+      exitCode: 0
+...

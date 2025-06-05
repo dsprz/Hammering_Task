@@ -89,6 +89,21 @@ void Get_In_Position_Task::start(mc_control::fsm::Controller & ctl_)
 
 bool Get_In_Position_Task::run(mc_control::fsm::Controller & ctl_)
 {
+    auto & ctl = static_cast<Hammering_FSM_Controller &>(ctl_);
+
+    auto startPoint = ctl.robot().frame("Hammer_Head").position();
+    if (startPoint.translation().z() > 1){
+    const mc_trajectory::BSpline::waypoints_t & posWp ={ startPoint.translation(),
+
+                                                        Eigen::Vector3d({1, 0.30, 1.456}),
+                                                        
+                                                        Eigen::Vector3d({1, 0.30, 1.3}),
+                                                        Eigen::Vector3d({1, 0.30, 1.2}),
+                                                        Eigen::Vector3d({1, 0.30, 1.1}),
+                                                        Eigen::Vector3d({1, 0.30, 0.9})};
+
+      BSplineVel->posWaypoints(posWp);
+    }
     if( BSplineVel->eval().norm() < 0.09)
     {
         output("Stop");

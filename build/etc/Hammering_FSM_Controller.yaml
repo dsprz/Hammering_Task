@@ -14,36 +14,37 @@ StatesLibraries:
 StatesFiles:
 - "/home/jimmyvu/Documents/mc_rtc/install/lib/mc_controller/fsm/states/data"
 - "/home/jimmyvu/Documents/mc_rtc/install/lib/mc_controller/Hammering_FSM_Controller/states/data"
-# If true, state factory will be more verbose, displays more messages in the terminal
-VerboseStateFactory: true
+# If true, state factory will be more verbose
+VerboseStateFactory: false
 # Additional robots to load
 robots:
   ground:
     module: env/ground
-  
-  # To include the nail, go to ~/mc_rtc_installation_folder/install/lib/mc_robot/
-  # In my case, it is ~/Documents/mc_rtc/install/lib/mc_robot/
-
   nail:
     module: object/nail
     init_pos:
       translation: [0.55, 0.30 , 0.9]
       rotation: [0.0, 0.0, 1.57]
-
-# General constraints, always on and must always be respected
+    
+# General constraints, always on
 constraints:
 - type: contact
 - type: dynamics
   damper: [0.1, 0.01, 0.5]
 - type: compoundJoint
+
 # Collision constraint
 collisions:
 - type: collision
   useMinimal: true
-# Initial set of contacts
-contacts:
+- type: collision
+  r1: hrp5_p
+  r2: nail
+  collisions:
+    body1: hammer
+    body2: nail
 
-# contact between the feet and the ground 
+contacts:
 - r2: ground
   r1Surface: LeftFoot
   r2Surface: AllGround
@@ -51,43 +52,7 @@ contacts:
   r1Surface: RightFoot
   r2Surface: AllGround
 
-# Some options for a specific robot
-hrp5_p:
-  posture:
-    stiffness: 1
-    weight: 10
-  ff:
-    stiffness: 2
-    weight: 100
-
-
-# Implement some additional text states
-# We must implement transitions, otherwise it does not work
-states:  
-  # Name of the state
-  # MoveLeftHandUp:
-  #   base: MetaTasks
-  #   tasks:
-  #   # Name of the task 
-  #     EndEffectorTaskLeft:
-  #       type: body6d
-  #       frame: Body
-  #       weight: 1000
-  #       stiffness: 5
-
-  #       # orientation: [0, 0.0, 0, 0.7]
-  #       position: [0.0, 0.0, 0.7]
-
-  #       # on completion
-  #       completion:
-  #         AND: 
-  #           # true when criteria1 and criteria2 are both true
-  #           - eval: 0.05
-  #           - speed: 1e-4
-
-
-    
-# Dynamics constraint and no CoM can cause the robot to fall ?
+states:
   CoM:
     base: MetaTasks
     tasks:
@@ -95,9 +60,98 @@ states:
         type: com
         com: [0.0, 0.0, 1.00]
         weight: 3000
-        stiffness: 100
+        stiffness: 100  
+        
+  PostureTask:
+    base: MetaTasks
+    tasks:
+      type: posture
+      stiffness: 1.0
+      weight: 1000
+
+  Hammer::Standing:
+    base: MetaTasks
+    tasks:
+      Stabilizer:
+        type: lipm_stabilizer
+        enabled: true
+        contacts: [Left, Right]
+        leftFootSurface: LeftFootCenter
+        rightFootSurface: RightFootCenter
+        torsoBodyName: Chest_Link2
+
+        dcm_tracking:
+          gains:
+            prop: [0,0]
+            integral: [0,0]
+            deriv: [0., 0.]
+            comdError: 0.
+        admittance:
+          copFzLambda: [30,30,30]
+          copFzDelay: 0.0
+          df: [0.0, 0.0, 0.0001]
+          cop: [0.01, 0.01]
+          maxVel:
+            angular: [3., 3., 3.]
+            linear: [1., 1., 1.]
+        tasks:
+          contact:
+            constrainCoP: false
+            damping: 150.0
+          com:
+            stiffness: [100.,100.,100.]
+            dimWeight: [1 , 1 , 1]
+            weight: 5000.
+            height: 0.92
+    
+  Initial_And_Standing: 
+    base: Parallel
+    states: [Hammer::Standing, Hammering_FSM_Controller_Initial]
+
+  Get_In_Position_And_Standing: 
+    base: Parallel
+    states: [Hammer::Standing, Get_In_Position_Task]
+
+  Hammer::HammeringFSM_Finish: 
+    base: Parallel
+    states: [Hammer::Standing, HammeringFSM_Finish]
+  
+  Hammer::HammeringFSM:
+    base: Meta 
+    transitions:
+      - [Initial_And_Standing, OK, Get_In_Position_And_Standing, Auto]
+      - [Get_In_Position_And_Standing, Auto, Hammer::Standing, Auto]
+      # - [Hammer::HammeringFSM_Hammering, Stop , Hammer::HammeringFSM_Finish, Auto]
+      # - [Hammer::HammeringFSM_Finish, Auto , Hammer::HammeringFSM_Initial, Auto]
+      # - [Hammer::HammeringFSM_Finish, Start , Hammer::HammeringFSM_Hammering, Auto]
+
 # Transitions map
 transitions:
-- [Hammering_FSM_Controller_Initial, OK, Posture, Auto]
+- [Hammer::HammeringFSM, OK, Hammer::HammeringFSM, Strict]
+
 # Initial state
-init: Hammering_FSM_Controller_Initial
+init: Hammer::HammeringFSM
+
+hrp5_p:
+  posture:
+    stiffness: 5
+    weight: 1
+
+ObserverPipelines:
+  name: "ObserverPipeline"
+  gui: true
+  observers:
+    - type: Encoder
+      config:
+        velocity: encoderVelocities
+    - type: Attitude
+      update: true
+    - type: KinematicInertial
+      update: true
+      config:
+        anchorFrame:
+          maxAnchorFrameDiscontinuity: 0.05 # [m]
+    - type: BodySensor
+      update: true
+      config:  
+        bodySensor: FloatingBase

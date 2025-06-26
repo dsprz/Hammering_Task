@@ -1,8 +1,0 @@
-/home/jimmyvu/Documents/mc_rtc/install/lib/mc_controller/etc/Hammering_FSM_Controller.yaml
-/home/jimmyvu/Documents/mc_rtc/install/lib/libHammering_FSM_Controller.so
-/home/jimmyvu/Documents/mc_rtc/install/lib/mc_controller/Hammering_FSM_Controller_controller.so
-/home/jimmyvu/Documents/mc_rtc/install/lib/mc_controller/Hammering_FSM_Controller/states/Hammering_FSM_Controller_Initial.so
-/home/jimmyvu/Documents/mc_rtc/install/lib/mc_controller/Hammering_FSM_Controller/states/Get_In_Position_Task.so
-/home/jimmyvu/Documents/mc_rtc/install/lib/mc_controller/Hammering_FSM_Controller/states/data/states.json
-/home/jimmyvu/Documents/mc_rtc/install/lib/mc_plugins/etc/NailSensorPlugin.yaml
-/home/jimmyvu/Documents/mc_rtc/install/lib/mc_plugins/NailSensorPlugin.so

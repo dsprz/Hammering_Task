@@ -11,6 +11,7 @@
 #include <mc_rtc/logging.h>
 #include <mc_tasks/BSplineTrajectoryTask.h>
 #include <mc_trajectory/BSpline.h>
+#include <ostream>
 
 void Get_In_Position_Task::configure(const mc_rtc::Configuration & config)
 {
@@ -26,8 +27,17 @@ void Get_In_Position_Task::start(mc_control::fsm::Controller & ctl_)
   ctl.gui()->addElement({}, mc_rtc::gui::Button("Stop hammering", [this]() { stop = true; }));
 
   constr.end_vel.z() = -1;
-  constr.end_acc.z() = 5;
+  constr.end_acc.z() = 0;
   constr.end_jerk.z() = 0;
+
+  constr.end_vel.x() = 0;
+  constr.end_vel.y() = 0;
+
+  constr.end_acc.x() = 0;
+  constr.end_acc.y() = 0;
+  
+  constr.end_jerk.x() = 0;
+  constr.end_jerk.y() = 0;
 
   auto nail_pos = ctl.robots().robot("nail").frame("nail").position();
   double x_nail = nail_pos.translation().x();
@@ -35,40 +45,32 @@ void Get_In_Position_Task::start(mc_control::fsm::Controller & ctl_)
 
   double x = initial_hammer_head_position.translation().x();
   double y = initial_hammer_head_position.translation().y();
+  double z = initial_hammer_head_position.translation().z();
 
   auto startPoint = initial_hammer_head_position.translation();
   auto endPoint = nail_pos.translation();
 
-  // auto rotation = initial_hammer_head_position.rotation();
-
   // std::cout << "Matrix : " << rotation << std::endl;
+  std::cout << z << std::endl;
+  posWp ={initial_hammer_head_position.translation(),
+          // Eigen::Vector3d({x, y, 1.3}),
+          Eigen::Vector3d({0.55, 0.30,1.456}),
+        nail_pos.translation(),                                    
+          };
+  
+  Eigen::Quaterniond identity_quaternion = Eigen::Quaterniond({1, 0, 0, 0});
+  
+  std::cout << "Initial rotation matrix of the hammer head : " << std::endl;
+  std::cout << initial_hammer_head_position.rotation() << std::endl;
+  
+  std::cout << "Quaternion rotation matrix : " << std::endl;
+  std::cout << Eigen::Quaterniond({0, -0.7, 0, 0.7}).matrix() << std::endl;
+  
+  const std::vector<std::pair<double, Eigen::Matrix3d>> & oriWp = {
+    std::make_pair(1, Eigen::Quaterniond({0, -0.7, 0, 0.7}).matrix())
+  };//std::make_pair(4, Eigen::Quaterniond({0.51, -0.28, 0.24, 0.77}).matrix())};
 
-  const mc_trajectory::BSpline::waypoints_t & posWp ={ initial_hammer_head_position.translation(),
-                                                        Eigen::Vector3d({x, y, 1}),
-                                                        Eigen::Vector3d({x, y, 1.1}),
-                                                        Eigen::Vector3d({x, y, 1.2}),
-                                                        Eigen::Vector3d({x, y, 1.3}),
-                                                        Eigen::Vector3d({0.55, 0.30,1.456}),
-                                                        
-                                                        Eigen::Vector3d({0.55, 0.30, 1.3}),
-                                                        Eigen::Vector3d({0.55, 0.30, 1.2}),
-                                                        Eigen::Vector3d({0.55, 0.30, 1.1}),
-                                                        Eigen::Vector3d({0.55, 0.30, nail_pos.translation().z()}),
-                                                      
-                                                      // Eigen::Vector3d({0.55, 0.30, 1}),
-                                                      // Eigen::Vector3d({0.55, 0.30, 1}),
-                                                      // Eigen::Vector3d({0.55, 0.30, 1}),
-                                                      // Eigen::Vector3d({0.55, 0.30, 1}),
-                                                      // Eigen::Vector3d({0.55, 0.30, 1}),
-
-                          
-                                                      // Eigen::Vector3d({0.55, 0.30, 1.4}),
-                                                      //tst
-                                                      };
-
-
-  const std::vector<std::pair<double, Eigen::Matrix3d>> & oriWp = {std::make_pair(1, Eigen::Quaterniond({0.51, -0.28, 0.24, 0.77}).matrix())};
-
+  // const sva::PTransformd & target = sva::PTransformd(Eigen::Quaterniond({0, -0.7, 0, 0.7}), Eigen::Vector3d({0.55, 0.30, 0.9}));
   const sva::PTransformd & target = sva::PTransformd(Eigen::Quaterniond({0, -0.7, 0, 0.7}), Eigen::Vector3d({0.55, 0.30, 0.9}));
   
   BSplineVel = std::make_shared<mc_tasks::BSplineTrajectoryTask>(ctl.robot().frame("Hammer_Head"),
@@ -78,10 +80,12 @@ void Get_In_Position_Task::start(mc_control::fsm::Controller & ctl_)
                                                                   target, 
                                                                   constr, 
                                                                   posWp, 
-                                                                  oriWp);
-
+                                                                  oriWp,
+                                                                  false);
   BSplineVel->stiffness(100);
   BSplineVel->weight(1000);
+  std::cout << "BSplineVel->spline().get_bezier().constr_.end_vel.z(): " << BSplineVel->spline().get_bezier()->constr_.end_vel.z() << std::endl;
+  // std::cout << "end vel z : " << constr.end_vel.z() << std::endl;
 
   ctl.getPostureTask(ctl.robot().name())->weight(1);
   ctl.solver().addTask(BSplineVel);
@@ -90,25 +94,28 @@ void Get_In_Position_Task::start(mc_control::fsm::Controller & ctl_)
 bool Get_In_Position_Task::run(mc_control::fsm::Controller & ctl_)
 {
     auto & ctl = static_cast<Hammering_FSM_Controller &>(ctl_);
-
-    auto startPoint = ctl.robot().frame("Hammer_Head").position();
-    if (startPoint.translation().z() > 1){
-    const mc_trajectory::BSpline::waypoints_t & posWp ={ startPoint.translation(),
-
-                                                        Eigen::Vector3d({1, 0.30, 1.456}),
-                                                        
-                                                        Eigen::Vector3d({1, 0.30, 1.3}),
-                                                        Eigen::Vector3d({1, 0.30, 1.2}),
-                                                        Eigen::Vector3d({1, 0.30, 1.1}),
-                                                        Eigen::Vector3d({1, 0.30, 0.9})};
-
-      BSplineVel->posWaypoints(posWp);
-    }
-    if( BSplineVel->eval().norm() < 0.09)
+    // auto vel = ctl.robot().frame("Hammer_Head").velocity();
+    // auto linear_vel = vel.linear();
+    // Eigen::Vector3d world_linear = ctl.robot().frame("Hammer_Head").position().rotation() * vel.linear();
+    // std::cout << "linear_vel hammer_frame  = {" << std::endl;
+    // std::cout << "linear_vel.x = " << linear_vel.x() << std::endl;
+    // std::cout << "linear_vel.y = " << linear_vel.y() << std::endl;
+    // std::cout << "linear_vel.z = " << linear_vel.z() << std::endl;
+    // std::cout << "}";
+    // std::cout << "" << std::endl;
+    
+    double epsilon = 0.13;
+    if( BSplineVel->eval().norm() < epsilon)
     {
         output("Stop");
+        std::cout << "Final rotation matrix of the hammer head : " << std::endl;
+        std::cout << ctl.robot().frame("Hammer_Head").position().rotation() << std::endl;
         return true;
     }
+    else {
+      // std::cout << "output is not 'Stop' : "  << "BSplineVel->eval().norm() = " << BSplineVel->eval().norm() << " > epsilon = " << epsilon << std::endl;
+    }
+
   
   return false;
 }

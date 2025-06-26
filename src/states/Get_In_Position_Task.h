@@ -29,9 +29,13 @@ struct Get_In_Position_Task : mc_control::fsm::State
     sva::PTransformd initial_hammer_head_position;    
     bool stop = false;
 
+    mc_trajectory::BSpline::waypoints_t posWp;
+
     typedef Eigen::Vector3d Point;
     typedef Point point_t;
     typedef ndcurves::curve_constraints<point_t> curve_constraints_t;
     curve_constraints_t constr;
+
+
 
 };

@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/plugin
+CMAKE_SOURCE_DIR = /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/plugin
+CMAKE_BINARY_DIR = /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -142,14 +142,14 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/plugin/CMakeFiles /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/plugin//CMakeFiles/progress.marks
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/plugin/CMakeFiles 0
+	cd /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller && $(CMAKE_COMMAND) -E cmake_progress_start /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/plugin//CMakeFiles/progress.marks
+	cd /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 plugin/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 clean
+	cd /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 plugin/clean
 .PHONY : clean
 
 # The main clean target
@@ -158,30 +158,31 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 preinstall
+	cd /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 plugin/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 preinstall
+	cd /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 plugin/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
-#=============================================================================
-# Target rules for targets named NailSensorPlugin
+# Convenience name for target.
+plugin/CMakeFiles/NailSensorPlugin.dir/rule:
+	cd /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 plugin/CMakeFiles/NailSensorPlugin.dir/rule
+.PHONY : plugin/CMakeFiles/NailSensorPlugin.dir/rule
 
-# Build rule for target.
-NailSensorPlugin: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 NailSensorPlugin
+# Convenience name for target.
+NailSensorPlugin: plugin/CMakeFiles/NailSensorPlugin.dir/rule
 .PHONY : NailSensorPlugin
 
 # fast build rule for target.
 NailSensorPlugin/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/NailSensorPlugin.dir/build.make CMakeFiles/NailSensorPlugin.dir/build
+	cd /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller && $(MAKE) $(MAKESILENT) -f plugin/CMakeFiles/NailSensorPlugin.dir/build.make plugin/CMakeFiles/NailSensorPlugin.dir/build
 .PHONY : NailSensorPlugin/fast
 
 src/NailSensorPlugin.o: src/NailSensorPlugin.cpp.o
@@ -189,7 +190,7 @@ src/NailSensorPlugin.o: src/NailSensorPlugin.cpp.o
 
 # target to build an object file
 src/NailSensorPlugin.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/NailSensorPlugin.dir/build.make CMakeFiles/NailSensorPlugin.dir/src/NailSensorPlugin.cpp.o
+	cd /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller && $(MAKE) $(MAKESILENT) -f plugin/CMakeFiles/NailSensorPlugin.dir/build.make plugin/CMakeFiles/NailSensorPlugin.dir/src/NailSensorPlugin.cpp.o
 .PHONY : src/NailSensorPlugin.cpp.o
 
 src/NailSensorPlugin.i: src/NailSensorPlugin.cpp.i
@@ -197,7 +198,7 @@ src/NailSensorPlugin.i: src/NailSensorPlugin.cpp.i
 
 # target to preprocess a source file
 src/NailSensorPlugin.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/NailSensorPlugin.dir/build.make CMakeFiles/NailSensorPlugin.dir/src/NailSensorPlugin.cpp.i
+	cd /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller && $(MAKE) $(MAKESILENT) -f plugin/CMakeFiles/NailSensorPlugin.dir/build.make plugin/CMakeFiles/NailSensorPlugin.dir/src/NailSensorPlugin.cpp.i
 .PHONY : src/NailSensorPlugin.cpp.i
 
 src/NailSensorPlugin.s: src/NailSensorPlugin.cpp.s
@@ -205,7 +206,7 @@ src/NailSensorPlugin.s: src/NailSensorPlugin.cpp.s
 
 # target to generate assembly for a file
 src/NailSensorPlugin.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/NailSensorPlugin.dir/build.make CMakeFiles/NailSensorPlugin.dir/src/NailSensorPlugin.cpp.s
+	cd /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller && $(MAKE) $(MAKESILENT) -f plugin/CMakeFiles/NailSensorPlugin.dir/build.make plugin/CMakeFiles/NailSensorPlugin.dir/src/NailSensorPlugin.cpp.s
 .PHONY : src/NailSensorPlugin.cpp.s
 
 # Help Target
@@ -236,6 +237,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

@@ -7,7 +7,7 @@ events:
       - "/usr/share/cmake-4.0/Modules/CMakeDetermineSystem.cmake:205 (message)"
       - "CMakeLists.txt:10 (project)"
     message: |
-      The system is: Linux - 6.8.0-59-generic - x86_64
+      The system is: Linux - 6.8.0-60-generic - x86_64
   -
     kind: "message-v1"
     backtrace:
@@ -39,24 +39,23 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeScratch/TryCompile-9PCorE"
-      binary: "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeScratch/TryCompile-9PCorE"
+      source: "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeScratch/TryCompile-HXluum"
+      binary: "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeScratch/TryCompile-HXluum"
     cmakeVariables:
       CMAKE_CXX_FLAGS: ""
-      CMAKE_CXX_FLAGS_DEBUG: "-g"
       CMAKE_CXX_SCAN_FOR_MODULES: "OFF"
       CMAKE_EXE_LINKER_FLAGS: ""
     buildResult:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeScratch/TryCompile-9PCorE'
+        Change Dir: '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeScratch/TryCompile-HXluum'
         
-        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_498d6/fast
-        /usr/bin/gmake  -f CMakeFiles/cmTC_498d6.dir/build.make CMakeFiles/cmTC_498d6.dir/build
-        gmake[1]: Entering directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeScratch/TryCompile-9PCorE'
-        Building CXX object CMakeFiles/cmTC_498d6.dir/CMakeCXXCompilerABI.cpp.o
-        /usr/bin/c++   -std=gnu++11   -v -o CMakeFiles/cmTC_498d6.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-4.0/Modules/CMakeCXXCompilerABI.cpp
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_868b8/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_868b8.dir/build.make CMakeFiles/cmTC_868b8.dir/build
+        gmake[1]: Entering directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeScratch/TryCompile-HXluum'
+        Building CXX object CMakeFiles/cmTC_868b8.dir/CMakeCXXCompilerABI.cpp.o
+        /usr/bin/c++   -v -o CMakeFiles/cmTC_868b8.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-4.0/Modules/CMakeCXXCompilerABI.cpp
         Using built-in specs.
         COLLECT_GCC=/usr/bin/c++
         OFFLOAD_TARGET_NAMES=nvptx-none:amdgcn-amdhsa
@@ -66,9 +65,9 @@ events:
         Thread model: posix
         Supported LTO compression algorithms: zlib zstd
         gcc version 11.4.0 (Ubuntu 11.4.0-1ubuntu1~22.04) 
-        COLLECT_GCC_OPTIONS='-std=gnu++11' '-v' '-o' 'CMakeFiles/cmTC_498d6.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_498d6.dir/'
-         /usr/lib/gcc/x86_64-linux-gnu/11/cc1plus -quiet -v -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /usr/share/cmake-4.0/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_498d6.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -std=gnu++11 -version -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection -o /tmp/cc2UCKT0.s
-        GNU C++11 (Ubuntu 11.4.0-1ubuntu1~22.04) version 11.4.0 (x86_64-linux-gnu)
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_868b8.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_868b8.dir/'
+         /usr/lib/gcc/x86_64-linux-gnu/11/cc1plus -quiet -v -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /usr/share/cmake-4.0/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_868b8.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -version -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection -o /tmp/ccTetBl2.s
+        GNU C++17 (Ubuntu 11.4.0-1ubuntu1~22.04) version 11.4.0 (x86_64-linux-gnu)
         	compiled by GNU C version 11.4.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.24-GMP
         
         GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
@@ -86,19 +85,19 @@ events:
          /usr/include/x86_64-linux-gnu
          /usr/include
         End of search list.
-        GNU C++11 (Ubuntu 11.4.0-1ubuntu1~22.04) version 11.4.0 (x86_64-linux-gnu)
+        GNU C++17 (Ubuntu 11.4.0-1ubuntu1~22.04) version 11.4.0 (x86_64-linux-gnu)
         	compiled by GNU C version 11.4.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.24-GMP
         
         GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
         Compiler executable checksum: d591828bb4d392ae8b7b160e5bb0b95f
-        COLLECT_GCC_OPTIONS='-std=gnu++11' '-v' '-o' 'CMakeFiles/cmTC_498d6.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_498d6.dir/'
-         as -v --64 -o CMakeFiles/cmTC_498d6.dir/CMakeCXXCompilerABI.cpp.o /tmp/cc2UCKT0.s
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_868b8.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_868b8.dir/'
+         as -v --64 -o CMakeFiles/cmTC_868b8.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccTetBl2.s
         GNU assembler version 2.38 (x86_64-linux-gnu) using BFD version (GNU Binutils for Ubuntu) 2.38
         COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/
         LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../:/lib/:/usr/lib/
-        COLLECT_GCC_OPTIONS='-std=gnu++11' '-v' '-o' 'CMakeFiles/cmTC_498d6.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_498d6.dir/CMakeCXXCompilerABI.cpp.'
-        Linking CXX executable cmTC_498d6
-        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_498d6.dir/link.txt --verbose=1
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_868b8.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_868b8.dir/CMakeCXXCompilerABI.cpp.'
+        Linking CXX executable cmTC_868b8
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_868b8.dir/link.txt --verbose=1
         Using built-in specs.
         COLLECT_GCC=/usr/bin/c++
         COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/11/lto-wrapper
@@ -111,14 +110,14 @@ events:
         gcc version 11.4.0 (Ubuntu 11.4.0-1ubuntu1~22.04) 
         COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/
         LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../:/lib/:/usr/lib/
-        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_498d6' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_498d6.'
-         /usr/lib/gcc/x86_64-linux-gnu/11/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/11/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/11/lto-wrapper -plugin-opt=-fresolution=/tmp/cc9sUZFK.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_498d6 /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/11 -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/11/../../.. -v CMakeFiles/cmTC_498d6.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/11/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crtn.o
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_868b8' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_868b8.'
+         /usr/lib/gcc/x86_64-linux-gnu/11/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/11/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/11/lto-wrapper -plugin-opt=-fresolution=/tmp/cco4pHij.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_868b8 /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/11 -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/11/../../.. -v CMakeFiles/cmTC_868b8.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/11/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crtn.o
         collect2 version 11.4.0
-        /usr/bin/ld -plugin /usr/lib/gcc/x86_64-linux-gnu/11/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/11/lto-wrapper -plugin-opt=-fresolution=/tmp/cc9sUZFK.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_498d6 /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/11 -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/11/../../.. -v CMakeFiles/cmTC_498d6.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/11/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crtn.o
+        /usr/bin/ld -plugin /usr/lib/gcc/x86_64-linux-gnu/11/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/11/lto-wrapper -plugin-opt=-fresolution=/tmp/cco4pHij.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_868b8 /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/11 -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/11/../../.. -v CMakeFiles/cmTC_868b8.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/11/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crtn.o
         GNU ld (GNU Binutils for Ubuntu) 2.38
-        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_498d6' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_498d6.'
-        /usr/bin/c++  -v -Wl,-v CMakeFiles/cmTC_498d6.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_498d6
-        gmake[1]: Leaving directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeScratch/TryCompile-9PCorE'
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_868b8' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_868b8.'
+        /usr/bin/c++  -v -Wl,-v CMakeFiles/cmTC_868b8.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_868b8
+        gmake[1]: Leaving directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeScratch/TryCompile-HXluum'
         
       exitCode: 0
   -
@@ -159,13 +158,13 @@ events:
       Parsed CXX implicit link information:
         link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
         linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
-        ignore line: [Change Dir: '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeScratch/TryCompile-9PCorE']
+        ignore line: [Change Dir: '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeScratch/TryCompile-HXluum']
         ignore line: []
-        ignore line: [Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_498d6/fast]
-        ignore line: [/usr/bin/gmake  -f CMakeFiles/cmTC_498d6.dir/build.make CMakeFiles/cmTC_498d6.dir/build]
-        ignore line: [gmake[1]: Entering directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeScratch/TryCompile-9PCorE']
-        ignore line: [Building CXX object CMakeFiles/cmTC_498d6.dir/CMakeCXXCompilerABI.cpp.o]
-        ignore line: [/usr/bin/c++   -std=gnu++11   -v -o CMakeFiles/cmTC_498d6.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-4.0/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_868b8/fast]
+        ignore line: [/usr/bin/gmake  -f CMakeFiles/cmTC_868b8.dir/build.make CMakeFiles/cmTC_868b8.dir/build]
+        ignore line: [gmake[1]: Entering directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeScratch/TryCompile-HXluum']
+        ignore line: [Building CXX object CMakeFiles/cmTC_868b8.dir/CMakeCXXCompilerABI.cpp.o]
+        ignore line: [/usr/bin/c++   -v -o CMakeFiles/cmTC_868b8.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-4.0/Modules/CMakeCXXCompilerABI.cpp]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=/usr/bin/c++]
         ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none:amdgcn-amdhsa]
@@ -175,9 +174,9 @@ events:
         ignore line: [Thread model: posix]
         ignore line: [Supported LTO compression algorithms: zlib zstd]
         ignore line: [gcc version 11.4.0 (Ubuntu 11.4.0-1ubuntu1~22.04) ]
-        ignore line: [COLLECT_GCC_OPTIONS='-std=gnu++11' '-v' '-o' 'CMakeFiles/cmTC_498d6.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_498d6.dir/']
-        ignore line: [ /usr/lib/gcc/x86_64-linux-gnu/11/cc1plus -quiet -v -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /usr/share/cmake-4.0/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_498d6.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -std=gnu++11 -version -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection -o /tmp/cc2UCKT0.s]
-        ignore line: [GNU C++11 (Ubuntu 11.4.0-1ubuntu1~22.04) version 11.4.0 (x86_64-linux-gnu)]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_868b8.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_868b8.dir/']
+        ignore line: [ /usr/lib/gcc/x86_64-linux-gnu/11/cc1plus -quiet -v -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /usr/share/cmake-4.0/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_868b8.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -version -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection -o /tmp/ccTetBl2.s]
+        ignore line: [GNU C++17 (Ubuntu 11.4.0-1ubuntu1~22.04) version 11.4.0 (x86_64-linux-gnu)]
         ignore line: [	compiled by GNU C version 11.4.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.24-GMP]
         ignore line: []
         ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
@@ -195,19 +194,19 @@ events:
         ignore line: [ /usr/include/x86_64-linux-gnu]
         ignore line: [ /usr/include]
         ignore line: [End of search list.]
-        ignore line: [GNU C++11 (Ubuntu 11.4.0-1ubuntu1~22.04) version 11.4.0 (x86_64-linux-gnu)]
+        ignore line: [GNU C++17 (Ubuntu 11.4.0-1ubuntu1~22.04) version 11.4.0 (x86_64-linux-gnu)]
         ignore line: [	compiled by GNU C version 11.4.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.24-GMP]
         ignore line: []
         ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
         ignore line: [Compiler executable checksum: d591828bb4d392ae8b7b160e5bb0b95f]
-        ignore line: [COLLECT_GCC_OPTIONS='-std=gnu++11' '-v' '-o' 'CMakeFiles/cmTC_498d6.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_498d6.dir/']
-        ignore line: [ as -v --64 -o CMakeFiles/cmTC_498d6.dir/CMakeCXXCompilerABI.cpp.o /tmp/cc2UCKT0.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_868b8.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_868b8.dir/']
+        ignore line: [ as -v --64 -o CMakeFiles/cmTC_868b8.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccTetBl2.s]
         ignore line: [GNU assembler version 2.38 (x86_64-linux-gnu) using BFD version (GNU Binutils for Ubuntu) 2.38]
         ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/]
         ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../:/lib/:/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-std=gnu++11' '-v' '-o' 'CMakeFiles/cmTC_498d6.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_498d6.dir/CMakeCXXCompilerABI.cpp.']
-        ignore line: [Linking CXX executable cmTC_498d6]
-        ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_498d6.dir/link.txt --verbose=1]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_868b8.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_868b8.dir/CMakeCXXCompilerABI.cpp.']
+        ignore line: [Linking CXX executable cmTC_868b8]
+        ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_868b8.dir/link.txt --verbose=1]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=/usr/bin/c++]
         ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/11/lto-wrapper]
@@ -220,13 +219,13 @@ events:
         ignore line: [gcc version 11.4.0 (Ubuntu 11.4.0-1ubuntu1~22.04) ]
         ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/]
         ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../:/lib/:/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_498d6' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_498d6.']
-        link line: [ /usr/lib/gcc/x86_64-linux-gnu/11/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/11/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/11/lto-wrapper -plugin-opt=-fresolution=/tmp/cc9sUZFK.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_498d6 /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/11 -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/11/../../.. -v CMakeFiles/cmTC_498d6.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/11/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crtn.o]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_868b8' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_868b8.']
+        link line: [ /usr/lib/gcc/x86_64-linux-gnu/11/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/11/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/11/lto-wrapper -plugin-opt=-fresolution=/tmp/cco4pHij.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_868b8 /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/11 -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/11/../../.. -v CMakeFiles/cmTC_868b8.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/11/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crtn.o]
           arg [/usr/lib/gcc/x86_64-linux-gnu/11/collect2] ==> ignore
           arg [-plugin] ==> ignore
           arg [/usr/lib/gcc/x86_64-linux-gnu/11/liblto_plugin.so] ==> ignore
           arg [-plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/11/lto-wrapper] ==> ignore
-          arg [-plugin-opt=-fresolution=/tmp/cc9sUZFK.res] ==> ignore
+          arg [-plugin-opt=-fresolution=/tmp/cco4pHij.res] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
           arg [-plugin-opt=-pass-through=-lc] ==> ignore
@@ -244,7 +243,7 @@ events:
           arg [-znow] ==> ignore
           arg [-zrelro] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_498d6] ==> ignore
+          arg [cmTC_868b8] ==> ignore
           arg [/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/Scrt1.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/Scrt1.o]
           arg [/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o]
           arg [/usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o]
@@ -257,7 +256,7 @@ events:
           arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
           arg [-L/usr/lib/gcc/x86_64-linux-gnu/11/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/11/../../..]
           arg [-v] ==> ignore
-          arg [CMakeFiles/cmTC_498d6.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+          arg [CMakeFiles/cmTC_868b8.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
           arg [-lstdc++] ==> lib [stdc++]
           arg [-lm] ==> lib [m]
           arg [-lgcc_s] ==> lib [gcc_s]
@@ -268,7 +267,7 @@ events:
           arg [/usr/lib/gcc/x86_64-linux-gnu/11/crtendS.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/11/crtendS.o]
           arg [/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crtn.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crtn.o]
         ignore line: [collect2 version 11.4.0]
-        ignore line: [/usr/bin/ld -plugin /usr/lib/gcc/x86_64-linux-gnu/11/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/11/lto-wrapper -plugin-opt=-fresolution=/tmp/cc9sUZFK.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_498d6 /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/11 -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/11/../../.. -v CMakeFiles/cmTC_498d6.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/11/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crtn.o]
+        ignore line: [/usr/bin/ld -plugin /usr/lib/gcc/x86_64-linux-gnu/11/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/11/lto-wrapper -plugin-opt=-fresolution=/tmp/cco4pHij.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_868b8 /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/11 -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/11/../../.. -v CMakeFiles/cmTC_868b8.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/11/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crtn.o]
         linker tool for 'CXX': /usr/bin/ld
         collapse obj [/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/Scrt1.o] ==> [/usr/lib/x86_64-linux-gnu/Scrt1.o]
         collapse obj [/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o] ==> [/usr/lib/x86_64-linux-gnu/crti.o]
@@ -310,7 +309,6 @@ events:
       binary: "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp"
     cmakeVariables:
       CMAKE_CXX_FLAGS: ""
-      CMAKE_CXX_FLAGS_DEBUG: "-g"
       CMAKE_EXE_LINKER_FLAGS: ""
       CMAKE_MODULE_PATH: "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/RBDyn"
     buildResult:
@@ -319,14 +317,14 @@ events:
       stdout: |
         Change Dir: '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_7250c/fast
-        /usr/bin/gmake  -f CMakeFiles/cmTC_7250c.dir/build.make CMakeFiles/cmTC_7250c.dir/build
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_dbcc0/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_dbcc0.dir/build.make CMakeFiles/cmTC_dbcc0.dir/build
         gmake[1]: Entering directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
-        Building CXX object CMakeFiles/cmTC_7250c.dir/tmp-cxx-standard.cpp.o
-        /usr/bin/c++   -std=gnu++11 -o CMakeFiles/cmTC_7250c.dir/tmp-cxx-standard.cpp.o -c /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/cmake/tmp-cxx-standard.cpp
-        Linking CXX executable cmTC_7250c
-        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7250c.dir/link.txt --verbose=1
-        /usr/bin/c++ "CMakeFiles/cmTC_7250c.dir/tmp-cxx-standard.cpp.o" -o cmTC_7250c
+        Building CXX object CMakeFiles/cmTC_dbcc0.dir/tmp-cxx-standard.cpp.o
+        /usr/bin/c++    -o CMakeFiles/cmTC_dbcc0.dir/tmp-cxx-standard.cpp.o -c /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/cmake/tmp-cxx-standard.cpp
+        Linking CXX executable cmTC_dbcc0
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_dbcc0.dir/link.txt --verbose=1
+        /usr/bin/c++ "CMakeFiles/cmTC_dbcc0.dir/tmp-cxx-standard.cpp.o" -o cmTC_dbcc0
         gmake[1]: Leaving directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
         
       exitCode: 0
@@ -334,7 +332,7 @@ events:
       variable: "_cxx_standard_run_status"
       cached: true
       stdout: |
-        201103
+        201703
       exitCode: 0
   -
     kind: "try_compile-v1"
@@ -350,28 +348,27 @@ events:
     checks:
       - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
     directories:
-      source: "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeScratch/TryCompile-7pifKf"
-      binary: "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeScratch/TryCompile-7pifKf"
+      source: "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeScratch/TryCompile-fSIZ6E"
+      binary: "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeScratch/TryCompile-fSIZ6E"
     cmakeVariables:
       CMAKE_CXX_FLAGS: ""
-      CMAKE_CXX_FLAGS_DEBUG: "-g"
       CMAKE_EXE_LINKER_FLAGS: ""
       CMAKE_MODULE_PATH: "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/RBDyn"
     buildResult:
       variable: "CMAKE_HAVE_LIBC_PTHREAD"
       cached: true
       stdout: |
-        Change Dir: '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeScratch/TryCompile-7pifKf'
+        Change Dir: '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeScratch/TryCompile-fSIZ6E'
         
-        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_f18b7/fast
-        /usr/bin/gmake  -f CMakeFiles/cmTC_f18b7.dir/build.make CMakeFiles/cmTC_f18b7.dir/build
-        gmake[1]: Entering directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeScratch/TryCompile-7pifKf'
-        Building CXX object CMakeFiles/cmTC_f18b7.dir/src.cxx.o
-        /usr/bin/c++ -DCMAKE_HAVE_LIBC_PTHREAD  -std=gnu++14 -o CMakeFiles/cmTC_f18b7.dir/src.cxx.o -c /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeScratch/TryCompile-7pifKf/src.cxx
-        Linking CXX executable cmTC_f18b7
-        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f18b7.dir/link.txt --verbose=1
-        /usr/bin/c++ CMakeFiles/cmTC_f18b7.dir/src.cxx.o -o cmTC_f18b7
-        gmake[1]: Leaving directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeScratch/TryCompile-7pifKf'
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_09109/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_09109.dir/build.make CMakeFiles/cmTC_09109.dir/build
+        gmake[1]: Entering directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeScratch/TryCompile-fSIZ6E'
+        Building CXX object CMakeFiles/cmTC_09109.dir/src.cxx.o
+        /usr/bin/c++ -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_09109.dir/src.cxx.o -c /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeScratch/TryCompile-fSIZ6E/src.cxx
+        Linking CXX executable cmTC_09109
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_09109.dir/link.txt --verbose=1
+        /usr/bin/c++ CMakeFiles/cmTC_09109.dir/src.cxx.o -o cmTC_09109
+        gmake[1]: Leaving directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeScratch/TryCompile-fSIZ6E'
         
       exitCode: 0
 ...
@@ -384,7 +381,7 @@ events:
       - "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/ndcurves/cxx-standard.cmake:62 (try_run)"
       - "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/ndcurves/ndcurvesConfig.cmake:182 (CHECK_MINIMAL_CXX_STANDARD)"
       - "/usr/share/cmake-4.0/Modules/CMakeFindDependencyMacro.cmake:78 (find_package)"
-      - "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/mc_rtc/mc_rtcConfig.cmake:157 (find_dependency)"
+      - "/usr/local/lib/cmake/mc_rtc/mc_rtcConfig.cmake:157 (find_dependency)"
       - "CMakeLists.txt:14 (find_package)"
     directories:
       source: "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp"
@@ -399,14 +396,560 @@ events:
       stdout: |
         Change Dir: '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_1e856/fast
-        /usr/bin/gmake  -f CMakeFiles/cmTC_1e856.dir/build.make CMakeFiles/cmTC_1e856.dir/build
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_28b13/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_28b13.dir/build.make CMakeFiles/cmTC_28b13.dir/build
         gmake[1]: Entering directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
-        Building CXX object CMakeFiles/cmTC_1e856.dir/tmp-cxx-standard.cpp.o
-        /usr/bin/c++    -o CMakeFiles/cmTC_1e856.dir/tmp-cxx-standard.cpp.o -c /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/cmake/tmp-cxx-standard.cpp
-        Linking CXX executable cmTC_1e856
-        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1e856.dir/link.txt --verbose=1
-        /usr/bin/c++ "CMakeFiles/cmTC_1e856.dir/tmp-cxx-standard.cpp.o" -o cmTC_1e856
+        Building CXX object CMakeFiles/cmTC_28b13.dir/tmp-cxx-standard.cpp.o
+        /usr/bin/c++    -o CMakeFiles/cmTC_28b13.dir/tmp-cxx-standard.cpp.o -c /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/cmake/tmp-cxx-standard.cpp
+        Linking CXX executable cmTC_28b13
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_28b13.dir/link.txt --verbose=1
+        /usr/bin/c++ "CMakeFiles/cmTC_28b13.dir/tmp-cxx-standard.cpp.o" -o cmTC_28b13
+        gmake[1]: Leaving directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "_cxx_standard_run_status"
+      cached: true
+      stdout: |
+        201703
+      exitCode: 0
+...
+
+---
+events:
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/ndcurves/cxx-standard.cmake:62 (try_run)"
+      - "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/ndcurves/ndcurvesConfig.cmake:182 (CHECK_MINIMAL_CXX_STANDARD)"
+      - "/usr/share/cmake-4.0/Modules/CMakeFindDependencyMacro.cmake:78 (find_package)"
+      - "/usr/local/lib/cmake/mc_rtc/mc_rtcConfig.cmake:157 (find_dependency)"
+      - "CMakeLists.txt:14 (find_package)"
+    directories:
+      source: "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp"
+      binary: "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/RBDyn"
+    buildResult:
+      variable: "_cxx_standard_build_status"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_9bb9d/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_9bb9d.dir/build.make CMakeFiles/cmTC_9bb9d.dir/build
+        gmake[1]: Entering directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
+        Building CXX object CMakeFiles/cmTC_9bb9d.dir/tmp-cxx-standard.cpp.o
+        /usr/bin/c++    -o CMakeFiles/cmTC_9bb9d.dir/tmp-cxx-standard.cpp.o -c /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/cmake/tmp-cxx-standard.cpp
+        Linking CXX executable cmTC_9bb9d
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9bb9d.dir/link.txt --verbose=1
+        /usr/bin/c++ "CMakeFiles/cmTC_9bb9d.dir/tmp-cxx-standard.cpp.o" -o cmTC_9bb9d
+        gmake[1]: Leaving directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "_cxx_standard_run_status"
+      cached: true
+      stdout: |
+        201703
+      exitCode: 0
+...
+
+---
+events:
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/ndcurves/cxx-standard.cmake:62 (try_run)"
+      - "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/ndcurves/ndcurvesConfig.cmake:182 (CHECK_MINIMAL_CXX_STANDARD)"
+      - "/usr/share/cmake-4.0/Modules/CMakeFindDependencyMacro.cmake:78 (find_package)"
+      - "/usr/local/lib/cmake/mc_rtc/mc_rtcConfig.cmake:157 (find_dependency)"
+      - "CMakeLists.txt:14 (find_package)"
+    directories:
+      source: "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp"
+      binary: "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/RBDyn"
+    buildResult:
+      variable: "_cxx_standard_build_status"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_7f763/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_7f763.dir/build.make CMakeFiles/cmTC_7f763.dir/build
+        gmake[1]: Entering directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
+        Building CXX object CMakeFiles/cmTC_7f763.dir/tmp-cxx-standard.cpp.o
+        /usr/bin/c++    -o CMakeFiles/cmTC_7f763.dir/tmp-cxx-standard.cpp.o -c /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/cmake/tmp-cxx-standard.cpp
+        Linking CXX executable cmTC_7f763
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7f763.dir/link.txt --verbose=1
+        /usr/bin/c++ "CMakeFiles/cmTC_7f763.dir/tmp-cxx-standard.cpp.o" -o cmTC_7f763
+        gmake[1]: Leaving directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "_cxx_standard_run_status"
+      cached: true
+      stdout: |
+        201703
+      exitCode: 0
+...
+
+---
+events:
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/ndcurves/cxx-standard.cmake:62 (try_run)"
+      - "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/ndcurves/ndcurvesConfig.cmake:182 (CHECK_MINIMAL_CXX_STANDARD)"
+      - "/usr/share/cmake-4.0/Modules/CMakeFindDependencyMacro.cmake:78 (find_package)"
+      - "/usr/local/lib/cmake/mc_rtc/mc_rtcConfig.cmake:157 (find_dependency)"
+      - "CMakeLists.txt:14 (find_package)"
+    directories:
+      source: "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp"
+      binary: "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/RBDyn"
+    buildResult:
+      variable: "_cxx_standard_build_status"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_fbc59/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_fbc59.dir/build.make CMakeFiles/cmTC_fbc59.dir/build
+        gmake[1]: Entering directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
+        Building CXX object CMakeFiles/cmTC_fbc59.dir/tmp-cxx-standard.cpp.o
+        /usr/bin/c++    -o CMakeFiles/cmTC_fbc59.dir/tmp-cxx-standard.cpp.o -c /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/cmake/tmp-cxx-standard.cpp
+        Linking CXX executable cmTC_fbc59
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_fbc59.dir/link.txt --verbose=1
+        /usr/bin/c++ "CMakeFiles/cmTC_fbc59.dir/tmp-cxx-standard.cpp.o" -o cmTC_fbc59
+        gmake[1]: Leaving directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "_cxx_standard_run_status"
+      cached: true
+      stdout: |
+        201703
+      exitCode: 0
+...
+
+---
+events:
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/ndcurves/cxx-standard.cmake:62 (try_run)"
+      - "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/ndcurves/ndcurvesConfig.cmake:182 (CHECK_MINIMAL_CXX_STANDARD)"
+      - "/usr/share/cmake-4.0/Modules/CMakeFindDependencyMacro.cmake:78 (find_package)"
+      - "/usr/local/lib/cmake/mc_rtc/mc_rtcConfig.cmake:157 (find_dependency)"
+      - "CMakeLists.txt:14 (find_package)"
+    directories:
+      source: "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp"
+      binary: "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/RBDyn"
+    buildResult:
+      variable: "_cxx_standard_build_status"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_38f85/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_38f85.dir/build.make CMakeFiles/cmTC_38f85.dir/build
+        gmake[1]: Entering directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
+        Building CXX object CMakeFiles/cmTC_38f85.dir/tmp-cxx-standard.cpp.o
+        /usr/bin/c++    -o CMakeFiles/cmTC_38f85.dir/tmp-cxx-standard.cpp.o -c /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/cmake/tmp-cxx-standard.cpp
+        Linking CXX executable cmTC_38f85
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_38f85.dir/link.txt --verbose=1
+        /usr/bin/c++ "CMakeFiles/cmTC_38f85.dir/tmp-cxx-standard.cpp.o" -o cmTC_38f85
+        gmake[1]: Leaving directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "_cxx_standard_run_status"
+      cached: true
+      stdout: |
+        201703
+      exitCode: 0
+...
+
+---
+events:
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/ndcurves/cxx-standard.cmake:62 (try_run)"
+      - "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/ndcurves/ndcurvesConfig.cmake:182 (CHECK_MINIMAL_CXX_STANDARD)"
+      - "/usr/share/cmake-4.0/Modules/CMakeFindDependencyMacro.cmake:78 (find_package)"
+      - "/usr/local/lib/cmake/mc_rtc/mc_rtcConfig.cmake:157 (find_dependency)"
+      - "CMakeLists.txt:14 (find_package)"
+    directories:
+      source: "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp"
+      binary: "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/RBDyn"
+    buildResult:
+      variable: "_cxx_standard_build_status"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_acb28/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_acb28.dir/build.make CMakeFiles/cmTC_acb28.dir/build
+        gmake[1]: Entering directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
+        Building CXX object CMakeFiles/cmTC_acb28.dir/tmp-cxx-standard.cpp.o
+        /usr/bin/c++    -o CMakeFiles/cmTC_acb28.dir/tmp-cxx-standard.cpp.o -c /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/cmake/tmp-cxx-standard.cpp
+        Linking CXX executable cmTC_acb28
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_acb28.dir/link.txt --verbose=1
+        /usr/bin/c++ "CMakeFiles/cmTC_acb28.dir/tmp-cxx-standard.cpp.o" -o cmTC_acb28
+        gmake[1]: Leaving directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "_cxx_standard_run_status"
+      cached: true
+      stdout: |
+        201703
+      exitCode: 0
+...
+
+---
+events:
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/ndcurves/cxx-standard.cmake:62 (try_run)"
+      - "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/ndcurves/ndcurvesConfig.cmake:182 (CHECK_MINIMAL_CXX_STANDARD)"
+      - "/usr/share/cmake-4.0/Modules/CMakeFindDependencyMacro.cmake:78 (find_package)"
+      - "/usr/local/lib/cmake/mc_rtc/mc_rtcConfig.cmake:157 (find_dependency)"
+      - "CMakeLists.txt:14 (find_package)"
+    directories:
+      source: "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp"
+      binary: "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/RBDyn"
+    buildResult:
+      variable: "_cxx_standard_build_status"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_fdcfc/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_fdcfc.dir/build.make CMakeFiles/cmTC_fdcfc.dir/build
+        gmake[1]: Entering directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
+        Building CXX object CMakeFiles/cmTC_fdcfc.dir/tmp-cxx-standard.cpp.o
+        /usr/bin/c++    -o CMakeFiles/cmTC_fdcfc.dir/tmp-cxx-standard.cpp.o -c /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/cmake/tmp-cxx-standard.cpp
+        Linking CXX executable cmTC_fdcfc
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_fdcfc.dir/link.txt --verbose=1
+        /usr/bin/c++ "CMakeFiles/cmTC_fdcfc.dir/tmp-cxx-standard.cpp.o" -o cmTC_fdcfc
+        gmake[1]: Leaving directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "_cxx_standard_run_status"
+      cached: true
+      stdout: |
+        201703
+      exitCode: 0
+...
+
+---
+events:
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/ndcurves/cxx-standard.cmake:62 (try_run)"
+      - "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/ndcurves/ndcurvesConfig.cmake:182 (CHECK_MINIMAL_CXX_STANDARD)"
+      - "/usr/share/cmake-4.0/Modules/CMakeFindDependencyMacro.cmake:78 (find_package)"
+      - "/usr/local/lib/cmake/mc_rtc/mc_rtcConfig.cmake:157 (find_dependency)"
+      - "CMakeLists.txt:14 (find_package)"
+    directories:
+      source: "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp"
+      binary: "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/RBDyn"
+    buildResult:
+      variable: "_cxx_standard_build_status"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_04ed2/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_04ed2.dir/build.make CMakeFiles/cmTC_04ed2.dir/build
+        gmake[1]: Entering directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
+        Building CXX object CMakeFiles/cmTC_04ed2.dir/tmp-cxx-standard.cpp.o
+        /usr/bin/c++    -o CMakeFiles/cmTC_04ed2.dir/tmp-cxx-standard.cpp.o -c /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/cmake/tmp-cxx-standard.cpp
+        Linking CXX executable cmTC_04ed2
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_04ed2.dir/link.txt --verbose=1
+        /usr/bin/c++ "CMakeFiles/cmTC_04ed2.dir/tmp-cxx-standard.cpp.o" -o cmTC_04ed2
+        gmake[1]: Leaving directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "_cxx_standard_run_status"
+      cached: true
+      stdout: |
+        201703
+      exitCode: 0
+...
+
+---
+events:
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/ndcurves/cxx-standard.cmake:62 (try_run)"
+      - "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/ndcurves/ndcurvesConfig.cmake:182 (CHECK_MINIMAL_CXX_STANDARD)"
+      - "/usr/share/cmake-4.0/Modules/CMakeFindDependencyMacro.cmake:78 (find_package)"
+      - "/usr/local/lib/cmake/mc_rtc/mc_rtcConfig.cmake:157 (find_dependency)"
+      - "CMakeLists.txt:14 (find_package)"
+    directories:
+      source: "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp"
+      binary: "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/RBDyn"
+    buildResult:
+      variable: "_cxx_standard_build_status"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_183b9/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_183b9.dir/build.make CMakeFiles/cmTC_183b9.dir/build
+        gmake[1]: Entering directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
+        Building CXX object CMakeFiles/cmTC_183b9.dir/tmp-cxx-standard.cpp.o
+        /usr/bin/c++    -o CMakeFiles/cmTC_183b9.dir/tmp-cxx-standard.cpp.o -c /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/cmake/tmp-cxx-standard.cpp
+        Linking CXX executable cmTC_183b9
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_183b9.dir/link.txt --verbose=1
+        /usr/bin/c++ "CMakeFiles/cmTC_183b9.dir/tmp-cxx-standard.cpp.o" -o cmTC_183b9
+        gmake[1]: Leaving directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "_cxx_standard_run_status"
+      cached: true
+      stdout: |
+        201703
+      exitCode: 0
+...
+
+---
+events:
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/ndcurves/cxx-standard.cmake:62 (try_run)"
+      - "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/ndcurves/ndcurvesConfig.cmake:182 (CHECK_MINIMAL_CXX_STANDARD)"
+      - "/usr/share/cmake-4.0/Modules/CMakeFindDependencyMacro.cmake:78 (find_package)"
+      - "/usr/local/lib/cmake/mc_rtc/mc_rtcConfig.cmake:157 (find_dependency)"
+      - "CMakeLists.txt:14 (find_package)"
+    directories:
+      source: "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp"
+      binary: "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/RBDyn"
+    buildResult:
+      variable: "_cxx_standard_build_status"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_9efe0/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_9efe0.dir/build.make CMakeFiles/cmTC_9efe0.dir/build
+        gmake[1]: Entering directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
+        Building CXX object CMakeFiles/cmTC_9efe0.dir/tmp-cxx-standard.cpp.o
+        /usr/bin/c++    -o CMakeFiles/cmTC_9efe0.dir/tmp-cxx-standard.cpp.o -c /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/cmake/tmp-cxx-standard.cpp
+        Linking CXX executable cmTC_9efe0
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9efe0.dir/link.txt --verbose=1
+        /usr/bin/c++ "CMakeFiles/cmTC_9efe0.dir/tmp-cxx-standard.cpp.o" -o cmTC_9efe0
+        gmake[1]: Leaving directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "_cxx_standard_run_status"
+      cached: true
+      stdout: |
+        201703
+      exitCode: 0
+...
+
+---
+events:
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/ndcurves/cxx-standard.cmake:62 (try_run)"
+      - "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/ndcurves/ndcurvesConfig.cmake:182 (CHECK_MINIMAL_CXX_STANDARD)"
+      - "/usr/share/cmake-4.0/Modules/CMakeFindDependencyMacro.cmake:78 (find_package)"
+      - "/usr/local/lib/cmake/mc_rtc/mc_rtcConfig.cmake:157 (find_dependency)"
+      - "CMakeLists.txt:14 (find_package)"
+    directories:
+      source: "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp"
+      binary: "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/RBDyn"
+    buildResult:
+      variable: "_cxx_standard_build_status"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_8f4ef/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_8f4ef.dir/build.make CMakeFiles/cmTC_8f4ef.dir/build
+        gmake[1]: Entering directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
+        Building CXX object CMakeFiles/cmTC_8f4ef.dir/tmp-cxx-standard.cpp.o
+        /usr/bin/c++    -o CMakeFiles/cmTC_8f4ef.dir/tmp-cxx-standard.cpp.o -c /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/cmake/tmp-cxx-standard.cpp
+        Linking CXX executable cmTC_8f4ef
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8f4ef.dir/link.txt --verbose=1
+        /usr/bin/c++ "CMakeFiles/cmTC_8f4ef.dir/tmp-cxx-standard.cpp.o" -o cmTC_8f4ef
+        gmake[1]: Leaving directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "_cxx_standard_run_status"
+      cached: true
+      stdout: |
+        201703
+      exitCode: 0
+...
+
+---
+events:
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/ndcurves/cxx-standard.cmake:62 (try_run)"
+      - "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/ndcurves/ndcurvesConfig.cmake:182 (CHECK_MINIMAL_CXX_STANDARD)"
+      - "/usr/share/cmake-4.0/Modules/CMakeFindDependencyMacro.cmake:78 (find_package)"
+      - "/usr/local/lib/cmake/mc_rtc/mc_rtcConfig.cmake:157 (find_dependency)"
+      - "CMakeLists.txt:14 (find_package)"
+    directories:
+      source: "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp"
+      binary: "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/RBDyn"
+    buildResult:
+      variable: "_cxx_standard_build_status"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_3e0f1/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_3e0f1.dir/build.make CMakeFiles/cmTC_3e0f1.dir/build
+        gmake[1]: Entering directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
+        Building CXX object CMakeFiles/cmTC_3e0f1.dir/tmp-cxx-standard.cpp.o
+        /usr/bin/c++    -o CMakeFiles/cmTC_3e0f1.dir/tmp-cxx-standard.cpp.o -c /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/cmake/tmp-cxx-standard.cpp
+        Linking CXX executable cmTC_3e0f1
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3e0f1.dir/link.txt --verbose=1
+        /usr/bin/c++ "CMakeFiles/cmTC_3e0f1.dir/tmp-cxx-standard.cpp.o" -o cmTC_3e0f1
+        gmake[1]: Leaving directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "_cxx_standard_run_status"
+      cached: true
+      stdout: |
+        201703
+      exitCode: 0
+...
+
+---
+events:
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/ndcurves/cxx-standard.cmake:62 (try_run)"
+      - "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/ndcurves/ndcurvesConfig.cmake:182 (CHECK_MINIMAL_CXX_STANDARD)"
+      - "/usr/share/cmake-4.0/Modules/CMakeFindDependencyMacro.cmake:78 (find_package)"
+      - "/usr/local/lib/cmake/mc_rtc/mc_rtcConfig.cmake:157 (find_dependency)"
+      - "CMakeLists.txt:14 (find_package)"
+    directories:
+      source: "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp"
+      binary: "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/RBDyn"
+    buildResult:
+      variable: "_cxx_standard_build_status"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_6dc3f/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_6dc3f.dir/build.make CMakeFiles/cmTC_6dc3f.dir/build
+        gmake[1]: Entering directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
+        Building CXX object CMakeFiles/cmTC_6dc3f.dir/tmp-cxx-standard.cpp.o
+        /usr/bin/c++    -o CMakeFiles/cmTC_6dc3f.dir/tmp-cxx-standard.cpp.o -c /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/cmake/tmp-cxx-standard.cpp
+        Linking CXX executable cmTC_6dc3f
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_6dc3f.dir/link.txt --verbose=1
+        /usr/bin/c++ "CMakeFiles/cmTC_6dc3f.dir/tmp-cxx-standard.cpp.o" -o cmTC_6dc3f
+        gmake[1]: Leaving directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "_cxx_standard_run_status"
+      cached: true
+      stdout: |
+        201703
+      exitCode: 0
+...
+
+---
+events:
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/ndcurves/cxx-standard.cmake:62 (try_run)"
+      - "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/ndcurves/ndcurvesConfig.cmake:182 (CHECK_MINIMAL_CXX_STANDARD)"
+      - "/usr/share/cmake-4.0/Modules/CMakeFindDependencyMacro.cmake:78 (find_package)"
+      - "/usr/local/lib/cmake/mc_rtc/mc_rtcConfig.cmake:157 (find_dependency)"
+      - "CMakeLists.txt:14 (find_package)"
+    directories:
+      source: "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp"
+      binary: "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/RBDyn"
+    buildResult:
+      variable: "_cxx_standard_build_status"
+      cached: true
+      stdout: |
+        Change Dir: '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_0514d/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_0514d.dir/build.make CMakeFiles/cmTC_0514d.dir/build
+        gmake[1]: Entering directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
+        Building CXX object CMakeFiles/cmTC_0514d.dir/tmp-cxx-standard.cpp.o
+        /usr/bin/c++    -o CMakeFiles/cmTC_0514d.dir/tmp-cxx-standard.cpp.o -c /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/cmake/tmp-cxx-standard.cpp
+        Linking CXX executable cmTC_0514d
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0514d.dir/link.txt --verbose=1
+        /usr/bin/c++ "CMakeFiles/cmTC_0514d.dir/tmp-cxx-standard.cpp.o" -o cmTC_0514d
         gmake[1]: Leaving directory '/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/CMakeTmp'
         
       exitCode: 0

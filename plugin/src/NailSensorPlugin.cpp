@@ -13,12 +13,12 @@ namespace mc_plugin
 
     NailSensorPlugin::~NailSensorPlugin()
     {
-        _running = false;
-        std::cout << "Running in destructor : " << _running << std::endl;
-        if(_ros_thread.joinable()) 
-        {
-            _ros_thread.join();
-        }
+        std::cout << "Running NailSensorPlugin destructor" << std::endl;
+        // if(_ros_thread.joinable()) 
+        // {
+        //     _running = false;
+        //     _ros_thread.join();
+        // }
     }
 
 
@@ -29,29 +29,23 @@ namespace mc_plugin
   
 
         mc_rtc::log::success("NailSensorPlugin Running");
-    }
-
-    void NailSensorPlugin::reset(mc_control::MCGlobalController &controller)
-    {
-        
-        mc_rtc::log::info("NailSensorPlugin::reset called");
         auto nh = mc_rtc::ROSBridge::get_node_handle();
-
-        // Not the cleanest but at leat mc_mujoco does not crash
+    
+        // // Not the cleanest but at leat mc_mujoco does not crash
         if(nh != nullptr)
         {
             _subForce = nh->create_subscription<geometry_msgs::msg::Vector3Stamped>(
                 "/nail_force_sensor", 
                 1000,
                 std::bind(&NailSensorPlugin::callback, this, std::placeholders::_1));
-
-
-            std::cout << "Running in reset : " << _running << std::endl;
+    
+    
             if(_ros_thread.joinable()) 
             {
+                _running = false;
                 _ros_thread.join();
-                _running = true;
             }
+            _running =  true;
             _ros_thread = std::thread([nh, this]
                                         {
                                             while (this->_running)
@@ -61,28 +55,38 @@ namespace mc_plugin
                                         }
                                         );
         
-            _running =  false;
             mc_rtc::log::info("NailSensorPlugin::init waiting for force on nail head on topic /nail_force_sensor");
         }
         else
         {
             mc_rtc::log::error("Run roscore before running NailSensorPlugin");
         }
-
+    
         auto sensor_config = _config.find(controller.robot().module().name);
-
+    
         if(sensor_config)
         {
             std::string name = (*sensor_config)("sensorName");
             std::string bodyname = (*sensor_config)("sensorBody");
             sva::PTransformd transform = (*sensor_config)("sensorTransform");
-
+    
             _nailBodySensor = mc_rbdyn::BodySensor(name, bodyname, transform);
+    
 
+            // IT'S THIS LINE OF CODE THAT MAKES MUJOCO CRASH ON RESET ???
+            std::cout << "Before addBodySensor" << std::endl;
             controller.controller().robot("nail").addBodySensor(_nailBodySensor);
-        }
+            std::cout << "After addBodySensor" << std::endl;
 
+        }
+    
         controller.controller().logger().addLogEntry("nail_force_sensor", [this](){return _force;});
+    }
+
+    void NailSensorPlugin::reset(mc_control::MCGlobalController &controller)
+    {
+        
+        mc_rtc::log::info("NailSensorPlugin::reset called");
 
     }
 

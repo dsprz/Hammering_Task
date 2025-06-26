@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/plugin/src/NailSensorPlugin.cpp" "CMakeFiles/NailSensorPlugin.dir/src/NailSensorPlugin.cpp.o" "gcc" "CMakeFiles/NailSensorPlugin.dir/src/NailSensorPlugin.cpp.o.d"
+  "/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/plugin/src/NailSensorPlugin.cpp" "plugin/CMakeFiles/NailSensorPlugin.dir/src/NailSensorPlugin.cpp.o" "gcc" "plugin/CMakeFiles/NailSensorPlugin.dir/src/NailSensorPlugin.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

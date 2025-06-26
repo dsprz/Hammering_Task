@@ -119,8 +119,8 @@ states:
   Hammer::HammeringFSM:
     base: Meta 
     transitions:
-      - [Initial_And_Standing, OK, Get_In_Position_And_Standing, Auto]
-      - [Get_In_Position_And_Standing, Auto, Hammer::Standing, Auto]
+      - [Initial_And_Standing, BUTTON_CLICKED, Get_In_Position_And_Standing, Auto]
+      - [Get_In_Position_And_Standing, Stop, Initial_And_Standing, Auto]
       # - [Hammer::HammeringFSM_Hammering, Stop , Hammer::HammeringFSM_Finish, Auto]
       # - [Hammer::HammeringFSM_Finish, Auto , Hammer::HammeringFSM_Initial, Auto]
       # - [Hammer::HammeringFSM_Finish, Start , Hammer::HammeringFSM_Hammering, Auto]

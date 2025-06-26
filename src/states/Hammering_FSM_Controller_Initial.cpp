@@ -25,7 +25,7 @@ bool Hammering_FSM_Controller_Initial::run(mc_control::fsm::Controller & ctl_)
   
   if (_positionning_hammer_clicked)
   {
-      output("OK");
+      output("BUTTON_CLICKED");
       return true;
   }
   return false;

@@ -28,6 +28,11 @@ namespace mc_plugin
 
         ~NailSensorPlugin() override;
 
+        void spin_node() const;
+        void stop_thread();
+        void start_thread();
+
+
         private:
         //     ros::Subscriber _subForce;
             rclcpp::Subscription<geometry_msgs::msg::Vector3Stamped>::SharedPtr _subForce;
@@ -38,9 +43,10 @@ namespace mc_plugin
             Eigen::Vector3d _force;
 
             std::thread _ros_thread;
-
+            mc_rtc::NodeHandlePtr nh_ = nullptr;
             mc_rtc::Configuration _config;
             bool _running = true;
+            bool _sensor_added = false;
 
     };
 }

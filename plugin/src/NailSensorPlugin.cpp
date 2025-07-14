@@ -62,6 +62,13 @@ namespace mc_plugin
             mc_rtc::log::error("Run roscore before running NailSensorPlugin");
         }
     
+    }
+
+    void NailSensorPlugin::reset(mc_control::MCGlobalController &controller)
+    {
+        
+        mc_rtc::log::info("NailSensorPlugin::reset called");
+
         auto sensor_config = _config.find(controller.robot().module().name);
     
         if(sensor_config)
@@ -81,12 +88,6 @@ namespace mc_plugin
         }
     
         controller.controller().logger().addLogEntry("nail_force_sensor", [this](){return _force;});
-    }
-
-    void NailSensorPlugin::reset(mc_control::MCGlobalController &controller)
-    {
-        
-        mc_rtc::log::info("NailSensorPlugin::reset called");
 
     }
 

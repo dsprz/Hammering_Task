@@ -64,7 +64,7 @@ CMAKE_AR:FILEPATH=/usr/bin/ar
 
 //Choose the type of build, options are: None Debug Release RelWithDebInfo
 // MinSizeRel ...
-CMAKE_BUILD_TYPE:STRING=RelWithDebInfo
+CMAKE_BUILD_TYPE:STRING=
 
 //Enable/Disable color output during build.
 CMAKE_COLOR_MAKEFILE:BOOL=ON
@@ -120,7 +120,7 @@ CMAKE_EXPORT_COMPILE_COMMANDS:UNINITIALIZED=ON
 CMAKE_FIND_PACKAGE_REDIRECTS_DIR:STATIC=/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles/pkgRedirects
 
 //Install path prefix, prepended onto install directories.
-CMAKE_INSTALL_PREFIX:PATH=/home/jimmyvu/Documents/mc_rtc/install
+CMAKE_INSTALL_PREFIX:PATH=/usr/local
 
 //Path to a program.
 CMAKE_LINKER:FILEPATH=/usr/bin/ld
@@ -268,7 +268,7 @@ FastRTPS_LIBRARY_DEBUG:FILEPATH=FastRTPS_LIBRARY_DEBUG-NOTFOUND
 FastRTPS_LIBRARY_RELEASE:FILEPATH=/home/jimmyvu/Documents/ros2_humble/install/fastrtps/lib/libfastrtps.so
 
 //Dependencies for the target
-Get_In_Position_Task_LIB_DEPENDS:STATIC=general;mc_rtc::mc_control_fsm;general;Hammering_FSM_Controller;
+Get_In_Position_Task_LIB_DEPENDS:STATIC=general;mc_rtc::mc_control_fsm;general;Hammering_FSM_Controller;general;mc_rtc::mc_rtc_ros;general;visualization_msgs::visualization_msgs__rosidl_generator_c;general;visualization_msgs::visualization_msgs__rosidl_typesupport_fastrtps_c;general;visualization_msgs::visualization_msgs__rosidl_typesupport_fastrtps_cpp;general;visualization_msgs::visualization_msgs__rosidl_typesupport_introspection_c;general;visualization_msgs::visualization_msgs__rosidl_typesupport_c;general;visualization_msgs::visualization_msgs__rosidl_typesupport_introspection_cpp;general;visualization_msgs::visualization_msgs__rosidl_typesupport_cpp;general;visualization_msgs::visualization_msgs__rosidl_generator_py;
 
 //Value Computed by CMake
 Hammering_FSM_Controller_BINARY_DIR:STATIC=/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller
@@ -280,7 +280,7 @@ Hammering_FSM_Controller_IS_TOP_LEVEL:STATIC=ON
 Hammering_FSM_Controller_Initial_LIB_DEPENDS:STATIC=general;mc_rtc::mc_control_fsm;general;Hammering_FSM_Controller;
 
 //Dependencies for the target
-Hammering_FSM_Controller_LIB_DEPENDS:STATIC=general;mc_rtc::mc_control_fsm;
+Hammering_FSM_Controller_LIB_DEPENDS:STATIC=general;mc_rtc::mc_control_fsm;general;mc_rtc::mc_rtc_ros;
 
 //Value Computed by CMake
 Hammering_FSM_Controller_SOURCE_DIR:STATIC=/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller
@@ -325,13 +325,13 @@ PKG_CONFIG_EXECUTABLE:FILEPATH=/usr/bin/pkg-config
 Python3_EXECUTABLE:FILEPATH=/usr/bin/python3
 
 //The directory containing a CMake configuration file for RBDyn.
-RBDyn_DIR:PATH=/usr/local/lib/cmake/RBDyn
+RBDyn_DIR:PATH=/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/RBDyn
 
 //Name of the computer/site where compile is being run
 SITE:STRING=jimmyvu-Alienware-m16-R2
 
 //The directory containing a CMake configuration file for SpaceVecAlg.
-SpaceVecAlg_DIR:PATH=/usr/local/lib/cmake/SpaceVecAlg
+SpaceVecAlg_DIR:PATH=/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/SpaceVecAlg
 
 //Path to a file.
 TINYXML2_INCLUDE_DIR:PATH=/usr/include
@@ -343,7 +343,7 @@ TINYXML2_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libtinyxml2.so
 TVM_DIR:PATH=/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/TVM
 
 //The directory containing a CMake configuration file for Tasks.
-Tasks_DIR:PATH=/usr/local/lib/cmake/Tasks
+Tasks_DIR:PATH=/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/Tasks
 
 //The directory containing a CMake configuration file for TinyXML2.
 TinyXML2_DIR:PATH=TinyXML2_DIR-NOTFOUND
@@ -481,7 +481,7 @@ libstatistics_collector_DIR:PATH=/home/jimmyvu/Documents/ros2_humble/install/lib
 libyaml_vendor_DIR:PATH=/home/jimmyvu/Documents/ros2_humble/install/libyaml_vendor/share/libyaml_vendor/cmake
 
 //The directory containing a CMake configuration file for mc_rtc.
-mc_rtc_DIR:PATH=/usr/local/lib/cmake/mc_rtc
+mc_rtc_DIR:PATH=/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/mc_rtc
 
 //The directory containing a CMake configuration file for mc_rtc_msgs.
 mc_rtc_msgs_DIR:PATH=/home/jimmyvu/Documents/mc_rtc/src/catkin_data_ws/install/share/mc_rtc_msgs/cmake
@@ -669,6 +669,9 @@ tracetools_DIR:PATH=/home/jimmyvu/Documents/ros2_humble/install/tracetools/share
 //The directory containing a CMake configuration file for unique_identifier_msgs.
 unique_identifier_msgs_DIR:PATH=/home/jimmyvu/Documents/ros2_humble/install/unique_identifier_msgs/share/unique_identifier_msgs/cmake
 
+//The directory containing a CMake configuration file for visualization_msgs.
+visualization_msgs_DIR:PATH=/home/jimmyvu/Documents/ros2_humble/install/visualization_msgs/share/visualization_msgs/cmake
+
 //The directory containing a CMake configuration file for yaml-cpp.
 yaml-cpp_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/yaml-cpp
 
@@ -696,7 +699,7 @@ CMAKE_CACHE_MAJOR_VERSION:INTERNAL=4
 //Minor version of cmake used to create the current loaded cache
 CMAKE_CACHE_MINOR_VERSION:INTERNAL=0
 //Patch version of cmake used to create the current loaded cache
-CMAKE_CACHE_PATCH_VERSION:INTERNAL=2
+CMAKE_CACHE_PATCH_VERSION:INTERNAL=3
 //ADVANCED property for variable: CMAKE_COLOR_MAKEFILE
 CMAKE_COLOR_MAKEFILE-ADVANCED:INTERNAL=1
 //Path to CMake executable.
@@ -773,7 +776,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=1
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=4
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -819,7 +822,7 @@ CMAKE_UNAME:INTERNAL=/usr/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
 //Details about finding Boost
-FIND_PACKAGE_MESSAGE_DETAILS_Boost:INTERNAL=[/usr/lib/x86_64-linux-gnu/cmake/Boost-1.74.0/BoostConfig.cmake][found components: system ][v1.74.0()]
+FIND_PACKAGE_MESSAGE_DETAILS_Boost:INTERNAL=[/usr/lib/x86_64-linux-gnu/cmake/Boost-1.74.0/BoostConfig.cmake][found components: timer ][v1.74.0()]
 //Details about finding FastRTPS
 FIND_PACKAGE_MESSAGE_DETAILS_FastRTPS:INTERNAL=[/home/jimmyvu/Documents/ros2_humble/install/fastrtps/include][/home/jimmyvu/Documents/ros2_humble/install/fastrtps/lib/libfastrtps.so;/home/jimmyvu/Documents/ros2_humble/install/fastcdr/lib/libfastcdr.so][v()]
 //Details about finding OpenSSL

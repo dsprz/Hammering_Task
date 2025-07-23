@@ -3,22 +3,32 @@
 #include "../Hammering_FSM_Controller.h"
 #include <Eigen/src/Core/Matrix.h>
 #include <Eigen/src/Geometry/AngleAxis.h>
-#include <Eigen/src/Geometry/Quaternion.h>
-#include <SpaceVecAlg/EigenTypedef.h>
-#include <SpaceVecAlg/MotionVec.h>
-#include <SpaceVecAlg/SpaceVecAlg>
 #include <cmath>
 #include <mc_rtc/gui/Button.h>
 #include <mc_rtc/logging.h>
-#include <mc_tasks/BSplineTrajectoryTask.h>
-#include <mc_trajectory/BSpline.h>
 #include <ostream>
-#include <string>
 
 
 void Get_In_Position_Task::configure(const mc_rtc::Configuration & config)
 {
    _config.load(config);
+    mc_rtc::log::info("Get_In_Position_Task configure function called with config : \n{}", config.dump(true, true));
+        auto nh = mc_rtc::ROSBridge::get_node_handle();
+    
+    if(nh != nullptr)
+    {
+        _subForce = nh->create_subscription<geometry_msgs::msg::Vector3Stamped>(
+            "/nail_force_sensor", 
+            1000,
+            std::bind(&Get_In_Position_Task::store_force, this, std::placeholders::_1));   
+
+        mc_rtc::log::success("Post_Impact_Task.cpp initialized");
+    }
+    else
+    {
+        mc_rtc::log::error("Post_Impact_Task.cpp configure function : nh is nullptr");
+    }
+
 }
 
 void Get_In_Position_Task::start(mc_control::fsm::Controller & ctl_)
@@ -46,6 +56,8 @@ void Get_In_Position_Task::start(mc_control::fsm::Controller & ctl_)
 
   _start_point = initial_hammerhead_translation;
   _end_point = initial_nail_translation;
+  // _end_point = {x_nail_init, y_nail_init, 1.1};
+
 
   auto hammer_rot = _initial_hammerhead_position.rotation();
   auto nail_rot = _initial_nail_position.rotation();
@@ -57,11 +69,11 @@ void Get_In_Position_Task::start(mc_control::fsm::Controller & ctl_)
 
 
   // Found by calculations by hand
-  rotation_axis_ = Eigen::Matrix<double, 3, 1>(1,0,-1).normalized();
+  _rotation_axis = Eigen::Matrix<double, 3, 1>(1,0,-1).normalized();
   auto angle = M_PI;
   // The quaternion works for a nail placed on a horizontal table, it will not work for a nail placed on a slope
   // The angle and the rotation axis should be computed for different orientations of the nail, but I did not do it
-  Eigen::Quaterniond q(Eigen::AngleAxisd(angle, rotation_axis_));
+  Eigen::Quaterniond q(Eigen::AngleAxisd(angle, _rotation_axis));
 
   posWp ={_start_point,
           Eigen::Vector3d({x_nail_init, y_nail_init, _magic_max_control_point_height}), //arbitrary z for now
@@ -78,8 +90,13 @@ void Get_In_Position_Task::start(mc_control::fsm::Controller & ctl_)
   const sva::PTransformd & target = sva::PTransformd(q, //maybe the quaternion expresses the orientation of your rotating frame you want to achieve at the end with respect to the world frame
                                                             //thus whatever the starting orientation of the rotating frame wrt the world frame, the robot frame will try to end up at the orientation specified by the quaternion
                                                             //how does it do that ?
-                                                  initial_nail_translation);
+                                                  // initial_nail_translation
+                                                  _end_point
+                                                );
   
+  // See if the task is tracked well. If it is tracked well but there is still a problem, then it might come from the trajectory.
+  // If the trajectory is good but the tracking says otherwise, then there might be a problem with the tracking
+  // Check if the hammer mass was correctly taken into account
   BSplineVel = std::make_shared<mc_tasks::BSplineTrajectoryTask>(ctl.robot().frame(_hammer_head_frame_name),
                                                                   _magic_bezier_curve_max_duration, 
                                                                   _magic_task_stiffness, 
@@ -101,21 +118,17 @@ void Get_In_Position_Task::start(mc_control::fsm::Controller & ctl_)
 bool Get_In_Position_Task::run(mc_control::fsm::Controller & ctl_)
 {
     auto & ctl = static_cast<Hammering_FSM_Controller &>(ctl_);
-    // auto vel = ctl.robot().frame("Hammer_Head").velocity();
-    // auto linear_vel = vel.linear();
-    // Eigen::Vector3d world_linear = ctl.robot().frame("Hammer_Head").position().rotation() * vel.linear();
-    // std::cout << "linear_vel hammer_frame  = {" << std::endl;
-    // std::cout << "linear_vel.x = " << linear_vel.x() << std::endl;
-    // std::cout << "linear_vel.y = " << linear_vel.y() << std::endl;
-    // std::cout << "linear_vel.z = " << linear_vel.z() << std::endl;
-    // std::cout << "}";
-    // std::cout << "" << std::endl;
 
-
-    if( BSplineVel->eval().norm() < _magic_epsilon)
+    // if( BSplineVel->eval().norm() < _magic_epsilon)
+    // {
+    //     output("Stop");
+    //     return true;
+    // }
+    _impact_detected = _force_vector.norm() >= _magic_epsilon_force_norm_threshold;
+    if(_impact_detected)
     {
-        output("Stop");
-        return true;
+      output("IMPACT_DETECTED");
+      return true;
     }
   
   return false;
@@ -131,12 +144,35 @@ void Get_In_Position_Task::teardown(mc_control::fsm::Controller & ctl_)
   ctl.getPostureTask(ctl.robot().name())->weight(10);
 }
 
+void Get_In_Position_Task::store_force(const std::shared_ptr<const geometry_msgs::msg::Vector3Stamped> &force)
+{
+    _force_vector = {force -> vector.x, force -> vector.y, force->vector.z};
+    
+    vector3_t normal_force = {0, 0, _force_vector.z()};
+    double normal_force_norm = normal_force.norm();
+
+    if(normal_force_norm > _max_normal_force_norm)
+    {
+        _max_normal_force_norm = normal_force_norm;
+        _peak_normal_force = normal_force;
+    }
+
+    if (normal_force_norm > _magic_epsilon)
+    {
+        std::cout << "peak force vector : {" << std::endl 
+        << _peak_normal_force.x() << std::endl
+        << _peak_normal_force.y() << std::endl
+        << _peak_normal_force.z() << std::endl
+        << "}" << std::endl;
+    }
+
+}
+
+
 void Get_In_Position_Task::load_parameters()
 {
   _nail_robot_name = "nail";
   _main_robot_name = "hrp5_p";
-  _task_name = "Hammer::Get_In_Position_Task";
-
   // ------------------------ Loading gui parameters ---------------------------
 
   std::string gui_key = "gui";
@@ -167,6 +203,7 @@ void Get_In_Position_Task::load_parameters()
   _magic_task_weight = _config(magic_values_key)("task_weight");
   _magic_epsilon = _config(magic_values_key)("epsilon");
   _magic_oriWp_time = _config(magic_values_key)("oriWp_time");
+
 
   // ------------------------ Loading init and start velocities, accelerations and jerks ---------------------------
 

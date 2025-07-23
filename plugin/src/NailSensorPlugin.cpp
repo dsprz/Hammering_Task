@@ -31,7 +31,7 @@ namespace mc_plugin
         mc_rtc::log::success("NailSensorPlugin Running");
         auto nh = mc_rtc::ROSBridge::get_node_handle();
     
-        // // Not the cleanest but at leat mc_mujoco does not crash
+        // Not the cleanest but at leat mc_mujoco does not crash
         if(nh != nullptr)
         {
             _subForce = nh->create_subscription<geometry_msgs::msg::Vector3Stamped>(

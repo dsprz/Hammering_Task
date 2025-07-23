@@ -128,6 +128,7 @@ states:
       task_weight: 1000
       epsilon: 0.13
       oriWp_time: 3
+      force_norm_threshold: 1
 
     curve_constraints:
       linear_velocity:
@@ -139,7 +140,7 @@ states:
           end: 0
         z:
           init: 0
-          end: -1
+          end: -0.4
       linear_acceleration:
         x:
           init: 0
@@ -161,19 +162,44 @@ states:
           init: 0
           end: 0
 
+  Hammer::Post_Impact_Task:
+    base: Post_Impact_Task
+
+    quality_of_life:
+      bezier_curve_verbose_active: false
+
+    frames:
+      Hammer_Head_frame: "Hammer_Head"
+
+    magic_values:
+      epsilon: 0.2
+      max_control_point_height: 1.456
+      bezier_curve_max_duration: 2
+      task_stiffness: 100
+      task_weight: 1000
+      post_impact_final_height: 0.1
+    
+    curve_constraints:
+      linear_velocity:
+        z:
+          init: 1
+
   Get_In_Position_And_Standing: 
     base: Parallel
     states: [Hammer::Standing, Hammer::Get_In_Position_Task]
+    # states: [Hammer::Standing, Hammer::Get_In_Position_Task]
+
 
   Hammer::HammeringFSM_Finish: 
     base: Parallel
-    states: [Hammer::Standing, HammeringFSM_Finish]
+    states: [Hammer::Standing, Hammer::Post_Impact_Task]
   
   Hammer::HammeringFSM:
     base: Meta 
     transitions:
       - [Initial_And_Standing, BUTTON_CLICKED, Get_In_Position_And_Standing, Auto]
-      - [Get_In_Position_And_Standing, Stop, Initial_And_Standing, Auto]
+      - [Get_In_Position_And_Standing, IMPACT_DETECTED, Hammer::HammeringFSM_Finish, Auto]
+      - [Hammer::HammeringFSM_Finish, CAN_GO_BACK_TO_INITIAL_CONFIGURATION, Initial_And_Standing, Auto]
       # - [Hammer::HammeringFSM_Hammering, Stop , Hammer::HammeringFSM_Finish, Auto]
       # - [Hammer::HammeringFSM_Finish, Auto , Hammer::HammeringFSM_Initial, Auto]
       # - [Hammer::HammeringFSM_Finish, Start , Hammer::HammeringFSM_Hammering, Auto]
@@ -184,24 +210,12 @@ transitions:
 
 # Initial state
 init: Hammer::HammeringFSM
-    
+
 hrp5_p:
   posture:
     stiffness: 5
     weight: 1
 
-  Hammer::Get_In_Position_Task:
-    curve_constraints:
-      linear_velocity:
-          x:
-            start: 0
-            end: 0
-          y: 
-            start: 0
-            end: 0
-          z:
-            start: 0
-            end: -15
 
   
 

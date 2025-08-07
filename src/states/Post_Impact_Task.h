@@ -45,6 +45,8 @@ struct Post_Impact_Task : mc_control::fsm::State
     typedef Eigen::Vector3d vector3_t;
     vector3_t _start_point;
     vector3_t _end_point;
+    
+    sva::PTransformd _initial_nail_position;    
 
 
     Eigen::Matrix<double, 3, 1> _rotation_axis;
@@ -82,6 +84,7 @@ struct Post_Impact_Task : mc_control::fsm::State
     double _magic_epsilon = 1;
     double _magic_oriWp_time = 1;
     double _magic_post_impact_final_height = 1;
+    double _magic_coefficient_of_restitution = 1;
 
     void load_parameters();
     void store_force(const std::shared_ptr<const geometry_msgs::msg::Vector3Stamped> &force);

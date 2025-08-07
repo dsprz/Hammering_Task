@@ -40,19 +40,58 @@ AUTOLOAD_NailSensorPlugin_PLUGIN:BOOL=OFF
 //Build the testing tree.
 BUILD_TESTING:BOOL=ON
 
+//Boost atomic library (debug)
+Boost_ATOMIC_LIBRARY_DEBUG:FILEPATH=/usr/lib/x86_64-linux-gnu/libboost_atomic.so
+
+//Boost atomic library (release)
+Boost_ATOMIC_LIBRARY_RELEASE:FILEPATH=/usr/lib/x86_64-linux-gnu/libboost_atomic.so
+
+//Boost chrono library (debug)
+Boost_CHRONO_LIBRARY_DEBUG:FILEPATH=/usr/lib/x86_64-linux-gnu/libboost_chrono.so
+
+//Boost chrono library (release)
+Boost_CHRONO_LIBRARY_RELEASE:FILEPATH=/usr/lib/x86_64-linux-gnu/libboost_chrono.so
+
+//Boost date_time library (debug)
+Boost_DATE_TIME_LIBRARY_DEBUG:FILEPATH=/usr/lib/x86_64-linux-gnu/libboost_date_time.so
+
+//Boost date_time library (release)
+Boost_DATE_TIME_LIBRARY_RELEASE:FILEPATH=/usr/lib/x86_64-linux-gnu/libboost_date_time.so
+
 //The directory containing a CMake configuration file for Boost.
 Boost_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/Boost-1.74.0
+
+//Boost filesystem library (debug)
+Boost_FILESYSTEM_LIBRARY_DEBUG:FILEPATH=/usr/lib/x86_64-linux-gnu/libboost_filesystem.so
 
 Boost_FILESYSTEM_LIBRARY_RELEASE:STRING=/usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.74.0
 
 //Path to a file.
 Boost_INCLUDE_DIR:PATH=/usr/include
 
+//Boost library directory DEBUG
+Boost_LIBRARY_DIR_DEBUG:PATH=/usr/lib/x86_64-linux-gnu
+
+//Boost library directory RELEASE
+Boost_LIBRARY_DIR_RELEASE:PATH=/usr/lib/x86_64-linux-gnu
+
+//Boost serialization library (debug)
+Boost_SERIALIZATION_LIBRARY_DEBUG:FILEPATH=/usr/lib/x86_64-linux-gnu/libboost_serialization.so
+
 Boost_SERIALIZATION_LIBRARY_RELEASE:STRING=/usr/lib/x86_64-linux-gnu/libboost_serialization.so.1.74.0
 
 Boost_STACKTRACE_BACKTRACE_LIBRARY_RELEASE:STRING=/usr/lib/x86_64-linux-gnu/libboost_stacktrace_backtrace.so.1.74.0
 
+//Boost system library (debug)
+Boost_SYSTEM_LIBRARY_DEBUG:FILEPATH=/usr/lib/x86_64-linux-gnu/libboost_system.so
+
 Boost_SYSTEM_LIBRARY_RELEASE:STRING=/usr/lib/x86_64-linux-gnu/libboost_system.so.1.74.0
+
+//Boost thread library (debug)
+Boost_THREAD_LIBRARY_DEBUG:FILEPATH=/usr/lib/x86_64-linux-gnu/libboost_thread.so
+
+//Boost thread library (release)
+Boost_THREAD_LIBRARY_RELEASE:FILEPATH=/usr/lib/x86_64-linux-gnu/libboost_thread.so
 
 Boost_TIMER_LIBRARY_RELEASE:STRING=/usr/lib/x86_64-linux-gnu/libboost_timer.so.1.74.0
 
@@ -64,7 +103,7 @@ CMAKE_AR:FILEPATH=/usr/bin/ar
 
 //Choose the type of build, options are: None Debug Release RelWithDebInfo
 // MinSizeRel ...
-CMAKE_BUILD_TYPE:STRING=
+CMAKE_BUILD_TYPE:STRING=Release
 
 //Enable/Disable color output during build.
 CMAKE_COLOR_MAKEFILE:BOOL=ON
@@ -268,7 +307,7 @@ FastRTPS_LIBRARY_DEBUG:FILEPATH=FastRTPS_LIBRARY_DEBUG-NOTFOUND
 FastRTPS_LIBRARY_RELEASE:FILEPATH=/home/jimmyvu/Documents/ros2_humble/install/fastrtps/lib/libfastrtps.so
 
 //Dependencies for the target
-Get_In_Position_Task_LIB_DEPENDS:STATIC=general;mc_rtc::mc_control_fsm;general;Hammering_FSM_Controller;general;mc_rtc::mc_rtc_ros;general;visualization_msgs::visualization_msgs__rosidl_generator_c;general;visualization_msgs::visualization_msgs__rosidl_typesupport_fastrtps_c;general;visualization_msgs::visualization_msgs__rosidl_typesupport_fastrtps_cpp;general;visualization_msgs::visualization_msgs__rosidl_typesupport_introspection_c;general;visualization_msgs::visualization_msgs__rosidl_typesupport_c;general;visualization_msgs::visualization_msgs__rosidl_typesupport_introspection_cpp;general;visualization_msgs::visualization_msgs__rosidl_typesupport_cpp;general;visualization_msgs::visualization_msgs__rosidl_generator_py;
+Get_In_Position_Task_LIB_DEPENDS:STATIC=general;mc_rtc::mc_control_fsm;general;Hammering_FSM_Controller;general;/opt/openrobots/lib/libpinocchio_default.so;general;/opt/openrobots/lib/libpinocchio_parsers.so;general;/opt/openrobots/lib/libpinocchio_casadi.so;general;/usr/lib/x86_64-linux-gnu/libboost_filesystem.so;general;/usr/lib/x86_64-linux-gnu/libboost_serialization.so;general;/usr/lib/x86_64-linux-gnu/libboost_system.so;
 
 //Value Computed by CMake
 Hammering_FSM_Controller_BINARY_DIR:STATIC=/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller
@@ -287,6 +326,9 @@ Hammering_FSM_Controller_SOURCE_DIR:STATIC=/home/jimmyvu/Documents/mc_rtc/sandbo
 
 //Dependencies for the target
 Hammering_FSM_Controller_controller_LIB_DEPENDS:STATIC=general;mc_rtc::mc_control;general;Hammering_FSM_Controller;
+
+//Dependencies for the target
+Hit_Task_LIB_DEPENDS:STATIC=general;mc_rtc::mc_control_fsm;general;Hammering_FSM_Controller;
 
 //Path to a file.
 LTDL_INCLUDE_DIR:PATH=/usr/include
@@ -320,6 +362,9 @@ PKG_CONFIG_ARGN:STRING=
 
 //pkg-config executable
 PKG_CONFIG_EXECUTABLE:FILEPATH=/usr/bin/pkg-config
+
+//Dependencies for the target
+Post_Impact_Task_LIB_DEPENDS:STATIC=general;mc_rtc::mc_control_fsm;general;Hammering_FSM_Controller;
 
 //Path to a program.
 Python3_EXECUTABLE:FILEPATH=/usr/bin/python3
@@ -435,8 +480,14 @@ boost_timer_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/boost_timer-1.74.0
 //The directory containing a CMake configuration file for builtin_interfaces.
 builtin_interfaces_DIR:PATH=/home/jimmyvu/Documents/ros2_humble/install/builtin_interfaces/share/builtin_interfaces/cmake
 
+//The directory containing a CMake configuration file for casadi.
+casadi_DIR:PATH=/opt/openrobots/lib/cmake/casadi
+
 //The directory containing a CMake configuration file for class_loader.
 class_loader_DIR:PATH=/home/jimmyvu/Documents/ros2_humble/install/class_loader/share/class_loader/cmake
+
+//The directory containing a CMake configuration file for coal.
+coal_DIR:PATH=/opt/openrobots/lib/cmake/coal
 
 //The directory containing a CMake configuration file for composition_interfaces.
 composition_interfaces_DIR:PATH=/home/jimmyvu/Documents/ros2_humble/install/composition_interfaces/share/composition_interfaces/cmake
@@ -471,6 +522,9 @@ geometry_msgs_DIR:PATH=/home/jimmyvu/Documents/ros2_humble/install/geometry_msgs
 //The directory containing a CMake configuration file for geos.
 geos_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/GEOS
 
+//The directory containing a CMake configuration file for hpp-fcl.
+hpp-fcl_DIR:PATH=/opt/openrobots/lib/cmake/hpp-fcl
+
 //The directory containing a CMake configuration file for lexls.
 lexls_DIR:PATH=/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/lexls
 
@@ -500,6 +554,18 @@ nav_msgs_DIR:PATH=/home/jimmyvu/Documents/ros2_humble/install/nav_msgs/share/nav
 
 //The directory containing a CMake configuration file for ndcurves.
 ndcurves_DIR:PATH=/home/jimmyvu/Documents/mc_rtc/install/lib/cmake/ndcurves
+
+//The directory containing a CMake configuration file for octomap.
+octomap_DIR:PATH=/usr/share/octomap
+
+//Path to a library.
+onelib:FILEPATH=/home/jimmyvu/Documents/ros2_humble/install/urdfdom/lib/liburdfdom_world.so
+
+//Path to a library.
+onelibd:FILEPATH=onelibd-NOTFOUND
+
+//The directory containing a CMake configuration file for pinocchio.
+pinocchio_DIR:PATH=/opt/openrobots/lib/cmake/pinocchio
 
 //Path to a library.
 pkgcfg_lib_NANOMSG_nanomsg:FILEPATH=/usr/lib/x86_64-linux-gnu/libnanomsg.so
@@ -669,6 +735,12 @@ tracetools_DIR:PATH=/home/jimmyvu/Documents/ros2_humble/install/tracetools/share
 //The directory containing a CMake configuration file for unique_identifier_msgs.
 unique_identifier_msgs_DIR:PATH=/home/jimmyvu/Documents/ros2_humble/install/unique_identifier_msgs/share/unique_identifier_msgs/cmake
 
+//The directory containing a CMake configuration file for urdfdom.
+urdfdom_DIR:PATH=/home/jimmyvu/Documents/ros2_humble/install/urdfdom/lib/urdfdom/cmake
+
+//The directory containing a CMake configuration file for urdfdom_headers.
+urdfdom_headers_DIR:PATH=/home/jimmyvu/Documents/ros2_humble/install/urdfdom_headers/lib/urdfdom_headers/cmake
+
 //The directory containing a CMake configuration file for visualization_msgs.
 visualization_msgs_DIR:PATH=/home/jimmyvu/Documents/ros2_humble/install/visualization_msgs/share/visualization_msgs/cmake
 
@@ -686,8 +758,42 @@ yaml_cpp_vendor_DIR:PATH=/home/jimmyvu/Documents/ros2_humble/install/yaml_cpp_ve
 # INTERNAL cache entries
 ########################
 
+//ADVANCED property for variable: Boost_ATOMIC_LIBRARY_DEBUG
+Boost_ATOMIC_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_ATOMIC_LIBRARY_RELEASE
+Boost_ATOMIC_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_CHRONO_LIBRARY_DEBUG
+Boost_CHRONO_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_CHRONO_LIBRARY_RELEASE
+Boost_CHRONO_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_DATE_TIME_LIBRARY_DEBUG
+Boost_DATE_TIME_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_DATE_TIME_LIBRARY_RELEASE
+Boost_DATE_TIME_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: Boost_DIR
 Boost_DIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_FILESYSTEM_LIBRARY_DEBUG
+Boost_FILESYSTEM_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_FILESYSTEM_LIBRARY_RELEASE
+Boost_FILESYSTEM_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_INCLUDE_DIR
+Boost_INCLUDE_DIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_LIBRARY_DIR_DEBUG
+Boost_LIBRARY_DIR_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_LIBRARY_DIR_RELEASE
+Boost_LIBRARY_DIR_RELEASE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_SERIALIZATION_LIBRARY_DEBUG
+Boost_SERIALIZATION_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_SERIALIZATION_LIBRARY_RELEASE
+Boost_SERIALIZATION_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_SYSTEM_LIBRARY_DEBUG
+Boost_SYSTEM_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_SYSTEM_LIBRARY_RELEASE
+Boost_SYSTEM_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_THREAD_LIBRARY_DEBUG
+Boost_THREAD_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_THREAD_LIBRARY_RELEASE
+Boost_THREAD_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_ADDR2LINE
 CMAKE_ADDR2LINE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_AR
@@ -822,7 +928,7 @@ CMAKE_UNAME:INTERNAL=/usr/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
 //Details about finding Boost
-FIND_PACKAGE_MESSAGE_DETAILS_Boost:INTERNAL=[/usr/lib/x86_64-linux-gnu/cmake/Boost-1.74.0/BoostConfig.cmake][found components: timer ][v1.74.0()]
+FIND_PACKAGE_MESSAGE_DETAILS_Boost:INTERNAL=[/usr/include][found components: chrono thread date_time serialization filesystem atomic ][v1.74.0()]
 //Details about finding FastRTPS
 FIND_PACKAGE_MESSAGE_DETAILS_FastRTPS:INTERNAL=[/home/jimmyvu/Documents/ros2_humble/install/fastrtps/include][/home/jimmyvu/Documents/ros2_humble/install/fastrtps/lib/libfastrtps.so;/home/jimmyvu/Documents/ros2_humble/install/fastcdr/lib/libfastcdr.so][v()]
 //Details about finding OpenSSL
@@ -894,6 +1000,20 @@ TINYXML2_LIBRARY-ADVANCED:INTERNAL=1
 TinyXML2_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: TinyXML2_LIBRARY
 TinyXML2_LIBRARY-ADVANCED:INTERNAL=1
+//Components requested for this build tree.
+_Boost_COMPONENTS_SEARCHED:INTERNAL=atomic;chrono;date_time;filesystem;serialization;system;thread
+//Last used Boost_INCLUDE_DIR value.
+_Boost_INCLUDE_DIR_LAST:INTERNAL=/usr/include
+//Last used Boost_LIBRARY_DIR_DEBUG value.
+_Boost_LIBRARY_DIR_DEBUG_LAST:INTERNAL=/usr/lib/x86_64-linux-gnu
+//Last used Boost_LIBRARY_DIR_RELEASE value.
+_Boost_LIBRARY_DIR_RELEASE_LAST:INTERNAL=/usr/lib/x86_64-linux-gnu
+//Last used Boost_NAMESPACE value.
+_Boost_NAMESPACE_LAST:INTERNAL=boost
+//Last used Boost_USE_MULTITHREADED value.
+_Boost_USE_MULTITHREADED_LAST:INTERNAL=ON
+//Last used Boost_USE_STATIC_LIBS value.
+_Boost_USE_STATIC_LIBS_LAST:INTERNAL=OFF
 _MINIMAL_CXX_STANDARD:INTERNAL=14
 _OPENSSL_CFLAGS:INTERNAL=-I/usr/include
 _OPENSSL_CFLAGS_I:INTERNAL=

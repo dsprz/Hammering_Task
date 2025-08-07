@@ -132,11 +132,15 @@ src/clean: src/states/clean
 # Recursive "all" directory target.
 src/states/all: src/states/CMakeFiles/Hammering_FSM_Controller_Initial.dir/all
 src/states/all: src/states/CMakeFiles/Get_In_Position_Task.dir/all
+src/states/all: src/states/CMakeFiles/Hit_Task.dir/all
+src/states/all: src/states/CMakeFiles/Post_Impact_Task.dir/all
 .PHONY : src/states/all
 
 # Recursive "codegen" directory target.
 src/states/codegen: src/states/CMakeFiles/Hammering_FSM_Controller_Initial.dir/codegen
 src/states/codegen: src/states/CMakeFiles/Get_In_Position_Task.dir/codegen
+src/states/codegen: src/states/CMakeFiles/Hit_Task.dir/codegen
+src/states/codegen: src/states/CMakeFiles/Post_Impact_Task.dir/codegen
 .PHONY : src/states/codegen
 
 # Recursive "preinstall" directory target.
@@ -146,6 +150,8 @@ src/states/preinstall:
 # Recursive "clean" directory target.
 src/states/clean: src/states/CMakeFiles/Hammering_FSM_Controller_Initial.dir/clean
 src/states/clean: src/states/CMakeFiles/Get_In_Position_Task.dir/clean
+src/states/clean: src/states/CMakeFiles/Hit_Task.dir/clean
+src/states/clean: src/states/CMakeFiles/Post_Impact_Task.dir/clean
 .PHONY : src/states/clean
 
 #=============================================================================
@@ -277,13 +283,77 @@ src/states/CMakeFiles/Get_In_Position_Task.dir/clean:
 .PHONY : src/states/CMakeFiles/Get_In_Position_Task.dir/clean
 
 #=============================================================================
+# Target rules for target src/states/CMakeFiles/Hit_Task.dir
+
+# All Build rule for target.
+src/states/CMakeFiles/Hit_Task.dir/all: src/CMakeFiles/Hammering_FSM_Controller.dir/all
+	$(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/Hit_Task.dir/build.make src/states/CMakeFiles/Hit_Task.dir/depend
+	$(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/Hit_Task.dir/build.make src/states/CMakeFiles/Hit_Task.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles --progress-num=9,10 "Built target Hit_Task"
+.PHONY : src/states/CMakeFiles/Hit_Task.dir/all
+
+# Build rule for subdir invocation for target.
+src/states/CMakeFiles/Hit_Task.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles 4
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/states/CMakeFiles/Hit_Task.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles 0
+.PHONY : src/states/CMakeFiles/Hit_Task.dir/rule
+
+# Convenience name for target.
+Hit_Task: src/states/CMakeFiles/Hit_Task.dir/rule
+.PHONY : Hit_Task
+
+# codegen rule for target.
+src/states/CMakeFiles/Hit_Task.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/Hit_Task.dir/build.make src/states/CMakeFiles/Hit_Task.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles --progress-num=9,10 "Finished codegen for target Hit_Task"
+.PHONY : src/states/CMakeFiles/Hit_Task.dir/codegen
+
+# clean rule for target.
+src/states/CMakeFiles/Hit_Task.dir/clean:
+	$(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/Hit_Task.dir/build.make src/states/CMakeFiles/Hit_Task.dir/clean
+.PHONY : src/states/CMakeFiles/Hit_Task.dir/clean
+
+#=============================================================================
+# Target rules for target src/states/CMakeFiles/Post_Impact_Task.dir
+
+# All Build rule for target.
+src/states/CMakeFiles/Post_Impact_Task.dir/all: src/CMakeFiles/Hammering_FSM_Controller.dir/all
+	$(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/Post_Impact_Task.dir/build.make src/states/CMakeFiles/Post_Impact_Task.dir/depend
+	$(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/Post_Impact_Task.dir/build.make src/states/CMakeFiles/Post_Impact_Task.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles --progress-num=13,14 "Built target Post_Impact_Task"
+.PHONY : src/states/CMakeFiles/Post_Impact_Task.dir/all
+
+# Build rule for subdir invocation for target.
+src/states/CMakeFiles/Post_Impact_Task.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles 4
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/states/CMakeFiles/Post_Impact_Task.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles 0
+.PHONY : src/states/CMakeFiles/Post_Impact_Task.dir/rule
+
+# Convenience name for target.
+Post_Impact_Task: src/states/CMakeFiles/Post_Impact_Task.dir/rule
+.PHONY : Post_Impact_Task
+
+# codegen rule for target.
+src/states/CMakeFiles/Post_Impact_Task.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/Post_Impact_Task.dir/build.make src/states/CMakeFiles/Post_Impact_Task.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles --progress-num=13,14 "Finished codegen for target Post_Impact_Task"
+.PHONY : src/states/CMakeFiles/Post_Impact_Task.dir/codegen
+
+# clean rule for target.
+src/states/CMakeFiles/Post_Impact_Task.dir/clean:
+	$(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/Post_Impact_Task.dir/build.make src/states/CMakeFiles/Post_Impact_Task.dir/clean
+.PHONY : src/states/CMakeFiles/Post_Impact_Task.dir/clean
+
+#=============================================================================
 # Target rules for target plugin/CMakeFiles/NailSensorPlugin.dir
 
 # All Build rule for target.
 plugin/CMakeFiles/NailSensorPlugin.dir/all:
 	$(MAKE) $(MAKESILENT) -f plugin/CMakeFiles/NailSensorPlugin.dir/build.make plugin/CMakeFiles/NailSensorPlugin.dir/depend
 	$(MAKE) $(MAKESILENT) -f plugin/CMakeFiles/NailSensorPlugin.dir/build.make plugin/CMakeFiles/NailSensorPlugin.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles --progress-num=9,10 "Built target NailSensorPlugin"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles --progress-num=11,12 "Built target NailSensorPlugin"
 .PHONY : plugin/CMakeFiles/NailSensorPlugin.dir/all
 
 # Build rule for subdir invocation for target.
@@ -300,7 +370,7 @@ NailSensorPlugin: plugin/CMakeFiles/NailSensorPlugin.dir/rule
 # codegen rule for target.
 plugin/CMakeFiles/NailSensorPlugin.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f plugin/CMakeFiles/NailSensorPlugin.dir/build.make plugin/CMakeFiles/NailSensorPlugin.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles --progress-num=9,10 "Finished codegen for target NailSensorPlugin"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller/CMakeFiles --progress-num=11,12 "Finished codegen for target NailSensorPlugin"
 .PHONY : plugin/CMakeFiles/NailSensorPlugin.dir/codegen
 
 # clean rule for target.

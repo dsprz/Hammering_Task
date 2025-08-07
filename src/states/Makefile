@@ -199,6 +199,34 @@ Get_In_Position_Task/fast:
 	cd /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/Get_In_Position_Task.dir/build.make src/states/CMakeFiles/Get_In_Position_Task.dir/build
 .PHONY : Get_In_Position_Task/fast
 
+# Convenience name for target.
+src/states/CMakeFiles/Hit_Task.dir/rule:
+	cd /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/states/CMakeFiles/Hit_Task.dir/rule
+.PHONY : src/states/CMakeFiles/Hit_Task.dir/rule
+
+# Convenience name for target.
+Hit_Task: src/states/CMakeFiles/Hit_Task.dir/rule
+.PHONY : Hit_Task
+
+# fast build rule for target.
+Hit_Task/fast:
+	cd /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/Hit_Task.dir/build.make src/states/CMakeFiles/Hit_Task.dir/build
+.PHONY : Hit_Task/fast
+
+# Convenience name for target.
+src/states/CMakeFiles/Post_Impact_Task.dir/rule:
+	cd /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/states/CMakeFiles/Post_Impact_Task.dir/rule
+.PHONY : src/states/CMakeFiles/Post_Impact_Task.dir/rule
+
+# Convenience name for target.
+Post_Impact_Task: src/states/CMakeFiles/Post_Impact_Task.dir/rule
+.PHONY : Post_Impact_Task
+
+# fast build rule for target.
+Post_Impact_Task/fast:
+	cd /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/Post_Impact_Task.dir/build.make src/states/CMakeFiles/Post_Impact_Task.dir/build
+.PHONY : Post_Impact_Task/fast
+
 Get_In_Position_Task.o: Get_In_Position_Task.cpp.o
 .PHONY : Get_In_Position_Task.o
 
@@ -247,6 +275,54 @@ Hammering_FSM_Controller_Initial.cpp.s:
 	cd /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/Hammering_FSM_Controller_Initial.dir/build.make src/states/CMakeFiles/Hammering_FSM_Controller_Initial.dir/Hammering_FSM_Controller_Initial.cpp.s
 .PHONY : Hammering_FSM_Controller_Initial.cpp.s
 
+Hit_Task.o: Hit_Task.cpp.o
+.PHONY : Hit_Task.o
+
+# target to build an object file
+Hit_Task.cpp.o:
+	cd /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/Hit_Task.dir/build.make src/states/CMakeFiles/Hit_Task.dir/Hit_Task.cpp.o
+.PHONY : Hit_Task.cpp.o
+
+Hit_Task.i: Hit_Task.cpp.i
+.PHONY : Hit_Task.i
+
+# target to preprocess a source file
+Hit_Task.cpp.i:
+	cd /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/Hit_Task.dir/build.make src/states/CMakeFiles/Hit_Task.dir/Hit_Task.cpp.i
+.PHONY : Hit_Task.cpp.i
+
+Hit_Task.s: Hit_Task.cpp.s
+.PHONY : Hit_Task.s
+
+# target to generate assembly for a file
+Hit_Task.cpp.s:
+	cd /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/Hit_Task.dir/build.make src/states/CMakeFiles/Hit_Task.dir/Hit_Task.cpp.s
+.PHONY : Hit_Task.cpp.s
+
+Post_Impact_Task.o: Post_Impact_Task.cpp.o
+.PHONY : Post_Impact_Task.o
+
+# target to build an object file
+Post_Impact_Task.cpp.o:
+	cd /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/Post_Impact_Task.dir/build.make src/states/CMakeFiles/Post_Impact_Task.dir/Post_Impact_Task.cpp.o
+.PHONY : Post_Impact_Task.cpp.o
+
+Post_Impact_Task.i: Post_Impact_Task.cpp.i
+.PHONY : Post_Impact_Task.i
+
+# target to preprocess a source file
+Post_Impact_Task.cpp.i:
+	cd /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/Post_Impact_Task.dir/build.make src/states/CMakeFiles/Post_Impact_Task.dir/Post_Impact_Task.cpp.i
+.PHONY : Post_Impact_Task.cpp.i
+
+Post_Impact_Task.s: Post_Impact_Task.cpp.s
+.PHONY : Post_Impact_Task.s
+
+# target to generate assembly for a file
+Post_Impact_Task.cpp.s:
+	cd /home/jimmyvu/Documents/mc_rtc/sandbox/hammering_fsm_controller && $(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/Post_Impact_Task.dir/build.make src/states/CMakeFiles/Post_Impact_Task.dir/Post_Impact_Task.cpp.s
+.PHONY : Post_Impact_Task.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -262,12 +338,20 @@ help:
 	@echo "... test"
 	@echo "... Get_In_Position_Task"
 	@echo "... Hammering_FSM_Controller_Initial"
+	@echo "... Hit_Task"
+	@echo "... Post_Impact_Task"
 	@echo "... Get_In_Position_Task.o"
 	@echo "... Get_In_Position_Task.i"
 	@echo "... Get_In_Position_Task.s"
 	@echo "... Hammering_FSM_Controller_Initial.o"
 	@echo "... Hammering_FSM_Controller_Initial.i"
 	@echo "... Hammering_FSM_Controller_Initial.s"
+	@echo "... Hit_Task.o"
+	@echo "... Hit_Task.i"
+	@echo "... Hit_Task.s"
+	@echo "... Post_Impact_Task.o"
+	@echo "... Post_Impact_Task.i"
+	@echo "... Post_Impact_Task.s"
 .PHONY : help
 
 

@@ -224,6 +224,32 @@ Get_In_Position_Task/fast:
 .PHONY : Get_In_Position_Task/fast
 
 #=============================================================================
+# Target rules for targets named Hit_Task
+
+# Build rule for target.
+Hit_Task: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Hit_Task
+.PHONY : Hit_Task
+
+# fast build rule for target.
+Hit_Task/fast:
+	$(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/Hit_Task.dir/build.make src/states/CMakeFiles/Hit_Task.dir/build
+.PHONY : Hit_Task/fast
+
+#=============================================================================
+# Target rules for targets named Post_Impact_Task
+
+# Build rule for target.
+Post_Impact_Task: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Post_Impact_Task
+.PHONY : Post_Impact_Task
+
+# fast build rule for target.
+Post_Impact_Task/fast:
+	$(MAKE) $(MAKESILENT) -f src/states/CMakeFiles/Post_Impact_Task.dir/build.make src/states/CMakeFiles/Post_Impact_Task.dir/build
+.PHONY : Post_Impact_Task/fast
+
+#=============================================================================
 # Target rules for targets named NailSensorPlugin
 
 # Build rule for target.
@@ -253,7 +279,9 @@ help:
 	@echo "... Hammering_FSM_Controller"
 	@echo "... Hammering_FSM_Controller_Initial"
 	@echo "... Hammering_FSM_Controller_controller"
+	@echo "... Hit_Task"
 	@echo "... NailSensorPlugin"
+	@echo "... Post_Impact_Task"
 .PHONY : help
 
 

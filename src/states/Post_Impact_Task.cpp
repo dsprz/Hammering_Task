@@ -7,6 +7,7 @@ void Post_Impact_Task::configure(const mc_rtc::Configuration & config)
     _config.load(config);
     mc_rtc::log::info("Post_Impact_Task configure function called with config :  \n{}", config.dump(true, true));
     load_parameters();
+
     auto nh = mc_rtc::ROSBridge::get_node_handle();
     
     if(nh != nullptr)
@@ -28,8 +29,17 @@ void Post_Impact_Task::start(mc_control::fsm::Controller & ctl_)
 {
     auto & ctl = static_cast<Hammering_FSM_Controller &>(ctl_);
     _initial_hammerhead_position = ctl.robot().frame(_hammer_head_frame_name).position();
-    _start_point = _initial_hammerhead_position.translation();
-    _end_point = _start_point + vector3_t{0, 0, _magic_post_impact_final_height};
+    // _start_point = _initial_hammerhead_position.translation();
+    
+    // _end_point = {_start_point.x(), _start_point.y(), _magic_post_impact_final_height};
+    
+    _initial_nail_position = ctl.robots().robot("nail").frame("nail").position();
+    auto initial_nail_translation = _initial_nail_position.translation();
+    _start_point = {initial_nail_translation.x(), initial_nail_translation.y(), initial_nail_translation.z() + 0.3};
+    _end_point = {initial_nail_translation.x(), initial_nail_translation.y(), _magic_post_impact_final_height};
+
+    _constr.end_vel.z() = _magic_coefficient_of_restitution * 1;
+
 //  create a simple bspline that has the same direction as the normal force 
 //   ctl.getPostureTask(ctl.robot().name())->weight(1);
     posWp ={_start_point,
@@ -42,15 +52,15 @@ void Post_Impact_Task::start(mc_control::fsm::Controller & ctl_)
     // The quaternion works for a nail placed on a horizontal table, it will not work for a nail placed on a slope
     // The angle and the rotation axis should be computed for different orientations of the nail, but I did not do it
     Eigen::Quaterniond q(Eigen::AngleAxisd(angle, _rotation_axis));
-    auto rotation_matrix = q.toRotationMatrix();
-    std::cout << "q.toRotationMatrix() = " << q.toRotationMatrix() << std::endl; 
-    double roll = atan2(rotation_matrix(3, 2), rotation_matrix(3, 3));
-    double pitch = atan2(-rotation_matrix(3, 1), sqrt(std::pow(rotation_matrix(3, 2), 2) + std::pow(rotation_matrix(3, 3),2)  )); 
-    std::cout << "roll = " << roll << std::endl;
-    std::cout << "pitch = " << pitch << std::endl;
+    // auto rotation_matrix = q.toRotationMatrix();
+    // std::cout << "q.toRotationMatrix() = " << q.toRotationMatrix() << std::endl; 
+    // double roll = atan2(rotation_matrix(3, 2), rotation_matrix(3, 3));
+    // double pitch = atan2(-rotation_matrix(3, 1), sqrt(std::pow(rotation_matrix(3, 2), 2) + std::pow(rotation_matrix(3, 3),2)  )); 
+    // std::cout << "roll = " << roll << std::endl;
+    // std::cout << "pitch = " << pitch << std::endl;
 
     const std::vector<std::pair<double, Eigen::Matrix3d>> & oriWp = {
-        std::make_pair(_magic_oriWp_time, q.matrix()) // at t = _magic_oriWp_time, arbitrary for now
+        // std::make_pair(_magic_oriWp_time, q.matrix()) // at t = _magic_oriWp_time, arbitrary for now
 
     };
 
@@ -68,22 +78,25 @@ void Post_Impact_Task::start(mc_control::fsm::Controller & ctl_)
                                                                   posWp, 
                                                                   oriWp,
                                                                   _bezier_curve_verbose_active);
-  BSplineVel->stiffness(_magic_task_stiffness);
-  BSplineVel->weight(_magic_task_weight);
-  // std::cout << "BSplineVel->spline().get_bezier().constr_.end_vel.z(): " << BSplineVel->spline().get_bezier()->constr_.end_vel.z() << std::endl;
-  // std::cout << "end vel z : " << constr.end_vel.z() << std::endl;
+    BSplineVel->stiffness(_magic_task_stiffness);
+    BSplineVel->weight(_magic_task_weight);
+    // std::cout << "BSplineVel->spline().get_bezier().constr_.end_vel.z(): " << BSplineVel->spline().get_bezier()->constr_.end_vel.z() << std::endl;
+    // std::cout << "end vel z : " << constr.end_vel.z() << std::endl;
 
-  ctl.getPostureTask(ctl.robot().name())->weight(1);
-  ctl.solver().addTask(BSplineVel);
+    ctl.getPostureTask(ctl.robot().name())->weight(1);
+    ctl.solver().addTask(BSplineVel);
 
 }
 
 bool Post_Impact_Task::run(mc_control::fsm::Controller & ctl)
 {
-    _height_reached = BSplineVel->eval().norm() < _magic_epsilon;
+    // _height_reached = BSplineVel->eval().norm() < _magic_epsilon;
+    auto hammer_head_translation = ctl.robot().frame(_hammer_head_frame_name).position().translation();
+    _height_reached = sqrt(pow(hammer_head_translation.z() - _magic_post_impact_final_height, 2)) < _magic_epsilon;
+
     if(_height_reached)
     {
-        output("CAN_GO_BACK_TO_INITIAL_CONFIGURATION");
+        output("HAMMERING_HEIGHT_REACHED");
         return true;
     }
     else{
@@ -117,11 +130,11 @@ void Post_Impact_Task::load_parameters()
 
     std::string magic_values_key = "magic_values";
     _magic_epsilon = _config(magic_values_key)("epsilon");
-    _magic_max_control_point_height = _config(magic_values_key)("max_control_point_height");
     _magic_bezier_curve_max_duration = _config(magic_values_key)("bezier_curve_max_duration");
     _magic_task_stiffness = _config(magic_values_key)("task_stiffness");
     _magic_task_weight = _config(magic_values_key)("task_weight");
     _magic_post_impact_final_height = _config(magic_values_key)("post_impact_final_height");
+    _magic_coefficient_of_restitution = _config(magic_values_key)("coefficient_of_restitution");
 
     // ------------------------ Loading curve constraints ---------------------------
     std::string curve_constraints_key = "curve_constraints";

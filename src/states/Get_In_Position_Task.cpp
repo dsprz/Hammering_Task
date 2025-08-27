@@ -5,31 +5,28 @@
 #include <Eigen/src/Geometry/AngleAxis.h>
 #include <RBDyn/Jacobian.h>
 #include <RBDyn/MultiBodyConfig.h>
+#include <array>
 #include <climits>
 #include <cmath>
+#include <cstddef>
+#include <cstdio>
 #include <cstdlib>
 #include <iostream>
 #include <iterator>
 #include <mc_rtc/gui/Button.h>
 #include <mc_rtc/logging.h>
+#include <mc_tasks/PositionTask.h>
+#include <memory>
 #include <ostream>
 #include <vector>
 
-// #include "pinocchio/algorithm/joint-configuration.hpp"
-// #include "pinocchio/algorithm/kinematics.hpp"
+// #include <pinocchio/parsers/urdf.hpp>
 
-// #include <pinocchio/multibody/model.hpp>
-// #include <pinocchio/multibody/data.hpp>
-// #include <pinocchio/algorithm/joint-configuration.hpp>
-// #include <pinocchio/algorithm/kinematics.hpp>
-// #include <pinocchio/algorithm/frames.hpp>
-// #include <pinocchio/algorithm/cppad.hpp>
-// #include <cppad/cppad.hpp>
 
 void Get_In_Position_Task::configure(const mc_rtc::Configuration & config)
 {
    _config.load(config);
-    mc_rtc::log::info("Get_In_Position_Task configure function called with config : \n{}", config.dump(true, true));
+    // mc_rtc::log::info("Get_In_Position_Task configure function called with config : \n{}", config.dump(true, true));
     
 }
 
@@ -37,29 +34,53 @@ void Get_In_Position_Task::start(mc_control::fsm::Controller & ctl_)
 {
   auto & ctl = static_cast<Hammering_FSM_Controller &>(ctl_);
   load_parameters();
-  mc_rtc::log::info("solver timestep = \n{}", ctl.solver().dt());
+  _dynamicsConstraint = std::make_unique<mc_solver::DynamicsConstraint>(ctl.robots(), 
+                                                                        ctl.robot().robotIndex(),
+                                                                      ctl.solver().dt(),
+                                                                      std::array<double, 3>{0.1, 0.01, 0.5},
+                                                                      1.0,
+                                                                    true);
+  mc_rtc::log::info("solver timestep = {} s", ctl.solver().dt());
   _nrdof = ctl.robot().mb().nrDof();
+  _old_mbc = ctl.robot().mbc();
+  _old_effective_mass = compute_effective_mass_2(_old_mbc, ctl_, _normal_vector);
+  // for (size_t i = 0; i < std::size(ctl.robot().mbc().q); ++i)
+  // {
+  //   std::cout << ctl_.robot().mb().joint(i).name()<< " : " ; 
+  //   std::cout << "{";
+  //   for(size_t j = 0; j < std::size(ctl.robot().mbc().q.at(i)); ++j)
+  //   {
+      
+  //     std::cout << ctl.robot().mbc().q.at(i).at(j) << ", ";
+  //     // n+=1;
+  //     // Q.push_back(qf.q.at(i).at(j));
+  //   }
+  //   std::cout << "}" << std::endl;
+  // }
+  // std::cout << "}" << std::endl;
+  // std::cout << "robot pos world = \n" << ctl.robot().posW() << std::endl;
   // Add a stop button to the gui
   ctl.gui()->addElement({}, mc_rtc::gui::Button(_stop_hammering_button_name, [this]() { stop = true; }));
   
   // Get the initial conditions
-  _initial_hammerhead_position = ctl.robot().frame(_hammer_head_frame_name).position();
-  auto initial_hammerhead_translation = _initial_hammerhead_position.translation();
+  // for (const auto &frame : ctl.robot().frames())
+  // {
+  //   std::cout << frame << "\n";
+  // }
+  // std::cout << "\n";
+  // std::cout << ctl.robot().frame(_hammer_head_frame_name).body() << std::endl;
+  // std::cout << ctl.robot().frame("LeftHand").position().rotation() << std::endl;
+
+  // std::cout << "base frame rotation matrix = \n" << ctl.robot().frame("base_link").position().rotation() << "\n";
+  printConfig(ctl.robot().mbc(), "q_init");
+  // std::cout << "initial Hammer_head rotation : " <<_initial_hammerhead_position.rotation() << std::endl;
+
+  _start_point = ctl.robot().frame(_hammer_head_frame_name).position().translation();
+  _end_point = ctl.robots().robot(_nail_robot_name).frame(_nail_frame_name).position().translation();
 
 
-  _initial_nail_position = ctl.robots().robot(_nail_robot_name).frame(_nail_frame_name).position();
-  auto initial_nail_translation = _initial_nail_position.translation();
-
-  double x_nail_init = initial_nail_translation.x();
-  double y_nail_init = initial_nail_translation.y();
-  double z_nail_init = initial_nail_translation.z();
-  double x_hammer_init = initial_hammerhead_translation.x();
-  double y_hammer_init = initial_hammerhead_translation.y();
-  double z_hammer_init = initial_hammerhead_translation.z();
-
-  _start_point = initial_hammerhead_translation;
-  // _end_point = {x_nail_init, y_nail_init, _magic_max_control_point_height};
-  _end_point = {x_nail_init, y_nail_init, z_nail_init};
+  // std::cout << ctl.robots().robot(_nail_robot_name).frame(_nail_frame_name).position().rotation() << std::endl;
+  // auto eigenvector = (totalRot - id).colPivHouseholderQr().solve(zero);
 
   // Found by calculations by hand
   _rotation_axis = Eigen::Matrix<double, 3, 1>(1,0,-1).normalized();
@@ -69,12 +90,11 @@ void Get_In_Position_Task::start(mc_control::fsm::Controller & ctl_)
   Eigen::Quaterniond q(Eigen::AngleAxisd(angle, _rotation_axis));
 
   _posWp ={_start_point,
-          // vector3_t{x_nail_init,y_nail_init, _magic_max_control_point_height},
-          _end_point, //arbitrary z for now
+          _end_point, 
           };
   
   
-  double bezier_duration = std::abs(_constr.end_vel.z()/_constr.end_acc.z());
+  // double bezier_duration = std::abs(_constr.end_vel.z()/_constr.end_acc.z());
   _oriWp = {
     std::make_pair(_magic_oriWp_time, q.matrix()) // at t = _magic_oriWp_time, arbitrary for now
   };
@@ -92,7 +112,7 @@ void Get_In_Position_Task::start(mc_control::fsm::Controller & ctl_)
   // Check if the hammer mass was correctly taken into account
   BSplineVel = std::make_shared<mc_tasks::BSplineTrajectoryTask>(ctl.robot().frame(_hammer_head_frame_name),
                                                                   // _magic_bezier_curve_max_duration, 
-                                                                  bezier_duration,
+                                                                  _magic_bezier_curve_max_duration,
                                                                   _magic_task_stiffness, 
                                                                   _magic_task_weight, 
                                                                   _target, 
@@ -100,54 +120,118 @@ void Get_In_Position_Task::start(mc_control::fsm::Controller & ctl_)
                                                                   _posWp, 
                                                                   _oriWp,
                                                                   _bezier_curve_verbose_active);
-  BSplineVel->stiffness(_magic_task_stiffness);
-  BSplineVel->weight(_magic_task_weight);
-  BSplineVel->selectActiveJoints(
-        {
-          "LWRR",
-        "LWRP",
-        "LWRY",
-        "LSP",
-        "LSR",
-        "LSY",
-        "LEP",  
-      });
-  // std::cout << "BSplineVel->spline().get_bezier().constr_.end_vel.z(): " << BSplineVel->spline().get_bezier()->constr_.end_vel.z() << std::endl;
-  // std::cout << "end vel z : " << constr.end_vel.z() << std::endl;
-  std::cout << "Degree of spline = " << BSplineVel->spline().get_bezier()->degree() << std::endl;
-  ctl.getPostureTask(ctl.robot().name())->weight(1);
-  ctl.solver().addTask(BSplineVel);
-  _dynamicsConstraint = std::make_unique<mc_solver::DynamicsConstraint>(ctl.robots(), 
-                                                                        ctl.robot(_main_robot_name).robotIndex(),
-                                                                      ctl.solver().dt(),
-                                                                    true);
+  // BSplineVel->stiffness(_magic_task_stiffness);
+  // BSplineVel->weight(_magic_task_weight);
+  // BSplineVel->selectActiveJoints(
+  //       {
+  //         "LWRR",
+  //       "LWRP",
+  //       "LWRY",
+  //       "LSP",
+  //       "LSR",
+  //       "LSY",
+  //       "LEP",  
+  //     });
+  // std::cout << "Degree of spline = " << BSplineVel->spline().get_bezier()->degree() << std::endl;
+  // ctl.getPostureTask(ctl.robot().name())->weight(_posture_task_weight);
+
+  // ctl.solver().removeTask(ctl.getPostureTask(ctl.robot().name()));
+  // ctl.solver().addTask(BSplineVel);
+  // _positionTask = std::make_shared<mc_tasks::PositionTask>(ctl.robot().frame(_hammer_head_frame_name), 2.0, 10);
+  // _positionTask->position(_end_point);
+  // ctl.solver().addTask(_positionTask);
   ctl.solver().addConstraintSet(_dynamicsConstraint);
+
+  // mc_rbdyn::Robot cloned(ctl.robot());
+
+  
+  // std::cout << "torque = {" << std::endl;
+  // for(const auto &joint : ctl.robot().mbc().jointTorque)
+  // {
+  //   std::cout << "{";
+  //   for(const double &torque : joint)
+  //   {
+  //     std::cout << torque << ", ";
+  //   }
+  //   std::cout << "}" << std::endl;
+  // }
+  // std::cout << "}" << std::endl;
+  
 }
+
+
+
 
 bool Get_In_Position_Task::run(mc_control::fsm::Controller & ctl_)
 {
+    auto new_mbc = ctl_.robot().mbc();
+
     auto & ctl = static_cast<Hammering_FSM_Controller &>(ctl_);
+    auto gradient_of_m = compute_gradient(new_mbc, ctl, _normal_vector);
+    auto effective_mass = compute_effective_mass_2(new_mbc, ctl_, _normal_vector);
+    mc_rtc::log::info("old_effective_mass = {} kg", _old_effective_mass);
+    mc_rtc::log::info("Effective mass of the robot = {} kg", effective_mass);
+    auto dmdt = (effective_mass - _old_effective_mass) / ctl.solver().dt();
+    mc_rtc::log::info("Finite difference dm/dt = {} kg/s",dmdt);
+    _old_effective_mass = effective_mass;
+    mc_rtc::log::info("Product dm/dt = {} kg/s", mass_time_derivative(gradient_of_m, ctl_));
+  
+    // mc_rtc::log::info("posture task ref accel = {}", ctl.getPostureTask(ctl.robot().name())->refAccel());
+    _masses.push_back(effective_mass);
+    ctl.getPostureTask(ctl.robot().name())->refAccel((_effective_mass_maximization_task_weight/(_posture_task_weight*_posture_task_weight)) * gradient_of_m);
+    // mc_rtc::log::info("Posture objective = {");
+    // for (size_t i = 0; i < std::size(ctl.getPostureTask(ctl.robot().name())->posture()); ++i)
+    // {
+    //   for(size_t j = 0; j < std::size(ctl.getPostureTask(ctl.robot().name())->posture().at(i)); ++j)
+    //   {
+    //     mc_rtc::log::info("[{}]", ctl.getPostureTask(ctl.robot().name())->posture().at(i).at(j));
+    //   }
+    // }
+    // mc_rtc::log::info("}");
+    
+    // mc_rtc::log::info("Current Posture = {");
+    
+    // for (size_t i = 0; i < std::size(ctl.robot().mbc().q); ++i)
+    // {
+    //   for(size_t j = 0; j < std::size(ctl.robot().mbc().q.at(i)); ++j)
+    //   {
+    //     mc_rtc::log::info("[{}]", ctl.robot().mbc().q.at(i).at(j));
+    //   }
+    // }
+    // mc_rtc::log::info("}");
+    // mc_rtc::log::info("Posture refVel = {}", ctl.getPostureTask(ctl_.robot().name())->);
 
-    // auto hammer_translation = ctl.robot().frame(_hammer_head_frame_name).position().translation();
+    // mc_rtc::log::info("Posture refVel = {}", ctl.getPostureTask(ctl_.robot().name())->refVel());
+    // mc_rtc::log::info("Posture refAcc = {}", ctl.getPostureTask(ctl_.robot().name())->refAccel());
+    // mc_rtc::log::info("Posture stiffness = {}", ctl.getPostureTask(ctl_.robot().name())->stiffness());
+    // mc_rtc::log::info("Posture damping = {}", ctl.getPostureTask(ctl_.robot().name())->damping());
+// ctl.getPostureTask(ctl_.robot().name())->
 
-    // double position_error = sqrt(std::pow(hammer_translation.x() - _end_point.x(), 2) 
-    //                             + std::pow(hammer_translation.y() - _end_point.y(), 2)
-    //                            + std::pow(hammer_translation.z() - _magic_max_control_point_height, 2));
+    // mc_rtc::log::info("Weighted Gradient of m = \n {}", (_effective_mass_maximization_task_weight/_posture_task_weight) *gradient_of_m);
+    auto tasks = ctl.solver().tasks();
+    BSplineVel->weight(10/BSplineVel->eval().norm());
+    // return true;
+    for(const auto & task : tasks)
+    {
+      mc_rtc::log::info("Task {}", task->name());
+    }
+    // mc_rtc::log::info("eval norm = {} ", BSplineVel->eval().norm());
+    // ctl.getPostureTask(ctl.robot().name())->refAccel((_effective_mass_maximization_task_weight/(_posture_task_weight*_posture_task_weight)) * gradient_of_m);
+
+    if (_create_file)
+    {
+      mc_rtc::log::info("Effective mass of the robot at the nail = {} kg", compute_effective_mass_2(ctl.robot().mbc(), ctl_, _normal_vector));
+      _create_file = false;
+    }
+    
     if( BSplineVel->eval().norm() < _magic_epsilon)
     {
       _effective_mass = compute_effective_mass(ctl.robot().mbc(), ctl_);
-      std::cout << "Effective mass = " << _effective_mass << std::endl;
+      writeVectorToCSV(_masses, "Masses_vector.csv");
+      // std::cout << "Effective mass = " << _effective_mass << std::endl;
       output("STOP");
       return true;
     }
-    // if( position_error < _magic_epsilon)
-    // {
-    //     output("STOP");
-    //     return true;
-    // }
-    // else{
-    //   std::cout << "Position error : " << position_error << std::endl;
-    // }
   return false;
 }
 
@@ -161,34 +245,138 @@ void Get_In_Position_Task::teardown(mc_control::fsm::Controller & ctl_)
   ctl.getPostureTask(ctl.robot().name())->weight(10);
 }
 
-// void Get_In_Position_Task::store_force(const std::shared_ptr<const geometry_msgs::msg::Vector3Stamped> &force)
-// {
-//     _force_vector = {force -> vector.x, force -> vector.y, force->vector.z};
-    
-//     vector3_t normal_force = {0, 0, _force_vector.z()};
-//     double normal_force_norm = normal_force.norm();
-
-//     if(normal_force_norm > _max_normal_force_norm)
-//     {
-//         _max_normal_force_norm = normal_force_norm;
-//         _peak_normal_force = normal_force;
-//     }
-
-//     if (normal_force_norm > _magic_epsilon)
-//     {
-//         std::cout << "peak force vector : {" << std::endl 
-//         << _peak_normal_force.x() << std::endl
-//         << _peak_normal_force.y() << std::endl
-//         << _peak_normal_force.z() << std::endl
-//         << "}" << std::endl;
-//     }
-
-// }::
-
-const double Get_In_Position_Task::compute_effective_mass(rbd::MultiBodyConfig qf, mc_control::fsm::Controller & ctl_) const
+const double Get_In_Position_Task::mass_time_derivative(const Eigen::VectorXd &gradient, mc_control::fsm::Controller & ctl_) const
 {
+  double dmdt = 0;
+  int j = 0;
+  auto qdot = ctl_.robot().mbc().alpha;
+  for (size_t i = 0; i < std::size(qdot); ++i)
+  {
+    printConfig(ctl_.robot().mbc(), "q = {");
+    if (std::size(qdot.at(i)) != 1)
+    {
+      continue;
+    }
 
-  double delta_psi = 0.01; // rad
+    // mc_rtc::log::info("grad [{}] = {}", j, gradient(j, 1));
+    
+    dmdt += gradient(j, 1)*qdot.at(i).at(0);
+    j+=1;
+  }
+  return dmdt;
+}
+
+const double Get_In_Position_Task::compute_effective_mass_2(rbd::MultiBodyConfig mbc, 
+                                                            mc_control::fsm::Controller & ctl_, 
+                                                            const Eigen::Vector3d &normal_vector) const{
+
+  auto & ctl = static_cast<Hammering_FSM_Controller &>(ctl_);
+  // auto & robot = ctl_.robots()[0];
+
+  // ctl_.robot().forwardKinematics(mbc);
+  // robot.forwardKinematics();
+    
+  // printConfig(mbc, "q used = { \n");
+  // If you dont put this line the gradient is 0 everywhere
+  ctl_.robot().forwardKinematics(mbc);
+
+
+  auto robot_mb = ctl_.robot().mb();
+  rbd::Jacobian jac(robot_mb, _hammer_head_frame_name, _jacobian_verbose_active);
+  auto world_frame_jacobian = jac.jacobian(robot_mb, mbc);
+  // std::cout << "Created world frame jacobian" << std::endl;
+
+  Eigen::MatrixXd full_world_frame_jacobian(6, _nrdof);
+  jac.fullJacobian(robot_mb, world_frame_jacobian, full_world_frame_jacobian);
+
+  // _dynamicsConstraint->motionConstr().fd_non_const().computeH(robot_mb, mbc);
+  Eigen::MatrixXd M = _dynamicsConstraint->motionConstr().fd().H();
+  // .bottomRows(35).rightCols(35);
+    // std::cout << "M  = \n" << M << "\n";
+  // full_world_frame_jacobian = full_world_frame_jacobian.rightCols(35);
+  Eigen::MatrixXd linear_jacobian = full_world_frame_jacobian.bottomRows(3);
+
+  Eigen::MatrixXd M_inverse = M.inverse();
+  Eigen::MatrixXd LAMDA = linear_jacobian*M_inverse*linear_jacobian.transpose();
+  // writeEigenMatrixToCSV(M, "ReducedMassMatrixMcRTC.csv");
+  // writeEigenMatrixToCSV(full_world_frame_jacobian, "Reducedfull_world_frame_jacobian.csv");
+  return 1/(normal_vector.transpose()*LAMDA*normal_vector);
+}
+
+const Eigen::VectorXd Get_In_Position_Task::compute_gradient(rbd::MultiBodyConfig mbc, 
+                                                             mc_control::fsm::Controller &ctl_, 
+                                                            const Eigen::Vector3d &normal_vector) const{
+
+    // Store only the actuated dofs in Q
+    // std::vector<double> Q = {};
+    // for (size_t i = 0; i < std::size(mbc.q); ++i)
+    // {
+    //   for(size_t j = 0; j < std::size(mbc.q.at(i)); ++j)
+    //   {
+        
+    //     std::cout << "Pushing back : " << mbc.q.at(i).at(j) << std::endl;
+        
+    //     Q.push_back(mbc.q.at(i).at(j));
+    //   }backward_effective_mass
+    // }
+    // std::cout << "nrDof = " << _nrdof << std::endl;
+    const double epsilon = 0.00001; //0.06 deg
+    Eigen::VectorXd grad(_nrdof, 1);
+    grad.setOnes();
+    for(size_t i = 0; i < 6; ++i)
+    {
+      //We suppose that the floating base does not move, hence the first 6 DOFs gradient wrt to q are 0
+      grad(i,0) = 0;
+    }
+
+    int j = 0;
+    for(size_t i = 0; i <  std::size(mbc.q); ++i)
+    { 
+      if(mbc.q.at(i).size() != 1)
+      {
+        // Ignore floating base and fixed joints
+        // mc_rtc::log::info("mbc.q = {}", mbc.q.at(i).at(0));
+        continue;
+      }
+
+      auto forward_mbc = mbc;
+      auto backward_mbc = mbc;
+      // std::cout << "initial_mbc_q[i] =  = " << mbc.q.at(i).at(0) << std::endl;
+      // std::cout << "jointConfig = " << mbc.jointConfig << std::endl;
+
+
+      forward_mbc.q.at(i).at(0) += epsilon;
+      backward_mbc.q.at(i).at(0) -= epsilon;
+      // forward_mbc.q.at(i).at(0) += 1000;
+      // backward_mbc.q.at(i).at(0) -= 1000;
+
+      //Finite differences
+      double forward_effective_mass = compute_effective_mass_2(forward_mbc, ctl_, normal_vector);
+      double backward_effective_mass = compute_effective_mass_2(backward_mbc, ctl_, normal_vector);
+      
+      // mc_rtc::log::info("forward_mbc_q[i] = {}", forward_mbc.q.at(i).at(0));
+      // mc_rtc::log::info("backward_mbc_q[i] = {}", backward_mbc.q.at(i).at(0));
+      // mc_rtc::log::info("---------------------");
+
+      double grad_res = (forward_effective_mass - backward_effective_mass)/(2*epsilon);
+      mc_rtc::log::info("grad[{}] = {}", 6+j, grad_res);
+
+      grad(6+j,1) = grad_res;
+      // mc_rtc::log::info("grad [{}] = {}", j+6 , grad_res);
+
+      j+=1;
+    }
+  ctl_.robot().forwardKinematics(mbc);
+  return grad;
+}
+
+
+const double Get_In_Position_Task::compute_effective_mass(rbd::MultiBodyConfig q, mc_control::fsm::Controller & ctl_) const
+{
+  ctl_.robot().forwardKinematics(q);
+  auto robot_mb = ctl_.robot().mb();
+  // _dynamicsConstraint->motionConstr().fd_non_const().computeH(robot_mb, q_test);
+  // double delta_psi = 0.01; // rad
 
   // std::cout << "nrDOF = " << _nrdof << std::endl;
   // std::cout << "size = " << std::size(qf.q) << std::endl;
@@ -199,9 +387,11 @@ const double Get_In_Position_Task::compute_effective_mass(rbd::MultiBodyConfig q
   // std::vector<double> Q = {};
   // for (size_t i = 0; i < std::size(qf.q); ++i)
   // {
+  //   std::cout << ctl_.robot().mb().joint(i).name()<< " : " ; 
   //   std::cout << "{";
   //   for(size_t j = 0; j < std::size(qf.q.at(i)); ++j)
   //   {
+      
   //     std::cout << qf.q.at(i).at(j) << ", ";
   //     n+=1;
   //     Q.push_back(qf.q.at(i).at(j));
@@ -216,37 +406,38 @@ const double Get_In_Position_Task::compute_effective_mass(rbd::MultiBodyConfig q
   //   std::cout << Q.at(i) << std::endl;
   // }
   // std::cout << "}"  << std::endl;
- 
-  auto robot_mb = ctl_.robot().mb();
-  std::cout << "Creating my Jacobian" << std::endl;
+  Eigen::MatrixXd M = _dynamicsConstraint->motionConstr().fd().H();
+    // std::cout << "M  = \n" << M << "\n";
+  Eigen::MatrixXd M_inverse = M.inverse();
+  // std::cout << "Creating my Jacobian" << std::endl;
   rbd::Jacobian jac(robot_mb, _hammer_head_frame_name, _jacobian_verbose_active);
-  auto world_frame_jacobian = jac.jacobian(robot_mb,qf);
-  std::cout << "Created world frame jacobian" << std::endl;
+  auto world_frame_jacobian = jac.jacobian(robot_mb,q);
+  // std::cout << "Created world frame jacobian" << std::endl;
 
   Eigen::MatrixXd full_world_frame_jacobian(6, ctl_.robot().mb().nrDof());
   jac.fullJacobian(robot_mb, world_frame_jacobian, full_world_frame_jacobian);
-  std::cout << "Projected my world frame Jacobian" << std::endl;
+  // std::cout << "Projected my world frame Jacobian" << std::endl;
   
-  Eigen::MatrixXd linear_jacobian = full_world_frame_jacobian.topRows(3);
-  std::cout << "Created linear jacobian" << std::endl;
+  Eigen::MatrixXd linear_jacobian = full_world_frame_jacobian.bottomRows(3);
+  // std::cout << "Created linear jacobian" << std::endl;
 
-  Eigen::MatrixXd angular_jacobian = full_world_frame_jacobian.bottomRows(3);
-  std::cout << "Created angular jacobian" << std::endl;
+  // Eigen::MatrixXd angular_jacobian = full_world_frame_jacobian.bottomRows(3);
+  // std::cout << "Created angular jacobian" << std::endl;
 
   // std::cout << "dim angular jacobian = " << angular_jacobian.rows() << " x " << angular_jacobian.cols() << std::endl;
-  Eigen::MatrixXd pseudo_inverted_angular_jacobian = angular_jacobian.bdcSvd(Eigen::ComputeThinU | Eigen::ComputeThinV).solve(Eigen::MatrixXd::Identity(angular_jacobian.rows(), angular_jacobian.rows()));
-  std::cout << "Created pseudo inverse" << std::endl;
+  // Eigen::MatrixXd pseudo_inverted_angular_jacobian = angular_jacobian.bdcSvd(Eigen::ComputeThinU | Eigen::ComputeThinV).solve(Eigen::MatrixXd::Identity(angular_jacobian.rows(), angular_jacobian.rows()));
+  // std::cout << "Created pseudo inverse" << std::endl;
   
-  auto pseudo_inverted_angular_jacobian_third_column = pseudo_inverted_angular_jacobian.col(3 - 1);
-  std::cout << "Created pseudo inverse angular jac" << std::endl;
+  // auto pseudo_inverted_angular_jacobian_third_column = pseudo_inverted_angular_jacobian.col(3 - 1);
+  // std::cout << "Created pseudo inverse angular jac" << std::endl;
 
-  Eigen::MatrixXd delta_x_omega(3, 1);
-  std::cout << "Created delta x omega" << std::endl;
+  // Eigen::MatrixXd delta_x_omega(3, 1);
+  // std::cout << "Created delta x omega" << std::endl;
 
-  delta_x_omega << 0, 0, delta_psi;
+  // delta_x_omega << 0, 0, delta_psi;
 
-  Eigen::MatrixXd delta_q =  pseudo_inverted_angular_jacobian * delta_x_omega;
-  std::cout << "Created delta q" << std::endl;
+  // Eigen::MatrixXd delta_q =  pseudo_inverted_angular_jacobian * delta_x_omega;
+  // std::cout << "Created delta q" << std::endl;e
 
   // std::cout << "JointConfig = { " << std::endl;
   // for(size_t i = 0; i < std::size(qf.jointConfig); ++i)
@@ -265,11 +456,10 @@ const double Get_In_Position_Task::compute_effective_mass(rbd::MultiBodyConfig q
 
   
   // std::cout << M_inverse << std::endl;
-  auto q_test = qf;
   // std::cout << "Created M inverse" << std::endl;
   // std::cout << "Size M^-1 = " << M_inverse.rows() << " x " << M_inverse.cols() << std::endl;
-  // writeEigenMatrixToCSV(M_inverse, "InverseMassMatrix.csv");
-  // writeEigenMatrixToCSV(linear_jacobian, "LinearJacobian.csv");
+  // writeEigenMatrixToCSV(M, "MassMatrixMcRTC.csv");
+  // writeEigenMatrixToCSV(full_world_frame_jacobian, "full_world_frame_jacobian.csv");
   // std::cout << M << std::endl;
   
   
@@ -282,23 +472,21 @@ const double Get_In_Position_Task::compute_effective_mass(rbd::MultiBodyConfig q
   double outer_sum = 0;
   double effective_mass = 0;
   double delta_psi_tot = 0;
-  auto q_start = qf;
-  std::cout << "Starting double sum" << std::endl;
+  // auto q_start = qf;
+  // std::cout << "Starting double sum" << std::endl;
   
-  while(delta_psi_tot < 2*M_PI)
-  {
-    std::cout << "delta_psi_tot = " << delta_psi_tot << std::endl;
+  // while(delta_psi_tot < 2*M_PI)
+  // {
+    // std::cout << "delta_psi_tot = " << delta_psi_tot << std::endl;
     //Create everything
-    ctl_.robot().forwardKinematics(q_test);
-    _dynamicsConstraint->motionConstr().fd_non_const().computeH(robot_mb, q_test);
-    Eigen::MatrixXd M_inverse = _dynamicsConstraint->motionConstr().fd().H().inverse();
-    // std::cout << M_inverse.row(0) << std::endl;
-    world_frame_jacobian = jac.jacobian(robot_mb,q_test);
 
-    Eigen::MatrixXd full_world_frame_jacobian(6, robot_mb.nrDof());
-    jac.fullJacobian(robot_mb, world_frame_jacobian, full_world_frame_jacobian);
+    // std::cout << M_inverse.row(0) << std::endl;
+    // world_frame_jacobian = jac.jacobian(robot_mb,q_test);
+
+    // Eigen::MatrixXd full_world_frame_jacobian(6, robot_mb.nrDof());
+    // jac.fullJacobian(robot_mb, world_frame_jacobian, full_world_frame_jacobian);
     
-    Eigen::MatrixXd linear_jacobian = full_world_frame_jacobian.bottomRows(3);
+    // Eigen::MatrixXd linear_jacobian = full_world_frame_jacobian.bottomRows(3);
 
     // Eigen::MatrixXd angular_jacobian = full_world_frame_jacobian.bottomRows(3);
 
@@ -309,12 +497,12 @@ const double Get_In_Position_Task::compute_effective_mass(rbd::MultiBodyConfig q
 
     // Eigen::MatrixXd delta_x_omega(3, 1);
 
-    Eigen::MatrixXd pseudo_inverted_full_jac = full_world_frame_jacobian.bdcSvd(Eigen::ComputeThinU | Eigen::ComputeThinV).solve(Eigen::MatrixXd::Identity(full_world_frame_jacobian.rows(), full_world_frame_jacobian.rows()));
-    delta_x_omega << 0, 0, delta_psi;
-    Eigen::MatrixXd delta_x(6, 1);
-    delta_x << 0, 0, 0, 0, 0, delta_psi;
+    // Eigen::MatrixXd pseudo_inverted_full_jac = full_world_frame_jacobian.bdcSvd(Eigen::ComputeThinU | Eigen::ComputeThinV).solve(Eigen::MatrixXd::Identity(full_world_frame_jacobian.rows(), full_world_frame_jacobian.rows()));
+    // delta_x_omega << 0, 0, delta_psi;
+    // Eigen::MatrixXd delta_x(6, 1);
+    // delta_x << 0, 0, 0, 0, 0, delta_psi;
     // Eigen::MatrixXd delta_q =  pseudo_inverted_angular_jacobian * delta_x_omega;
-    Eigen::MatrixXd delta_q =  pseudo_inverted_full_jac* delta_x;
+    // Eigen::MatrixXd delta_q =  pseudo_inverted_full_jac* delta_x;
 
 
     // Compute Outer sum
@@ -335,33 +523,33 @@ const double Get_In_Position_Task::compute_effective_mass(rbd::MultiBodyConfig q
       outer_sum += inner_sum*J_nu_3_k;
     }
 
-    std::cout << "Testing effective mass : "<< 1/outer_sum << std::endl;
-    if(1/outer_sum > effective_mass)
-    {
-      effective_mass = 1/outer_sum;
-    }
+    // std::cout << "Testing effective mass : "<< 1/outer_sum << std::endl;
+    // if(1/outer_sum > effective_mass)
+    // {
+    //   effective_mass = 1/outer_sum;
+    // }
 
     // std::cout << "deltaq =  " << delta_q << std::endl;
 
     // printConfig(q_test, "q_test before = {");        
     // increment q_test by delta q
-    int L = 0;
-    int m = 0;
-    for (size_t i = 0; i < std::size(q_test.q); ++i)
-    {
-      for(size_t j = 0; j < std::size(q_test.q.at(i)); ++j)
-      {
-        q_test.q.at(i).at(j) += delta_q(j+L, 0);
-        m += 1;
-      }
-      L += m;
-      m = 0;
-    }
+    // int L = 0;
+    // int m = 0;
+    // for (size_t i = 0; i < std::size(q_test.q); ++i)
+    // {
+    //   for(size_t j = 0; j < std::size(q_test.q.at(i)); ++j)
+    //   {
+    //     q_test.q.at(i).at(j) += delta_q(j+L, 0);
+    //     m += 1;
+    //   }
+    //   L += m;
+    //   m = 0;
+    // }
 
     // printConfig(q_test, "q_test after = {");        
-    delta_psi_tot += delta_psi;
-  }
-  return effective_mass;
+  //   delta_psi_tot += delta_psi;
+  // }
+  return 1/outer_sum;
 }
 
 // void Get_In_Position_Task::increment_config(rbd::MultiBodyConfig & mbc);
@@ -373,21 +561,21 @@ void Get_In_Position_Task::printConfig(rbd::MultiBodyConfig mbc, std::string str
     {
       for(size_t j = 0; j < std::size(mbc.q.at(i)); ++j)
       {
-        std::cout << mbc.q.at(i).at(j) << std::endl;
+        std::cout << mbc.q.at(i).at(j) <<"," << std::endl;
       }
     }
     std::cout << "}" << std::endl;
 }
 
 void Get_In_Position_Task::writeEigenMatrixToCSV(const Eigen::MatrixXd& matrix, const std::string& filename) const {
-    std::cout << "entering write eigen function" << std::endl;
+    // std::cout << "entering write eigen function" << std::endl;
     std::ofstream file(filename);
     if (!file.is_open()) {
         std::cerr << "Error: Could not open the file!" << std::endl;
         return;
     }
 
-    std::cout << "For loop writeEigen begin" << std::endl;
+    // std::cout << "For loop writeEigen begin" << std::endl;
     for (int i = 0; i < matrix.rows(); ++i) {
         for (int j = 0; j < matrix.cols(); ++j) {
             file << matrix(i, j);
@@ -396,7 +584,26 @@ void Get_In_Position_Task::writeEigenMatrixToCSV(const Eigen::MatrixXd& matrix, 
         file << "\n";  // Newline for each row
     }
     file.close();
-    std::cout << "Matrix written to " << filename << std::endl;
+    // std::cout << "Matrix written to " << filename << std::endl;
+}
+void Get_In_Position_Task::writeVectorToCSV(const std::vector<double> & vec, const std::string & filename) const 
+{
+    std::ofstream file(filename);
+    if(!file.is_open())
+    {
+        std::cerr << "Failed to open " << filename << std::endl;
+        return;
+    }
+
+    for(size_t i = 0; i < vec.size(); ++i)
+    {
+        file << vec[i];
+        if(i != vec.size() - 1)
+            file << ",";  // comma between values
+    }
+
+    file << "\n";  // new line at the end
+    file.close();
 }
 
 void Get_In_Position_Task::load_parameters()
@@ -439,7 +646,12 @@ void Get_In_Position_Task::load_parameters()
   _magic_task_stiffness = _config(magic_values_key)("task_stiffness");
   _magic_task_weight = _config(magic_values_key)("task_weight");
   _magic_epsilon = _config(magic_values_key)("epsilon");
+  _posture_task_weight = _config(magic_values_key)("posture_task_weight");
+  _effective_mass_maximization_task_weight = _config(magic_values_key)("effective_mass_maximization_task_weight");
+
   _magic_oriWp_time = _config(magic_values_key)("oriWp_time");
+  _magic_oriWp_time = _config(magic_values_key)("oriWp_time");
+
 
 
   // ------------------------ Loading init and start velocities, accelerations and jerks ---------------------------

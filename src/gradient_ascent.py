@@ -9,4 +9,4 @@ import pinocchio
 
 # # Target frame and pose (e.g., end-effector)
 # target_frame = "hammer_head"  # replace with your end-effector frame
-# target_id = model.getFrameId(target_frame)
+# target_id = model.getFrameId(target_frame)inin

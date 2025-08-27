@@ -38,12 +38,12 @@ constraints:
 collisions:
 - type: collision
   useMinimal: true
-- type: collision
-  r1: hrp5_p
-  r2: nail
-  collisions:
-    body1: hammer
-    body2: nail
+# - type: collision
+#   r1: hrp5_p
+#   r2: nail
+  # collisions:
+  #   body1: hammer
+  #   body2: nail
 
 contacts:
 - r2: ground
@@ -63,12 +63,18 @@ states:
         weight: 3000
         stiffness: 100  
         
-  PostureTask:
+  Hammer::PostureTask:
     base: MetaTasks
     tasks:
-      type: posture
-      stiffness: 1.0
-      weight: 1000
+      Posture:
+        type: posture
+        stiffness: 1.0
+        weight: 1.0
+        # posture:
+        #   - [1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.7]
+        #   - [0]
+        #   - []
+        #   - [1.5]
 
   Hammer::Standing:
     base: MetaTasks
@@ -102,13 +108,12 @@ states:
           com:
             stiffness: [100.,100.,100.]
             dimWeight: [1 , 1 , 1]
-            weight: 5000.
+            weight: 5000
             height: 0.92
     
   Initial_And_Standing: 
     base: Parallel
     states: [Hammer::Standing, Hammering_FSM_Controller_Initial]
-
 
 
 
@@ -123,7 +128,7 @@ states:
 
     quality_of_life:
       bezier_curve_verbose_active: false
-      jacobian_verbose_active: true
+      jacobian_verbose_active: false
 
     frames:
       Hammer_Head_frame: "Hammer_Head"
@@ -135,10 +140,12 @@ states:
 
       bezier_curve_max_duration: 1
       task_stiffness: 5000
-      task_weight: 1000
-      epsilon: 0.019
+      task_weight: 1
+      epsilon: 0.02
       oriWp_time: 0.9
       force_norm_threshold: 1
+      posture_task_weight: 1
+      effective_mass_maximization_task_weight: 10
 
     curve_constraints:
       linear_velocity:
@@ -150,7 +157,7 @@ states:
           end: 0
         z:
           init: 0
-          end: -1
+          end: -2
       linear_acceleration:
         x:
           init: 0
@@ -173,92 +180,101 @@ states:
           end: 0
 
 
-  Hammer::Hit:
-    base: Hit_Task
+  # Hammer::Hit:
+  #   base: Hit_Task
 
-    timestep: 0.002 #s
+  #   timestep: 0.002 #s
     
-    gui:
-      stop_hammering_button_name: "Stop hammering"
+  #   gui:
+  #     stop_hammering_button_name: "Stop hammering"
 
-    quality_of_life:
-      bezier_curve_verbose_active: false
+  #   quality_of_life:
+  #     bezier_curve_verbose_active: false
 
-    frames:
-      Hammer_Head_frame: "Hammer_Head"
-      nail: "nail"
+  #   frames:
+  #     Hammer_Head_frame: "Hammer_Head"
+  #     nail: "nail"
     
-    magic_values:
-      max_control_point_height: 2.15
-      bezier_curve_max_duration: 1
-      task_stiffness: 100
-      task_weight: 1000
-      epsilon: 0.13
-      oriWp_time: 3
-      force_norm_threshold: 1
+  #   magic_values:
+  #     max_control_point_height: 2.15
+  #     bezier_curve_max_duration: 1
+  #     task_stiffness: 100
+  #     task_weight: 1000
+  #     epsilon: 0.13
+  #     oriWp_time: 3
+    #   force_norm_threshold: 1
 
-    curve_constraints:
-      linear_velocity:
-        x:
-          init: 0
-          end: 0
-        y: 
-          init: 0
-          end: 0
-        z:
-          init: 0
-          end: -1
+    # curve_constraints:
+    #   linear_velocity:
+    #     x:
+    #       init: 0
+    #       end: 0
+    #     y: 
+    #       init: 0
+    #       end: 0
+    #     z:
+    #       init: 0
+    #       end: -1
 
-      linear_acceleration:
-        x:
-          init: 0
-          end: 0
-        y: 
-          init: 0
-          end: 0
-        z:
-          init: -1
-          end: 0
-      linear_jerk:
-        x:
-          init: 0
-          end: 0
-        y: 
-          init: 0
-          end: 0
-        z:
-          init: 0
-          end: 0
+    #   linear_acceleration:
+    #     x:
+    #       init: 0
+    #       end: 0
+    #     y: 
+    #       init: 0
+    #       end: 0
+    #     z:
+    #       init: -1
+    #       end: 0
+    #   linear_jerk:
+    #     x:
+    #       init: 0
+    #       end: 0
+    #     y: 
+    #       init: 0
+    #       end: 0
+    #     z:
+    #       init: 0
+    #       end: 0
 
 
+  # Hammer::Posture_with_CoM:
+  #   base: Parallel
+  #   states: [CoM, Hammer::PostureTask]
 
-  Hammer::Post_Impact_Task:
-    base: Post_Impact_Task
 
-    quality_of_life:
-      bezier_curve_verbose_active: false
+  # Hammer::Post_Impact_Task:
+  #   base: Post_Impact_Task
 
-    frames:
-      Hammer_Head_frame: "Hammer_Head"
+  #   quality_of_life:
+  #     bezier_curve_verbose_active: false
 
-    magic_values:
-      epsilon: 0.2
-      bezier_curve_max_duration: 2
-      task_stiffness: 100
-      task_weight: 1000
-      post_impact_final_height: 1
-      coefficient_of_restitution: 0.46 #Dont fully trust that value I got it from google AI for iron-alumimium collision  
+  #   frames:
+  #     Hammer_Head_frame: "Hammer_Head"
 
-    curve_constraints:
-      linear_velocity:
-        z:
-          init: 0
-          end: 0
+  #   magic_values:
+  #     epsilon: 0.2
+  #     bezier_curve_max_duration: 2
+  #     task_stiffness: 100
+  #     task_weight: 1000
+  #     post_impact_final_height: 1
+  #     coefficient_of_restitution: 0.46 #Dont fully trust that value I got it from google AI for iron-alumimium collision  
+
+  #   curve_constraints:
+  #     linear_velocity:
+  #       z:
+  #         init: 0
+  #         end: 0
 
 
   Get_In_Position_And_Standing: 
     base: Parallel
     states: [Hammer::Standing, Hammer::Get_In_Position_Task]
+
+  Get_In_Position_And_Standing_With_CoM: 
+    base: Parallel
+    states: [Hammer::Standing, Hammer::Get_In_Position_Task, CoM]
+
 
   Hit:
     base: Parallel
@@ -271,11 +287,15 @@ states:
   Hammer::HammeringFSM:
     base: Meta 
     transitions:
+      # - [Initial_And_Standing, BUTTON_CLICKED, Get_In_Position_And_Standing, Auto]
       - [Initial_And_Standing, BUTTON_CLICKED, Get_In_Position_And_Standing, Auto]
+
+      # - [Initial_And_Standing, BUTTON_CLICKED, Hammer::Posture_with_CoM, Auto]
+
       # - [Get_In_Position_And_Standing, STOP, Hammer::HammeringFSM_Finish, Auto]
       # - [Get_In_Position_And_Standing, STOP, Hit, Auto]
 
-      - [Get_In_Position_And_Standing, STOP, Initial_And_Standing, Auto]
+      # - [Get_In_Position_And_Standing, STOP, Initial_And_Standing, Auto]
 
       # - [Hit, IMPACT_DETECTED, Initial_And_Standing, Auto]
 

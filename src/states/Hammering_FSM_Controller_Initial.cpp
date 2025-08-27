@@ -13,7 +13,7 @@ void Hammering_FSM_Controller_Initial::start(mc_control::fsm::Controller & ctl_)
 
   // Creates a button to start the movement
   ctl_.gui()->addElement({}, mc_rtc::gui::Button("Start hammering", [this]() { _positionning_hammer_clicked = true; }));
-  ctl_.getPostureTask(ctl_.robot().name())->weight(1);
+  // ctl_.getPostureTask(ctl_.robot().name())->weight(1);
   mc_rtc::log::info("Starting Initial State");
 
 }

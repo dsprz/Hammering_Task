@@ -145,7 +145,7 @@ states:
       oriWp_time: 0.9
       force_norm_threshold: 1
       posture_task_weight: 1
-      effective_mass_maximization_task_weight: 10
+      effective_mass_maximization_task_weight: 1
 
     curve_constraints:
       linear_velocity:
@@ -271,6 +271,10 @@ states:
     base: Parallel
     states: [Hammer::Standing, Hammer::Get_In_Position_Task]
 
+  Get_In_Position_NoLIPM: 
+    base: Parallel
+    states: [Hammer::Get_In_Position_Task]
+
   Get_In_Position_And_Standing_With_CoM: 
     base: Parallel
     states: [Hammer::Standing, Hammer::Get_In_Position_Task, CoM]
@@ -288,7 +292,9 @@ states:
     base: Meta 
     transitions:
       # - [Initial_And_Standing, BUTTON_CLICKED, Get_In_Position_And_Standing, Auto]
-      - [Initial_And_Standing, BUTTON_CLICKED, Get_In_Position_And_Standing, Auto]
+      # - [Initial_And_Standing, BUTTON_CLICKED, Get_In_Position_And_Standing, Auto]
+      - [Initial_And_Standing, BUTTON_CLICKED, Get_In_Position_NoLIPM, Auto]
+
 
       # - [Initial_And_Standing, BUTTON_CLICKED, Hammer::Posture_with_CoM, Auto]
 

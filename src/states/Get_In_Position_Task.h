@@ -82,9 +82,30 @@ struct Get_In_Position_Task : mc_control::fsm::State
     bool _impact_detected = false;
     // void store_force(const std::shared_ptr<const geometry_msgs::msg::Vector3Stamped> &force);
   
-    const double compute_effective_mass(rbd::MultiBodyConfig qf, mc_control::fsm::Controller & ctl_) const;
-    const double compute_effective_mass_2(rbd::MultiBodyConfig q, mc_control::fsm::Controller & ctl_, const Eigen::Vector3d &normal_vector) const;
-    const Eigen::VectorXd compute_gradient(rbd::MultiBodyConfig q, mc_control::fsm::Controller &ctl_, const Eigen::Vector3d &normal_vector) const;
+    const double compute_effective_mass_naive(rbd::MultiBodyConfig mbc, 
+                                              mc_control::fsm::Controller & ctl_) const;
+    const double compute_effective_mass_with_mbc(rbd::MultiBodyConfig mbc, 
+                                                mc_control::fsm::Controller & ctl_, 
+                                                const Eigen::Vector3d &normal_vector) const;
+
+    /*Reduced effective mass = effective mass without the floating base
+    */
+    const double compute_reduced_effective_mass_with_mbc(rbd::MultiBodyConfig mbc, 
+                                                mc_control::fsm::Controller & ctl_, 
+                                                const Eigen::Vector3d &normal_vector) const;
+                                                
+    const double compute_floating_base_effective_mass_with_mbc(rbd::MultiBodyConfig mbc, 
+                                                mc_control::fsm::Controller & ctl_, 
+                                                const Eigen::Vector3d &normal_vector) const;
+    const double compute_effective_mass_with_encoders(const std::vector<double> &encoderValues, 
+                                                      mc_control::fsm::Controller & ctl_, 
+                                                      const Eigen::Vector3d &normal_vector) const;
+    const Eigen::VectorXd compute_emass_gradient_central_difference_mbc(rbd::MultiBodyConfig q, 
+                                                                        mc_control::fsm::Controller &ctl_, 
+                                                                        const Eigen::Vector3d &normal_vector) const;
+    const Eigen::VectorXd compute_emass_gradient_backward_difference_mbc(rbd::MultiBodyConfig q, 
+                                                                          mc_control::fsm::Controller &ctl_, 
+                                                                          const Eigen::Vector3d &normal_vector) const;
 
     void writeEigenMatrixToCSV(const Eigen::MatrixXd& matrix, const std::string& filename) const;
     void printConfig(rbd::MultiBodyConfig q, std::string string) const;
@@ -96,9 +117,32 @@ struct Get_In_Position_Task : mc_control::fsm::State
 
     //finite differences dm/dt
     rbd::MultiBodyConfig _old_mbc;
-    double _old_effective_mass = 1;
+    rbd::MultiBodyConfig _new_mbc;
+    double _old_effective_mass_mbc = 1;
+    double _old_floating_base_effective_mass_mbc = 1;
+    double _old_reduced_effective_mass_mbc = 1;
+
+
+    double _old_effective_mass_encoders = 1;
+
     const Eigen::Vector3d _normal_vector = {0, 0, 1};
-    const double mass_time_derivative(const Eigen::VectorXd &gradient, mc_control::fsm::Controller & ctl_) const;
+    const double emass_time_derivative_with_q_derivative(const Eigen::VectorXd &gradient, 
+                                                        mc_control::fsm::Controller & ctl_) const;
+    const double emass_time_derivative_with_encoders(const Eigen::VectorXd &gradient, 
+                                                    mc_control::fsm::Controller & ctl_) const;
+    const double emass_time_derivative_with_mbc_alpha(const Eigen::VectorXd &gradient, 
+                                                    mc_control::fsm::Controller & ctl_) const;
+    const Eigen::VectorXd compute_emass_gradient_central_difference_encoders(const std::vector<double> &encoderValues, 
+                                                                              mc_control::fsm::Controller &ctl_, 
+                                                                              const Eigen::Vector3d &normal_vector) const;
+    void compare_configs(const Eigen::VectorXd &gradient, mc_control::fsm::Controller & ctl_);
+    std::map<std::string, double> _old_q_mbc_map;
+    std::map<std::string, double> _old_q_encoders_map;
+    double _old_floating_base_effective_mass = 0;
+    std::vector<double> _old_q_encoders = {};
+    //Reorganize the order of the gradient because the order of the joints using encoders is not the same as the order of the mb object
+    const Eigen::VectorXd reorganized_gradient(const Eigen::VectorXd &gradient,
+                                              mc_control::fsm::Controller & ctl_) const;
 
     // -------------------------------- Parameters ---------------------------------------
     

@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.10)
+project(my_gradient_test)
+add_executable(gradient_test gradient_test.cpp)
+find_package(Eigen3 REQUIRED)
+target_link_libraries(gradient_test PRIVATE Eigen3::Eigen)

@@ -145,7 +145,7 @@ states:
       oriWp_time: 0.9
       force_norm_threshold: 1
       posture_task_weight: 1
-      effective_mass_maximization_task_weight: 1
+      effective_mass_maximization_task_weight: 5
 
     curve_constraints:
       linear_velocity:
@@ -291,7 +291,6 @@ states:
   Hammer::HammeringFSM:
     base: Meta 
     transitions:
-      # - [Initial_And_Standing, BUTTON_CLICKED, Get_In_Position_And_Standing, Auto]
       # - [Initial_And_Standing, BUTTON_CLICKED, Get_In_Position_And_Standing, Auto]
       - [Initial_And_Standing, BUTTON_CLICKED, Get_In_Position_NoLIPM, Auto]
 

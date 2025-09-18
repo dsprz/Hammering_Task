@@ -97,6 +97,9 @@ struct Get_In_Position_Task : mc_control::fsm::State
     const Eigen::VectorXd compute_emass_gradient_backward_difference_mbc(const rbd::MultiBodyConfig &mbc, 
                                                                           mc_control::fsm::Controller &ctl_, 
                                                                           const Eigen::Vector3d &normal_vector) const;
+     const Eigen::VectorXd compute_emass_gradient_three_point_backward_difference_mbc(const rbd::MultiBodyConfig &mbc, 
+                                                                          mc_control::fsm::Controller &ctl_, 
+                                                                          const Eigen::Vector3d &normal_vector) const;
 
     void writeEigenMatrixToCSV(const Eigen::MatrixXd& matrix, const std::string& filename) const;
     void printConfig(rbd::MultiBodyConfig q, std::string string) const;

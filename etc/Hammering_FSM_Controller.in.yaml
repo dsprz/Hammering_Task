@@ -140,12 +140,12 @@ states:
 
       bezier_curve_max_duration: 1
       task_stiffness: 5000
-      task_weight: 1
+      task_weight: 5
       epsilon: 0.02
       oriWp_time: 0.9
       force_norm_threshold: 1
       posture_task_weight: 1
-      effective_mass_maximization_task_weight: 5
+      effective_mass_maximization_task_weight: 1
 
     curve_constraints:
       linear_velocity:
@@ -286,7 +286,7 @@ states:
 
   Hammer::HammeringFSM_Finish: 
     base: Parallel
-    states: [Hammer::Standing, Hammer::Post_Impact_Task]
+    states: [Hammer::Standing]
   
   Hammer::HammeringFSM:
     base: Meta 
@@ -300,7 +300,10 @@ states:
       # - [Get_In_Position_And_Standing, STOP, Hammer::HammeringFSM_Finish, Auto]
       # - [Get_In_Position_And_Standing, STOP, Hit, Auto]
 
-      # - [Get_In_Position_And_Standing, STOP, Initial_And_Standing, Auto]
+      # - [Get_In_Position_NoLIPM, STOP, Initial_And_Standing, Auto]
+      - [Get_In_Position_NoLIPM, STOP, Hammer::HammeringFSM_Finish, Auto]
+
+      
 
       # - [Hit, IMPACT_DETECTED, Initial_And_Standing, Auto]
 

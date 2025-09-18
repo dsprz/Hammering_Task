@@ -38,13 +38,14 @@ void Get_In_Position_Task::configure(const mc_rtc::Configuration & config)
 void Get_In_Position_Task::start(mc_control::fsm::Controller & ctl_)
 {
   auto & ctl = static_cast<Hammering_FSM_Controller &>(ctl_);
+
   load_parameters();
-  _dynamicsConstraint = std::make_unique<mc_solver::DynamicsConstraint>(ctl.robots(), 
-                                                                        ctl.robot().robotIndex(),
-                                                                      ctl.solver().dt(),
-                                                                      std::array<double, 3>{0.1, 0.01, 0.5},
-                                                                      1.0,
-                                                                    true);
+  // _dynamicsConstraint = std::make_unique<mc_solver::DynamicsConstraint>(ctl.robots(), 
+  //                                                                       ctl.robot().robotIndex(),
+  //                                                                     ctl.solver().dt(),
+  //                                                                     std::array<double, 3>{0.1, 0.01, 0.5},
+  //                                                                     1.0,
+  //                                                                   true);
   mc_rtc::log::info("solver timestep = {} s", ctl.solver().dt());
   _nrdof = ctl.robot().mb().nrDof();
  
@@ -81,7 +82,7 @@ void Get_In_Position_Task::start(mc_control::fsm::Controller & ctl_)
   // std::cout << ctl.robot().frame("LeftHand").position().rotation() << std::endl;
 
   // std::cout << "base frame rotation matrix = \n" << ctl.robot().frame("base_link").position().rotation() << "\n";
-  printConfig(ctl.robot().mbc(), "q_init");
+  // printConfig(ctl.robot().mbc(), "q_init");
   // std::cout << "initial Hammer_head rotation : " <<_initial_hammerhead_position.rotation() << std::endl;
 
   _start_point = ctl.robot().frame(_hammer_head_frame_name).position().translation();
@@ -128,8 +129,8 @@ void Get_In_Position_Task::start(mc_control::fsm::Controller & ctl_)
                                                                   _posWp, 
                                                                   _oriWp,
                                                                   _bezier_curve_verbose_active);
-  // // BSplineVel->stiffness(_magic_task_stiffness);
-  // BSplineVel->weight(_magic_task_weight);
+  BSplineVel->stiffness(_magic_task_stiffness);
+  BSplineVel->weight(_magic_task_weight);
   // BSplineVel->selectActiveJoints(
   //       {
   //         "LWRR",
@@ -142,14 +143,11 @@ void Get_In_Position_Task::start(mc_control::fsm::Controller & ctl_)
   //     });
   // std::cout << "Degree of spline = " << BSplineVel->spline().get_bezier()->degree() << std::endl;
   // ctl.getPostureTask(ctl.robot().name())->weight(_posture_task_weight);
-  // ctl.solver().removeTask(ctl.getPostureTask(ctl.robot().name()));
-  // ctl.solver().addTask(BSplineVel);
+  ctl.solver().addTask(BSplineVel);
   // _positionTask = std::make_shared<mc_tasks::PositionTask>(ctl.robot().frame(_hammer_head_frame_name), 2.0, 10);
   // _positionTask->position(_end_point);
   // ctl.solver().addTask(_positionTask);
-  ctl.solver().addConstraintSet(_dynamicsConstraint);
-
-  // mc_rbdyn::Robot cloned(ctl.robot());
+  // ctl.solver().addConstraintSet(_dynamicsConstraint);
   // std::cout << "torque = {" << std::endl;
   // for(const auto &joint : ctl.robot().mbc().jointTorque)
   // {
@@ -161,12 +159,10 @@ void Get_In_Position_Task::start(mc_control::fsm::Controller & ctl_)
   //   std::cout << "}" << std::endl;
   // }
   // std::cout << "}" << std::endl;
-
   _old_q_encoders = ctl_.robot().encoderValues();
-  // _old_reduced_effective_mass_mbc = compute_reduced_effective_mass_with_mbc(ctl_.robot().mbc(), ctl_, _normal_vector);
-  // _old_floating_base_effective_mass_mbc = _old_effective_mass_mbc - _old_reduced_effective_mass_mbc;
   _initial_mbc = ctl.robot().mbc();
   _integrated_mbc = _initial_mbc;
+
 }
 
 
@@ -174,14 +170,8 @@ void Get_In_Position_Task::start(mc_control::fsm::Controller & ctl_)
 
 bool Get_In_Position_Task::run(mc_control::fsm::Controller & ctl_)
 {
-  auto & ctl = static_cast<Hammering_FSM_Controller &>(ctl_);
-
-
-
+  auto & ctl = static_cast<Hammering_FSM_Controller &>(ctl_);  
   _new_mbc = ctl.robot().mbc();
-
-  // return true;
-  
   if(_first_iteration)
   {
     //Initial conditions
@@ -196,15 +186,22 @@ bool Get_In_Position_Task::run(mc_control::fsm::Controller & ctl_)
     _old_effective_mass_encoders = compute_effective_mass_with_encoders(ctl.robot().encoderValues(), ctl, _normal_vector);
     _first_iteration = !_first_iteration;
     // dqi is 0 during the first iteration
+      ctl.logger().addLogEntry("Effective mass", this, [&, this]()
+    {return compute_effective_mass_with_mbc(this->_new_mbc, ctl, this->_normal_vector);});
     return false;
   }
   // Eigen::VectorXd gradient_of_m = compute_emass_gradient_central_difference_mbc(_new_mbc, 
   //                                                                             ctl, 
   //                                                                   _normal_vector);
-  Eigen::VectorXd gradient_of_m = compute_emass_gradient_backward_difference_mbc(_new_mbc, 
+  Eigen::VectorXd gradient_of_m = compute_emass_gradient_three_point_backward_difference_mbc(_new_mbc, 
                                                                             ctl, 
                                                                 _normal_vector);
+  Eigen::VectorXd gradient_of_m_three_point = compute_emass_gradient_three_point_backward_difference_mbc(_new_mbc, 
+                                                                            ctl, 
+                                                                _normal_vector);                                                              
   // mc_rtc::log::info("Gradient of m = {}", gradient_of_m);
+  // mc_rtc::log::info("Gradient of m three point = {}", gradient_of_m_three_point);
+
 
   // mc_rtc::log::info("q used = ");
   unsigned int k = 0;
@@ -227,6 +224,9 @@ bool Get_In_Position_Task::run(mc_control::fsm::Controller & ctl_)
     //                                                        qi_dot_encoders_backward,
     //                                                         k, 
     //                                                         gradient_of_m(k, 0));
+    mc_rtc::log::info("({}) grad[{}] = {}",ctl.robot().mb().joint(i).name(), 
+                                                            k, 
+                                                            gradient_of_m(k, 0));
     // mc_rtc::log::info("({}) [q = {}], [dq_mbc = {}] [dq_encoders = {}]",ctl.robot().mb().joint(i).name(), 
     //                                                       _new_mbc.q.at(i).at(0),
     //                                                       qi_dot_mbc_backward*ctl.solver().dt(), 
@@ -307,10 +307,9 @@ _integrated_mbc.q.at(i).at(0) += qi_dot_mbc_backward*ctl.solver().dt();
     _old_effective_mass_mbc = effective_mass_mbc;
     _old_effective_mass_encoders = effective_mass_encoders;
     _old_q_encoders = ctl.robot().encoderValues();
-    // Reset FK
-    // ctl_.robot().forwardKinematics(_new_mbc);
+
     
-  
+
     // mc_rtc::log::info("posture task ref accel = {}", ctl.getPostureTask(ctl.robot().name())->refAccel());
     ctl.getPostureTask(ctl.robot().name())->refAccel((_effective_mass_maximization_task_weight/(_posture_task_weight)) * gradient_of_m);
     
@@ -341,26 +340,26 @@ _integrated_mbc.q.at(i).at(0) += qi_dot_mbc_backward*ctl.solver().dt();
     // mc_rtc::log::info("Gradient of m = \n {}", gradient_of_m);
     // mc_rtc::log::info("Gradient of m_encoders = \n {}", gradient_of_m_encoders);
     
-    auto tasks = ctl.solver().tasks();
-    for(const auto & task : tasks)
-    {
-      mc_rtc::log::info("Task {}", task->name());
-    }
+    // auto tasks = ctl.solver().tasks();
+    // for(const auto & task : tasks)
+    // {
+    //   mc_rtc::log::info("Task {}", task->name());
+    // }
     // BSplineVel->weight(10/BSplineVel->eval().norm());
     // return true;
     // mc_rtc::log::info("eval norm = {} ", BSplineVel->eval().norm());
     // ctl.getPostureTask(ctl.robot().name())->refAccel((_effective_mass_maximization_task_weight/(_posture_task_weight*_posture_task_weight)) * gradient_of_m);
     // mc_rtc::log::info("---------------------------");
 
-    if (_create_file)
-    {
-      mc_rtc::log::info("Effective mass of the robot at the nail = {} kg", compute_effective_mass_with_mbc(ctl.robot().mbc(), ctl_, _normal_vector));
-      _create_file = false;
-    }
+    // if (_create_file)
+    // {
+    //   mc_rtc::log::info("Effective mass of the robot at the nail = {} kg", compute_effective_mass_with_mbc(ctl.robot().mbc(), ctl_, _normal_vector));
+    //   _create_file = false;
+    // }
     
     if( BSplineVel->eval().norm() < _magic_epsilon)
     {
-      _effective_mass = compute_effective_mass_naive(ctl.robot().mbc(), ctl_);
+      // _effective_mass = compute_effective_mass_naive(ctl.robot().mbc(), ctl_);
       // writeVectorToCSV(_masses, "Masses_vector.csv");
       // mc_rtc::log::info("Effective mass = {} kg", _effective_mass);
       output("STOP");
@@ -371,8 +370,7 @@ _integrated_mbc.q.at(i).at(0) += qi_dot_mbc_backward*ctl.solver().dt();
 
 void Get_In_Position_Task::teardown(mc_control::fsm::Controller & ctl_)
 {
-  auto       // backward_mbc.q.at(i).at(0) -= 1000;
-& ctl = static_cast<Hammering_FSM_Controller &>(ctl_);
+  auto &ctl = static_cast<Hammering_FSM_Controller &>(ctl_);
 
   ctl_.gui()->removeElement({}, _stop_hammering_button_name);
 
@@ -611,17 +609,58 @@ const double Get_In_Position_Task::compute_effective_mass_with_mbc(
   Eigen::MatrixXd full_world_frame_jacobian(6, _nrdof);
   jac.fullJacobian(robot_mb, world_frame_jacobian, full_world_frame_jacobian);
 
-  const Eigen::MatrixXd M = _dynamicsConstraint->motionConstr().fd().H();
+  const Eigen::MatrixXd M = ctl.dynamicsConstraint->motionConstr().fd().H();
+  mc_rtc::log::info("M = {}", M);
 
   const Eigen::MatrixXd linear_jacobian = full_world_frame_jacobian.bottomRows(3);
-  writeEigenMatrixToCSV(linear_jacobian, "linear_jac.csv");
+  // writeEigenMatrixToCSV(linear_jacobian, "linear_jac.csv");
   // mc_rtc::log::info("Dim of M = {} x {}", M.cols(), M.rows());
   // mc_rtc::log::info("M = {}", M);
 
   const Eigen::Matrix3d LAMBDA = linear_jacobian*M.inverse()*linear_jacobian.transpose();
+
+  // mc_rtc::log::info("Dim of  LINEAR LAMBDA = {} x {}", LINEAR_LAMBDA.cols(), LINEAR_LAMBDA.rows());
+
   return 1/(normal_vector.transpose()*LAMBDA*normal_vector);
 
+
 }
+
+// const double Get_In_Position_Task::compute_effective_mass_with_mbc(
+//   rbd::MultiBodyConfig mbc, 
+//   mc_control::fsm::Controller & ctl_, 
+//   const Eigen::Vector3d &normal_vector) const{
+
+//   auto & ctl = static_cast<Hammering_FSM_Controller &>(ctl_);
+    
+//   // If you dont put this line the gradient is 0 everywhere because M and J are not updating
+//   ctl.robot().forwardKinematics(mbc);                                               
+                                                        
+
+//   rbd::MultiBody robot_mb = ctl_.robot().mb();
+//   rbd::Jacobian jac(robot_mb, _hammer_head_frame_name, _jacobian_verbose_active);
+//   Eigen::MatrixXd world_frame_jacobian = jac.jacobian(robot_mb, mbc);
+
+//   Eigen::MatrixXd full_world_frame_jacobian(6, _nrdof);
+//   jac.fullJacobian(robot_mb, world_frame_jacobian, full_world_frame_jacobian);
+
+//   const Eigen::MatrixXd M = _dynamicsConstraint->motionConstr().fd().H();
+
+//   const Eigen::MatrixXd linear_jacobian = full_world_frame_jacobian.bottomRows(3);
+//   // writeEigenMatrixToCSV(linear_jacobian, "linear_jac.csv");
+//   // mc_rtc::log::info("Dim of M = {} x {}", M.cols(), M.rows());
+//   // mc_rtc::log::info("M = {}", M);
+
+//   // const Eigen::Matrix3d LAMBDA = linear_jacobian*M.inverse()*linear_jacobian.transpose();
+//   const Eigen::MatrixXd LAMBDA_INVERSE = (full_world_frame_jacobian*M*full_world_frame_jacobian.transpose()).inverse();
+
+//   const Eigen::MatrixXd LINEAR_LAMBDA_INVERSE = LAMBDA_INVERSE.block(0, 0, 3, 3);
+//   // mc_rtc::log::info("Dim of  LINEAR LAMBDA = {} x {}", LINEAR_LAMBDA.cols(), LINEAR_LAMBDA.rows());
+
+//   // return 1/(normal_vector.transpose()*LAMBDA*normal_vector);
+//   return 1/(normal_vector.transpose()*LINEAR_LAMBDA_INVERSE*normal_vector);
+
+// }
 
 const rbd::MultiBodyConfig Get_In_Position_Task::encoders_values_to_mbc(
   const std::vector<double> &encoderValues,
@@ -685,7 +724,7 @@ const double Get_In_Position_Task::compute_effective_mass_with_encoders(
   jac.fullJacobian(robot_mb, world_frame_jacobian, full_world_frame_jacobian);
 
   // _dynamicsConstraint->motionConstr().fd_non_const().computeH(robot_mb, mbc);
-  Eigen::MatrixXd M = _dynamicsConstraint->motionConstr().fd().H();
+  Eigen::MatrixXd M = ctl.dynamicsConstraint->motionConstr().fd().H();
   Eigen::MatrixXd linear_jacobian = full_world_frame_jacobian.bottomRows(3);
 
   Eigen::MatrixXd M_inverse = M.inverse();
@@ -720,6 +759,61 @@ const Eigen::VectorXd Get_In_Position_Task::compute_emass_gradient_backward_diff
     //Finite differences
     backward_effective_mass = compute_effective_mass_with_mbc(backward_mbc, ctl_, normal_vector);
     grad(j,0) = (m_q - backward_effective_mass)/epsilon;
+    j+=1;
+      
+      // mc_rtc::log::info("forward_mbc_q[i] = {}", forward_mbc.q.at(i).at(0));
+      // mc_rtc::log::info("backward_mbc_q[i] = {}", backward_mbc.q.at(i).at(0));
+      // mc_rtc::log::info("---------------------");
+      // mc_rtc::log::info("grad[{}] = {}", 6+j, grad_res);
+      // backward_mbc.q.at(i).at(0) = mbc.q.at(i).at(0);
+  }
+  return grad;
+}
+
+const Eigen::VectorXd Get_In_Position_Task::compute_emass_gradient_three_point_backward_difference_mbc(
+  const rbd::MultiBodyConfig &mbc, 
+  mc_control::fsm::Controller &ctl_, 
+  const Eigen::Vector3d &normal_vector) const{
+
+  const double epsilon = 1E-6;
+  Eigen::VectorXd grad(_nrdof, 1);
+  grad.setOnes();
+  double backward_effective_mass = 0;
+  double m_q = compute_effective_mass_with_mbc(mbc, ctl_, normal_vector);
+  
+  unsigned int j = 0;
+  rbd::MultiBodyConfig p1;
+  rbd::MultiBodyConfig p2;
+
+  rbd::MultiBodyConfig p3;
+  rbd::MultiBodyConfig p4;
+
+  double first_term = 0;
+  double second_term = 0;
+
+
+  for(size_t i = 0; i <  std::size(mbc.q); ++i)
+  { 
+    if(mbc.q.at(i).size() != 1)
+    {
+      // Ignore floating base and fixed joints
+      continue;
+    }
+    // dqi = mbc.q.at(i).at(0) - _old_mbc.q.at(i).at(0);
+    p1 = mbc;
+    p2 = mbc;
+    p3 = mbc;
+    p4 = mbc;
+
+    p1.q.at(i).at(0) -= 2*epsilon;
+    p2.q.at(i).at(0) -= epsilon;
+
+    first_term = compute_effective_mass_with_mbc(p1, ctl_, normal_vector);
+    second_term = compute_effective_mass_with_mbc(p2, ctl_, normal_vector);
+
+    //Finite differences
+    backward_effective_mass = first_term - 4*second_term + 3*m_q;
+    grad(j,0) = backward_effective_mass/(2*epsilon);
     j+=1;
       
       // mc_rtc::log::info("forward_mbc_q[i] = {}", forward_mbc.q.at(i).at(0));

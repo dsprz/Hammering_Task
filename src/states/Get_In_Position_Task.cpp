@@ -20,6 +20,7 @@
 #include <mc_rtc/logging.h>
 #include <mc_tasks/PositionTask.h>
 #include <memory>
+#include <ndcurves/bezier_curve.h>
 #include <ostream>
 #include <stdexcept>
 #include <string>
@@ -37,15 +38,15 @@ void Get_In_Position_Task::configure(const mc_rtc::Configuration & config)
 
 void Get_In_Position_Task::start(mc_control::fsm::Controller & ctl_)
 {
-  auto & ctl = static_cast<Hammering_FSM_Controller &>(ctl_);
+  Hammering_FSM_Controller &ctl = static_cast<Hammering_FSM_Controller &>(ctl_);
 
   load_parameters();
-  // _dynamicsConstraint = std::make_unique<mc_solver::DynamicsConstraint>(ctl.robots(), 
-  //                                                                       ctl.robot().robotIndex(),
-  //                                                                     ctl.solver().dt(),
-  //                                                                     std::array<double, 3>{0.1, 0.01, 0.5},
-  //                                                                     1.0,
-  //                                                                   true);
+  _dynamicsConstraint = std::make_unique<mc_solver::DynamicsConstraint>(ctl.robots(), 
+                                                                        ctl.robot().robotIndex(),
+                                                                      ctl.solver().dt(),
+                                                                      std::array<double, 3>{0.1, 0.01, 0.5},
+                                                                      1.0,
+                                                                    true);
   mc_rtc::log::info("solver timestep = {} s", ctl.solver().dt());
   _nrdof = ctl.robot().mb().nrDof();
  
@@ -120,7 +121,6 @@ void Get_In_Position_Task::start(mc_control::fsm::Controller & ctl_)
   // If the trajectory is good but the tracking says otherwise, then there might be a problem with the tracking
   // Check if the hammer mass was correctly taken into account
   BSplineVel = std::make_shared<mc_tasks::BSplineTrajectoryTask>(ctl.robot().frame(_hammer_head_frame_name),
-                                                                  // _magic_bezier_curve_max_duration, 
                                                                   _magic_bezier_curve_max_duration,
                                                                   _magic_task_stiffness, 
                                                                   _magic_task_weight, 
@@ -147,7 +147,7 @@ void Get_In_Position_Task::start(mc_control::fsm::Controller & ctl_)
   // _positionTask = std::make_shared<mc_tasks::PositionTask>(ctl.robot().frame(_hammer_head_frame_name), 2.0, 10);
   // _positionTask->position(_end_point);
   // ctl.solver().addTask(_positionTask);
-  // ctl.solver().addConstraintSet(_dynamicsConstraint);
+  ctl.solver().addConstraintSet(_dynamicsConstraint);
   // std::cout << "torque = {" << std::endl;
   // for(const auto &joint : ctl.robot().mbc().jointTorque)
   // {
@@ -166,11 +166,9 @@ void Get_In_Position_Task::start(mc_control::fsm::Controller & ctl_)
 }
 
 
-
-
 bool Get_In_Position_Task::run(mc_control::fsm::Controller & ctl_)
 {
-  auto & ctl = static_cast<Hammering_FSM_Controller &>(ctl_);  
+  Hammering_FSM_Controller &ctl = static_cast<Hammering_FSM_Controller &>(ctl_);
   _new_mbc = ctl.robot().mbc();
   if(_first_iteration)
   {
@@ -186,8 +184,26 @@ bool Get_In_Position_Task::run(mc_control::fsm::Controller & ctl_)
     _old_effective_mass_encoders = compute_effective_mass_with_encoders(ctl.robot().encoderValues(), ctl, _normal_vector);
     _first_iteration = !_first_iteration;
     // dqi is 0 during the first iteration
-      ctl.logger().addLogEntry("Effective mass", this, [&, this]()
-    {return compute_effective_mass_with_mbc(this->_new_mbc, ctl, this->_normal_vector);});
+
+
+    // Add some entries to the logs
+    ctl.logger().addLogEntry("Effective mass", this, [&, this]()
+    {return compute_effective_mass_with_mbc(_new_mbc, ctl, _normal_vector);});
+
+      ctl.logger().addLogEntry("Hammer tip velocity", this, [&, this]()
+    {return ctl.robot().frame(_hammer_head_frame_name).velocity().linear();});
+      
+    ctl.logger().addLogEntry("Hammer tip reference bezier velocity", this, [&, this]()
+    {return bezier_vel_from_task(BSplineVel, ctl);});
+    
+    ctl.logger().addLogEntry("Projected momentum of hammer tip", this, [&, this]()
+    {
+      Eigen::Vector3d velocity_vector = bezier_vel_from_task(BSplineVel, ctl);
+      double effective_mass = compute_effective_mass_with_mbc(_new_mbc, ctl, _normal_vector);
+      return compute_projected_momentum(effective_mass, velocity_vector, _normal_vector);
+    });
+
+    _total_time_elapsed+=ctl.solver().dt();
     return false;
   }
   // Eigen::VectorXd gradient_of_m = compute_emass_gradient_central_difference_mbc(_new_mbc, 
@@ -231,11 +247,11 @@ bool Get_In_Position_Task::run(mc_control::fsm::Controller & ctl_)
     //                                                       _new_mbc.q.at(i).at(0),
     //                                                       qi_dot_mbc_backward*ctl.solver().dt(), 
     //                                                        qi_dot_encoders_backward*ctl.solver().dt());
-_integrated_mbc.q.at(i).at(0) += qi_dot_mbc_backward*ctl.solver().dt();                                
-// mc_rtc::log::info("({}) [q_mbc = {}], [q_predicted_mbc = {}]",
-//                   ctl.robot().mb().joint(i).name(), 
-//                    _new_mbc.q.at(i).at(0),
-//                   _integrated_mbc.q.at(i).at(0));                                                        
+    _integrated_mbc.q.at(i).at(0) += qi_dot_mbc_backward*ctl.solver().dt();                                
+    // mc_rtc::log::info("({}) [q_mbc = {}], [q_predicted_mbc = {}]",
+    //                   ctl.robot().mb().joint(i).name(), 
+    //                    _new_mbc.q.at(i).at(0),
+    //                   _integrated_mbc.q.at(i).at(0));                                                        
     ++k;
   } 
   double effective_mass_mbc = compute_effective_mass_with_mbc(_new_mbc, ctl, _normal_vector);
@@ -365,18 +381,42 @@ _integrated_mbc.q.at(i).at(0) += qi_dot_mbc_backward*ctl.solver().dt();
       output("STOP");
       return true;
     }
+  _total_time_elapsed+=ctl.solver().dt();
   return false;
 }
 
 void Get_In_Position_Task::teardown(mc_control::fsm::Controller & ctl_)
 {
-  auto &ctl = static_cast<Hammering_FSM_Controller &>(ctl_);
+  Hammering_FSM_Controller &ctl = static_cast<Hammering_FSM_Controller &>(ctl_);
 
   ctl_.gui()->removeElement({}, _stop_hammering_button_name);
 
   ctl.solver().removeTask(BSplineVel);
   ctl.getPostureTask(ctl.robot().name())->weight(10);
 }
+
+const Eigen::Vector3d Get_In_Position_Task::bezier_vel_from_task(
+  const std::shared_ptr<mc_tasks::BSplineTrajectoryTask> &BSplineVel,
+  mc_control::fsm::Controller & ctl_) const 
+{
+  Hammering_FSM_Controller &ctl = static_cast<Hammering_FSM_Controller &>(ctl_);
+  ndcurves::bezier_curve bezier_curve = *BSplineVel->spline().get_bezier();
+  Eigen::Vector3d p_past = bezier_curve(_total_time_elapsed - ctl.solver().dt());
+  Eigen::Vector3d p_future = bezier_curve(_total_time_elapsed + ctl.solver().dt());
+
+  return (p_future - p_past)/(2*ctl.solver().dt());
+}                                                                  
+
+const double Get_In_Position_Task::compute_projected_momentum(
+  const double &effective_mass,
+  const Eigen::Vector3d &velocity_vector, 
+  const Eigen::Vector3d &normal_vector) const
+{
+  return effective_mass* (velocity_vector.x()*normal_vector.x()
+                          + velocity_vector.y()*normal_vector.y()
+                          + velocity_vector.z()*normal_vector.z());
+}                                                          
+
 const double Get_In_Position_Task::estimate_previous_effective_mass(const Eigen::VectorXd &gradient, const double &current_m) const{
   double dm_sum = 0;
   double dqi = 0;
@@ -550,7 +590,7 @@ const double Get_In_Position_Task::emass_time_derivative_with_mbc_q_derivative(
   const Eigen::VectorXd &gradient, 
   mc_control::fsm::Controller & ctl_) const
 {
-  auto & ctl = static_cast<Hammering_FSM_Controller &>(ctl_);
+  Hammering_FSM_Controller &ctl = static_cast<Hammering_FSM_Controller &>(ctl_);
 
   double dmdt = 0;
   double delta_q_i = 0;
@@ -596,7 +636,7 @@ const double Get_In_Position_Task::compute_effective_mass_with_mbc(
   mc_control::fsm::Controller & ctl_, 
   const Eigen::Vector3d &normal_vector) const{
 
-  auto & ctl = static_cast<Hammering_FSM_Controller &>(ctl_);
+  Hammering_FSM_Controller &ctl = static_cast<Hammering_FSM_Controller &>(ctl_);
     
   // If you dont put this line the gradient is 0 everywhere because M and J are not updating
   ctl.robot().forwardKinematics(mbc);                                               
@@ -609,8 +649,8 @@ const double Get_In_Position_Task::compute_effective_mass_with_mbc(
   Eigen::MatrixXd full_world_frame_jacobian(6, _nrdof);
   jac.fullJacobian(robot_mb, world_frame_jacobian, full_world_frame_jacobian);
 
-  const Eigen::MatrixXd M = ctl.dynamicsConstraint->motionConstr().fd().H();
-  mc_rtc::log::info("M = {}", M);
+  const Eigen::MatrixXd M = _dynamicsConstraint->motionConstr().fd().H();
+  // mc_rtc::log::info("M = {}", M);
 
   const Eigen::MatrixXd linear_jacobian = full_world_frame_jacobian.bottomRows(3);
   // writeEigenMatrixToCSV(linear_jacobian, "linear_jac.csv");
@@ -666,7 +706,7 @@ const rbd::MultiBodyConfig Get_In_Position_Task::encoders_values_to_mbc(
   const std::vector<double> &encoderValues,
   mc_control::fsm::Controller & ctl_) const
 {
-  auto & ctl = static_cast<Hammering_FSM_Controller &>(ctl_);
+  Hammering_FSM_Controller &ctl = static_cast<Hammering_FSM_Controller &>(ctl_);
   rbd::MultiBodyConfig mbc_res = ctl.robot().mbc();
   std::vector<double> q_encoders = encoderValues;
   std::map<std::string, std::vector<double>> q_mbc_map;
@@ -711,7 +751,7 @@ const double Get_In_Position_Task::compute_effective_mass_with_encoders(
   mc_control::fsm::Controller & ctl_, 
   const Eigen::Vector3d &normal_vector) const{
 
-  auto & ctl = static_cast<Hammering_FSM_Controller &>(ctl_);
+  Hammering_FSM_Controller &ctl = static_cast<Hammering_FSM_Controller &>(ctl_);
   rbd::MultiBodyConfig mbc = encoders_values_to_mbc(encoderValues, ctl);
   ctl_.robot().forwardKinematics(mbc);
 

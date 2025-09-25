@@ -27,6 +27,7 @@ robots:
       rotation: [0.0, 0.0, 1.57]
 
 
+
 # General constraints, always on
 constraints:
 - type: contact
@@ -140,7 +141,7 @@ states:
 
       bezier_curve_max_duration: 1
       task_stiffness: 5000
-      task_weight: 5
+      task_weight: 10
       epsilon: 0.02
       oriWp_time: 0.9
       force_norm_threshold: 1
@@ -167,7 +168,7 @@ states:
           end: 0
         z:
           init: 0
-          end: -1
+          end: 0
       linear_jerk:
         x:
           init: 0

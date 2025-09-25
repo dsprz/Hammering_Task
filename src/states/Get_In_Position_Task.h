@@ -265,6 +265,7 @@ struct Get_In_Position_Task : mc_control::fsm::State
 
     /**
     @brief Reconstructs the velocity of the bezier curve given a shared_ptr of a BSplineTrajectoryTask
+           by time differentiating with central difference
           @param BSpline the shared_ptr of a BSplineTrajectoryTask
           @param ctl_
      */            

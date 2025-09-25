@@ -172,6 +172,9 @@ bool Get_In_Position_Task::run(mc_control::fsm::Controller & ctl_)
   _new_mbc = ctl.robot().mbc();
   if(_first_iteration)
   {
+    // For some reason the mass matrix is null at the very first iteration, Thomas said it was a bug getting fixed
+
+
     //Initial conditions
     const double initial_effective_mass_encoders  = compute_effective_mass_with_encoders(_old_q_encoders, ctl, _normal_vector);
     const double initial_effective_mass_mbc  = compute_effective_mass_with_mbc(_initial_mbc, ctl, _normal_vector);

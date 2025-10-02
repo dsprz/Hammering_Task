@@ -406,7 +406,7 @@ std::vector<double> q_init = {
 
     ndcurves::bezier_curve bezier(control_points.begin(), 
     control_points.end(), 
-    constraints,
+    // constraints,
     T_min, 
     T_max);
     //Sample points
@@ -487,6 +487,7 @@ std::vector<double> q_init = {
         P(2, i) = point.z();
         i+=1;
     }
+    std::cout << "Degree = " << bezier.degree() << std::endl;
 
     double t_test = 0.4;
     std::cout << "P = \n"<< P.transpose() << std::endl;

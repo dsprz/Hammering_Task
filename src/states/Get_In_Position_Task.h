@@ -28,6 +28,7 @@
 #include <RBDyn/Jacobian.h>
 #include <vector>
 
+#include <mc_tasks/VectorOrientationTask.h>
 
 struct Get_In_Position_Task : mc_control::fsm::State
 {
@@ -46,9 +47,11 @@ struct Get_In_Position_Task : mc_control::fsm::State
 
     // BSpline curve
     std::shared_ptr<mc_tasks::BSplineTrajectoryTask> BSplineVel;
+    std::shared_ptr<mc_tasks::VectorOrientationTask> _vectorOrientationTask;
+
     sva::PTransformd _initial_hammerhead_position;
     sva::PTransformd _initial_nail_position;    
-    mc_trajectory::BSpline::waypoints_t _posWp;
+    mc_trajectory::BSpline::waypoints_t _posWp = {};
     std::vector<std::pair<double, Eigen::Matrix3d>> _oriWp = {};
 
     typedef Eigen::Vector3d Point;
@@ -187,7 +190,8 @@ struct Get_In_Position_Task : mc_control::fsm::State
     std::vector<double> _ratios;
     double _old_effective_mass_encoders = 1;
 
-    const Eigen::Vector3d _normal_vector = {0, 0, 1};
+    const Eigen::Vector3d _normal_vector_nail_frame = {0, 0, 1};
+    Eigen::Vector3d _normal_vector_world_frame = {0, 0, 0};
 
     /**
     @brief Computes the time derivative of the effective mass using its gradient and mbc.q
@@ -283,6 +287,11 @@ struct Get_In_Position_Task : mc_control::fsm::State
                                   const Eigen::Vector3d &velocity_vector, 
                                   const Eigen::Vector3d &normal_vector) const;                                                           
     double _total_time_elapsed = 0.0f;
+
+    const Eigen::Matrix3d roll_rotation_nail_frame(const double &angle) const;
+    const Eigen::Matrix3d pitch_rotation_nail_frame(const double &angle) const;
+    const Eigen::Matrix3d yaw_rotation_nail_frame(const double &angle) const;
+
     // -------------------------------- Parameters ---------------------------------------
     
     // Parameters loaded in the load_parameters function, parameters are found in the Hammering_FSM_Controller.in.yaml file

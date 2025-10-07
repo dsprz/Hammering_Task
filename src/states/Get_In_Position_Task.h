@@ -46,7 +46,7 @@ struct Get_In_Position_Task : mc_control::fsm::State
     std::unique_ptr<mc_solver::DynamicsConstraint> _dynamicsConstraint;
 
     // BSpline curve
-    std::shared_ptr<mc_tasks::BSplineTrajectoryTask> BSplineVel;
+    std::shared_ptr<mc_tasks::BSplineTrajectoryTask> _BSplineVel;
     std::shared_ptr<mc_tasks::VectorOrientationTask> _vectorOrientationTask;
 
     sva::PTransformd _initial_hammerhead_position;
@@ -57,31 +57,17 @@ struct Get_In_Position_Task : mc_control::fsm::State
     typedef Eigen::Vector3d Point;
     typedef Point point_t;
     typedef ndcurves::curve_constraints<point_t> curve_constraints_t;
+    //curve constraints of the bezier curve
+    
+    curve_constraints_t _constr;
     sva::PTransformd _target;
     
     typedef Eigen::Vector3d vector3_t;
-    vector3_t _start_point;
     vector3_t _end_point;
     bool stop = false;
     double _run_exec_time = 0.002;
     //Position task test
-    std::shared_ptr<mc_tasks::PositionTask> _positionTask;
-
-    // ROS
-    rclcpp::Subscription<geometry_msgs::msg::Vector3Stamped>::SharedPtr _subForce;
-
-
-    // Forces
-    vector3_t _force_vector;
-    double _max_force_norm = 0;
-    double _max_normal_force_norm = 0;
-
-    vector3_t _peak_force = {0, 0, 0};
-    vector3_t _peak_normal_force = {0, 0, 0};
     Eigen::Matrix<double, 3, 1> _rotation_axis;
-    
-
-    bool _impact_detected = false;
   
     /**
     @brief Do not use that function
@@ -176,10 +162,7 @@ struct Get_In_Position_Task : mc_control::fsm::State
     */ 
     void printConfig(rbd::MultiBodyConfig mbc, std::string string) const;
     
-    int _nrdof = 41;
-    double _effective_mass = 0;
     bool _create_file = true;
-    std::vector<double> _masses;
 
     //finite differences dm/dt
     rbd::MultiBodyConfig _old_mbc;
@@ -241,7 +224,6 @@ struct Get_In_Position_Task : mc_control::fsm::State
     rbd::MultiBodyConfig _integrated_mbc;
 
     bool _first_iteration = true;
-    bool _second_iteration = true;
     rbd::MultiBodyConfig _initial_mbc;
 
     /**
@@ -290,58 +272,37 @@ struct Get_In_Position_Task : mc_control::fsm::State
     double _total_time_elapsed = 0.0f;
 
 
-    void nail_force_sensor_callback(const std::shared_ptr<const geometry_msgs::msg::Vector3Stamped> &force);
     const Eigen::Matrix3d roll_rotation_nail_frame(const double &angle) const;
     const Eigen::Matrix3d pitch_rotation_nail_frame(const double &angle) const;
     const Eigen::Matrix3d yaw_rotation_nail_frame(const double &angle) const;
     const double vector_error(const Eigen::Vector3d &va, const Eigen::Vector3d &vb) const;
 
-    // -------------------------------- Parameters ---------------------------------------
-    
-    // Parameters loaded in the load_parameters function, parameters are found in the Hammering_FSM_Controller.in.yaml file
-    // Don't ask me why there is a '.in' in the name of the file, I don't know 
-    
     mc_rtc::Configuration _config;
 
-    /**
-    @brief Loads the parameters found in the Hammering_FSM_Controller.in.yaml file
-     */
-    void load_parameters();
-    
-    std::string _nail_robot_name = "nail";
-    std::string _main_robot_name = "hrp5_p";
-    std::string _hammer_head_frame_name = "Hammer_Head";
-    std::string _nail_frame_name = "nail";
-    
-    // timestep
-    double _timestep = 1;
+    void load_params();
 
-    // quality of life
-    
-    bool _bezier_curve_verbose_active = false;
-    bool _jacobian_verbose_active = false;
+    double _magic_BSpline_max_duration = 1.0f;
+    double _magic_BSpline_task_stiffness = 1.0f; 
+    double _magic_BSpline_task_weight = 1.0f;
 
-    
-    // gui
-    
-    std::string _stop_hammering_button_name = "undefined";
-    
-    //curve constraints of the bezier curve
-    
-    curve_constraints_t _constr;
-    
-    // Default magic values, just for testing, all loaded in the load_parameters function
-    
-    double _magic_max_control_point_height = 1;
-    double _magic_bezier_curve_max_duration = 1;
-    double _magic_task_stiffness = 1;
-    double _magic_task_weight = 1;
-    double _magic_epsilon = 1;
-    double _magic_oriWp_time = 1;
-    double _posture_task_weight = 1;
-    double _effective_mass_maximization_task_weight = 1;
+    //V^w_f,in, c.f. article    
+    double _magic_normal_final_velocity = 1.0f;
 
-    
-    double _magic_epsilon_force_norm_threshold = 1;
+    //W_p, c.f. article or internship report
+    double _magic_posture_task_weight = 1.0f;
+
+    //W_m, c.f. article or internship report
+    double _magic_effective_mass_maximization_task_weight = 1.0f;
+
+
+    double _magic_vector_orientation_task_dimweight_x = 1.0f;
+    double _magic_vector_orientation_task_dimweight_y = 1.0f;
+    double _magic_vector_orientation_task_dimweight_z = 1.0f;
+    double _magic_vector_orientation_task_weight = 1.0f;
+    double _magic_vector_orientation_task_stiffness = 1.0f;
+
+
+
+    bool _enable_BSpline_orientation = false;
 
 };

@@ -241,6 +241,7 @@ struct Get_In_Position_Task : mc_control::fsm::State
     rbd::MultiBodyConfig _integrated_mbc;
 
     bool _first_iteration = true;
+    bool _second_iteration = true;
     rbd::MultiBodyConfig _initial_mbc;
 
     /**
@@ -288,9 +289,12 @@ struct Get_In_Position_Task : mc_control::fsm::State
                                   const Eigen::Vector3d &normal_vector) const;                                                           
     double _total_time_elapsed = 0.0f;
 
+
+    void nail_force_sensor_callback(const std::shared_ptr<const geometry_msgs::msg::Vector3Stamped> &force);
     const Eigen::Matrix3d roll_rotation_nail_frame(const double &angle) const;
     const Eigen::Matrix3d pitch_rotation_nail_frame(const double &angle) const;
     const Eigen::Matrix3d yaw_rotation_nail_frame(const double &angle) const;
+    const double vector_error(const Eigen::Vector3d &va, const Eigen::Vector3d &vb) const;
 
     // -------------------------------- Parameters ---------------------------------------
     

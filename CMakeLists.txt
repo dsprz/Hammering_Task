@@ -22,4 +22,8 @@ add_subdirectory(plugin)
 set(AROBASE "@")
 configure_file(etc/Hammering_FSM_Controller.in.yaml "${CMAKE_CURRENT_BINARY_DIR}/etc/Hammering_FSM_Controller.yaml")
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/etc/Hammering_FSM_Controller.yaml" DESTINATION "${MC_CONTROLLER_RUNTIME_INSTALL_PREFIX}/etc")
+set(CONFIG_OUT "${CMAKE_CURRENT_BINARY_DIR}/etc/Hammering_FSM_Controller.yaml")
+set(STATES_INSTALL_PREFIX ${MC_CONTROLLER_INSTALL_PREFIX})
 
+configure_file(etc/Hammering_FSM_Controller.in.yaml "${CONFIG_OUT}" @ONLY)
+install(FILES ${CONFIG_OUT} DESTINATION ${MC_RTC_LIBDIR}/mc_controller/etc/)

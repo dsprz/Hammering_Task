@@ -14,4 +14,5 @@ struct Hammering_FSM_Controller_Initial : mc_control::fsm::State
 
   private:
     bool _positionning_hammer_clicked = false;
+    
 };

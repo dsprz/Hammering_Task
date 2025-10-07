@@ -54,7 +54,7 @@ namespace mc_plugin
                                             }
                                         }
                                         );
-        
+            controller.controller().logger().addLogEntry("nail_force_sensor", [this](){return _force;});
             mc_rtc::log::info("NailSensorPlugin::init waiting for force on nail head on topic /nail_force_sensor");
         }
         else
@@ -81,14 +81,8 @@ namespace mc_plugin
     
 
             // IT'S THIS LINE OF CODE THAT MAKES MUJOCO CRASH ON RESET ???
-            std::cout << "Before addBodySensor" << std::endl;
             controller.controller().robot("nail").addBodySensor(_nailBodySensor);
-            std::cout << "After addBodySensor" << std::endl;
-
         }
-    
-        controller.controller().logger().addLogEntry("nail_force_sensor", [this](){return _force;});
-
     }
 
     void NailSensorPlugin::before(mc_control::MCGlobalController &controller)

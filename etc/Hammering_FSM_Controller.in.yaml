@@ -8,12 +8,12 @@ StepByStep: true
 IdleKeepState: false
 # Where to look for state libraries
 StatesLibraries:
-- "/home/jimmyvu/Documents/mc_rtc/install/lib/mc_controller/fsm/states"
-- "/home/jimmyvu/Documents/mc_rtc/install/lib/mc_controller/Hammering_FSM_Controller/states"
+  - "@MC_STATES_DEFAULT_INSTALL_PREFIX@"
+  - "@STATES_INSTALL_PREFIX@/@PROJECT_NAME@/states"
 # Where to look for state files
 StatesFiles:
-- "/home/jimmyvu/Documents/mc_rtc/install/lib/mc_controller/fsm/states/data"
-- "/home/jimmyvu/Documents/mc_rtc/install/lib/mc_controller/Hammering_FSM_Controller/states/data"
+  - "@MC_STATES_DEFAULT_INSTALL_PREFIX@/data"
+  - "@STATES_INSTALL_PREFIX@/@PROJECT_NAME@/states/data" 
 # If true, state factory will be more verbose
 VerboseStateFactory: false
 # Additional robots to load
@@ -24,7 +24,7 @@ robots:
     module: object/nail
     init_pos:
       translation: [0.55, 0.30 , 0.9]
-      rotation: [0, 0.7, 0.7]
+      rotation: [0, 0, 1.57]
 
 
 
@@ -141,7 +141,7 @@ states:
 
       bezier_curve_max_duration: 1
       task_stiffness: 100000
-      task_weight: 100
+      task_weight: 1
       epsilon: 0.02
       oriWp_time: 0.9
       force_norm_threshold: 1

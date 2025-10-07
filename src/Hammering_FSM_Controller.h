@@ -12,4 +12,6 @@ struct Hammering_FSM_Controller_DLLAPI Hammering_FSM_Controller : public mc_cont
   bool run() override;
 
   void reset(const mc_control::ControllerResetData & reset_data) override;
+
+  
 };

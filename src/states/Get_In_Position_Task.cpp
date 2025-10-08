@@ -1,37 +1,7 @@
 #include "Get_In_Position_Task.h"
 
 #include "../Hammering_FSM_Controller.h"
-#include <Eigen/src/Core/Matrix.h>
-#include <Eigen/src/Geometry/AngleAxis.h>
-#include <Eigen/src/Geometry/Quaternion.h>
-#include <RBDyn/Jacobian.h>
-#include <RBDyn/MultiBody.h>
-#include <RBDyn/MultiBodyConfig.h>
-#include <SpaceVecAlg/EigenTypedef.h>
-#include <algorithm>
-#include <array>
-#include <climits>
-#include <cmath>
-#include <cstddef>
-#include <cstdio>
-#include <cstdlib>
-#include <iostream>
-#include <iterator>
-#include <map>
-#include <mc_rtc/gui/Button.h>
-#include <mc_rtc/logging.h>
-#include <mc_tasks/PositionTask.h>
-#include <mc_tasks/VectorOrientationTask.h>
-#include <memory>
-#include <ndcurves/bezier_curve.h>
-#include <ostream>
-#include <stdexcept>
-#include <string>
-#include <utility>
-#include <vector>
 
-
-// #include <pinocchio/parsers/urdf.hpp>
 
 
 void Get_In_Position_Task::configure(const mc_rtc::Configuration & config)
@@ -49,14 +19,14 @@ void Get_In_Position_Task::start(mc_control::fsm::Controller & ctl_)
   // Add a stop button to the gui
   ctl.gui()->addElement({}, mc_rtc::gui::Button(ctl.stop_hammering_button_name, [this]() { stop = true; }));
 
-    // ------------------------- BSplineTrajectoryTask ----------------------------
+  // ------------------------- BSplineTrajectoryTask ----------------------------
   
   
   // I dont need to specify the endpoint as a posWp because _target takes care of that
   // If I do specify it, then it would add 1 degree to the curve even though the points are the same
   // I also dont need to specify the starting point because the first argument of the task takes care of that
   // Thus _posWp is empty
-  _posWp ={};
+  _posWp = {};
   
   _constr.end_vel.x() = _magic_normal_final_velocity*ctl.nail_normal_vector_world_frame.x();
   _constr.end_vel.y() = _magic_normal_final_velocity*ctl.nail_normal_vector_world_frame.y();
@@ -126,6 +96,8 @@ bool Get_In_Position_Task::run(mc_control::fsm::Controller & ctl_)
   //   _total_time_elapsed+=ctl.solver().dt();
   //   return false;
   // }
+
+  // Compute some values and update the logs
   ctl.effective_mass = compute_effective_mass_with_mbc(_new_mbc,
                                                   ctl, 
                                                   ctl.nail_normal_vector_world_frame);
@@ -140,19 +112,26 @@ bool Get_In_Position_Task::run(mc_control::fsm::Controller & ctl_)
   ctl.vector_orientation_error = vector_error(-ctl.nail_normal_vector_world_frame, 
                                             (current_hammer_rotation.transpose()*ctl.normal_vector_to_align_in_hammerhead_frame).normalized());
 
-  Eigen::VectorXd gradient_of_m = compute_emass_gradient_three_point_backward_difference_mbc(_new_mbc, 
+  _gradient_of_m = compute_emass_gradient_three_point_backward_difference_mbc(_new_mbc, 
                                                                             ctl, 
                                                                 ctl.nail_normal_vector_world_frame);                                                              
 
-  ctl.getPostureTask(ctl.robot().name())->refAccel((_magic_effective_mass_maximization_task_weight/(_magic_posture_task_weight*_magic_posture_task_weight)) * gradient_of_m);
-    
+
+  // "Modified" posture task or trick 
+  ctl.getPostureTask(ctl.robot().name())->refAccel((_magic_effective_mass_maximization_task_weight/(_magic_posture_task_weight*_magic_posture_task_weight)) * _gradient_of_m);
+  
+
+  // End state at impact
   ctl.impact_detected = abs(ctl.nail_force_vector.x()) >= ctl.magic_force_threshold || 
                         abs(ctl.nail_force_vector.y()) >= ctl.magic_force_threshold || 
                         abs(ctl.nail_force_vector.z()) >= ctl.magic_force_threshold;
+
   if(ctl.impact_detected)
   {
     Eigen::Vector3d hammer_normal_world_frame = (ctl.robot().frame(ctl.hammer_head_frame_name).position().rotation().transpose()*Eigen::Vector3d(1, 0, 0)).normalized();
     
+    mc_rtc::log::info("IMPACT DETECTED ON THE NAIL");
+
     mc_rtc::log::info("actual hammer normal in world frame = {}", hammer_normal_world_frame);
     mc_rtc::log::info("target hammer normal in world frame = {}", -ctl.nail_normal_vector_world_frame);
     mc_rtc::log::info("angle error = {} deg", (180/M_PI) * vector_error(hammer_normal_world_frame, -ctl.nail_normal_vector_world_frame));
@@ -171,6 +150,7 @@ void Get_In_Position_Task::teardown(mc_control::fsm::Controller & ctl_)
   ctl.gui()->removeElement({}, ctl.stop_hammering_button_name);
   ctl.solver().removeTask(_BSplineVel);
   ctl.solver().removeTask(_vectorOrientationTask);
+  // ctl.getPostureTask(ctl.main_robot_name)->refAccel(0*_gradient_of_m);
   ctl.solver().removeTask(ctl.getPostureTask(ctl.main_robot_name));
   mc_rtc::log::info("Tasks cleared successfully");
 }
@@ -203,220 +183,7 @@ const double Get_In_Position_Task::compute_projected_momentum(
                           + velocity_vector.z()*normal_vector.z());
 }                                                          
 
-const double Get_In_Position_Task::estimate_previous_effective_mass(const Eigen::VectorXd &gradient, const double &current_m) const{
-  double dm_sum = 0;
-  double dqi = 0;
-  std::vector<std::vector<double>> q = _new_mbc.q;
-  std::vector<std::vector<double>> old_q = _old_mbc.q;
-  unsigned int j = 0;
-  for (size_t i = 0; i < std::size(q); ++i)
-  {
-    if (std::size(q.at(i)) != 1)
-    {
-      //Ignore floating base (size = 6) and empty dofs (size = 0)
-      continue;
-    }    
-    dqi = q.at(i).at(0) - old_q.at(i).at(0);
-    dm_sum += gradient(j, 0) * dqi;
-    j+=1;
-  }
-  return current_m - dm_sum;
-}
-void Get_In_Position_Task::compare_configs(const Eigen::VectorXd &gradient, mc_control::fsm::Controller & ctl_)
-{
-  std::vector<double> q_encoders = ctl_.robot().encoderValues();
-  auto q_mbc = ctl_.robot().mbc().q;
-  std::vector<double> q_dot_encoders = ctl_.robot().encoderVelocities();
-  auto q_dot_mbc = ctl_.robot().mbc().alpha;
-  auto ref_joint_order = ctl_.robot().refJointOrder();
-  std::map<std::string, double> q_mbc_map;
-  std::map<std::string, double> q_dot_mbc_map;
-  std::map<std::string, double> q_encoders_map;
-  std::map<std::string, double> q_dot_encoders_map;
-  std::map<std::string, double> q_dot_encoders_derivative_map;
-  std::map<std::string, double> q_dot_mbc_derivative_map;
-  std::map<std::string, double> q_mbc_difference_map;
-  std::map<std::string, double> q_encoders_difference_map;
-  Eigen::VectorXd reorg_gradient = reorganized_gradient(gradient, ctl_);
 
-  for(size_t i = 1; i < std::size(q_mbc); ++i)
-  {
-    if (q_mbc.at(i).empty()) {
-      q_mbc_map[ctl_.robot().mb().joint(i).name()] = 0;
-      q_dot_mbc_map[ctl_.robot().mb().joint(i).name()] = 0;
-      q_mbc_difference_map[ctl_.robot().mb().joint(i).name()] = 0;
-      q_dot_mbc_derivative_map[ctl_.robot().mb().joint(i).name()] = 0;
-
-    }
-    else {
-      q_mbc_map[ctl_.robot().mb().joint(i).name()] = q_mbc.at(i).at(0);
-      q_dot_mbc_map[ctl_.robot().mb().joint(i).name()] = q_dot_mbc.at(i).at(0);
-      q_mbc_difference_map[ctl_.robot().mb().joint(i).name()] = q_mbc.at(i).at(0) - _old_mbc.q.at(i).at(0);
-      q_dot_mbc_derivative_map[ctl_.robot().mb().joint(i).name()] = (q_mbc.at(i).at(0) - _old_mbc.q.at(i).at(0))/ctl_.solver().dt();
-    }
-  }
-
-  for(size_t i = 0; i < std::size(q_dot_encoders); ++i)
-  {
-    q_encoders_map[ref_joint_order.at(i)] = q_encoders.at(i);
-    q_dot_encoders_map[ref_joint_order.at(i)] = q_dot_encoders.at(i);
-    q_encoders_difference_map[ref_joint_order.at(i)] = q_encoders.at(i) - _old_q_encoders.at(i);
-    q_dot_encoders_derivative_map[ref_joint_order.at(i)] = (q_encoders.at(i) - _old_q_encoders.at(i))/ctl_.solver().dt();
-  }
-
-  mc_rtc::log::info("Q"); 
-
-  for(const std::string &jointName : ref_joint_order)
-  {
-    mc_rtc::log::info("({}) q_mbc, q_encoders =  [{}, {}]", 
-      jointName, 
-      q_mbc_map.at(jointName),
-      q_encoders_map.at(jointName)
-      );
-  }
-  mc_rtc::log::info("---------------------"); 
-  mc_rtc::log::info("Q_difference"); 
-
-  for(const std::string &jointName : ref_joint_order)
-  {
-    mc_rtc::log::info("({}) q_mbc_difference, q_encoders_difference =  [{}, {}]", 
-      jointName, 
-      q_mbc_difference_map.at(jointName),
-      q_encoders_difference_map.at(jointName)); 
-  }
-  mc_rtc::log::info("---------------------"); 
-  mc_rtc::log::info("Q_DOT"); 
-
-  uint8_t i = 0;
-  for(const std::string &jointName : ref_joint_order)
-  {
-    mc_rtc::log::info("({}) q_dot_mbc, q_dot_mbc_der, q_dot_encoders, q_dot_encoders_der, grad_m =  [{}, {}, {}, {}, {}]", 
-      jointName, 
-      q_dot_mbc_map.at(jointName),
-      q_dot_mbc_derivative_map.at(jointName),
-      q_dot_encoders_map.at(jointName),
-      q_dot_encoders_derivative_map.at(jointName),
-      reorg_gradient(i, 0));
-    ++i;
-  }
-  _old_q_encoders = q_encoders;
-}
-const double Get_In_Position_Task::emass_time_derivative_with_encoders(const Eigen::VectorXd &gradient, mc_control::fsm::Controller & ctl_) const
-{
-  Eigen::VectorXd reorg_gradient = reorganized_gradient(gradient, ctl_);
-  std::vector<double> q_dot_encoders = ctl_.robot().encoderVelocities();
-
-  double dmdt = 0;
-  for(size_t i = 0; i < std::size(q_dot_encoders); ++i)
-  {
-    dmdt += reorg_gradient(i, 0)*q_dot_encoders.at(i);
-    // mc_rtc::log::info("({}) reorg_grad[{}] * qdot_encoders[{}] = {} * {}",ctl_.robot().refJointOrder().at(i), i, i,reorg_gradient(i, 0), q_dot_encoders.at(i) );
-  }
-  return dmdt;
-}
-
-const Eigen::VectorXd Get_In_Position_Task::reorganized_gradient(const Eigen::VectorXd &gradient, mc_control::fsm::Controller & ctl_) const
-{
-  // Reorganize the gradient to multiply it by qdot from encoders
-  Eigen::VectorXd res(std::size(ctl_.robot().encoderVelocities()), 1);
-  res.setOnes();
-
-  std::map<std::string, double> res_map;
-  unsigned int j = 0;
-  for(size_t i = 0; i < std::size(ctl_.robot().mbc().alpha); ++i)
-  {
-    if(std::size(ctl_.robot().mbc().alpha.at(i))!=1)
-    {
-      res_map[ctl_.robot().mb().joint(i).name()] = 0;
-      continue;
-    }
-    res_map[ctl_.robot().mb().joint(i).name()] = gradient(j, 0);
-    ++j;
-  }
-  for(size_t i = 0; i < std::size(ctl_.robot().refJointOrder()); ++i)
-  {
-    res(i, 0) = res_map.at(ctl_.robot().refJointOrder().at(i));
-  }
-  // mc_rtc::log::info("grad size = {}", std::size(gradient));
-  // for(size_t i = 0; i < std::size(ctl_.robot().encoderVelocities()); ++i)
-  // {
-  //   if(i >= 0 && i < 6)
-  //   {
-  //     res(i, 0) = gradient(i+12, 0);
-  //   }
-  //   else if (i >= 6 && i < 12) 
-  //   {  
-  //     res(i, 0) = gradient(i, 0);
-  //   }
-  //   else if (i >= 12 && i < 17) 
-  //   {
-  //     res(i, 0) = gradient(i+6, 0);
-  //   }
-  //   else if (i >= 17 && i < 26) 
-  //   {
-  //     res(i, 0) = gradient(i+15, 0);
-  //   }
-  //   else if (i>= 26 && i < 35) 
-  //   {
-  //     res(i, 0) = 0;
-  //   }
-  //   else if (i >= 35 && i < 44) 
-  //   {
-  //     res(i, 0) = gradient(i-12, 0);
-  //   }
-  //   else if(i >= 44 && i < std::size(ctl_.robot().encoderVelocities()))
-  //   {
-  //     res(i, 0) = 0;
-  //   }
-  // }
-  return res;
-}
-
-const double Get_In_Position_Task::emass_time_derivative_with_mbc_q_derivative(
-  const Eigen::VectorXd &gradient, 
-  mc_control::fsm::Controller & ctl_) const
-{
-  Hammering_FSM_Controller &ctl = static_cast<Hammering_FSM_Controller &>(ctl_);
-
-  double dmdt = 0;
-  double delta_q_i = 0;
-  unsigned int j = 0;
-  std::vector<std::vector<double>> q = _new_mbc.q;
-  std::vector<std::vector<double>> old_q = _old_mbc.q;
-  for (size_t i = 0; i < std::size(q); ++i)
-  {
-    if (std::size(q.at(i)) != 1)
-    {
-      //Ignore floating base (size = 6) and empty dofs (size = 0)
-      continue;
-    }    
-    delta_q_i = q.at(i).at(0) - old_q.at(i).at(0);
-    dmdt += gradient(j,0) * (delta_q_i / ctl.solver().dt());
-    // mc_rtc::log::info("({}) grad[{}] * dq[{}]/dt = {} * {}",ctl.robot().mb().joint(i).name(), j, i, gradient(j, 0), dqi/ctl.solver().dt());
-    j+=1;
-  }
-  return dmdt;
-}
-const double Get_In_Position_Task::emass_time_derivative_with_mbc_alpha(const Eigen::VectorXd &gradient, mc_control::fsm::Controller & ctl_) const
-{
-  double dmdt = 0;
-  unsigned int j = 0;
-  std::vector<std::vector<double>> qdot = _new_mbc.alpha;
-  
-  for (size_t i = 0; i < std::size(qdot); ++i)
-  {
-    if (std::size(qdot.at(i)) != 1)
-    {
-      //Ignore floating base and empty dofs
-      continue;
-    }    
-    dmdt += gradient(j, 0)*qdot.at(i).at(0);
-
-    j+=1;
-  }
-
-  return dmdt;
-}
 const double Get_In_Position_Task::compute_effective_mass_with_mbc(
   rbd::MultiBodyConfig mbc, 
   mc_control::fsm::Controller & ctl_, 
@@ -1021,7 +788,220 @@ const Eigen::Matrix3d Get_In_Position_Task::yaw_rotation_nail_frame(const double
               0,                0,           1;
   return res;
 }
+const double Get_In_Position_Task::estimate_previous_effective_mass(const Eigen::VectorXd &gradient, const double &current_m) const{
+  double dm_sum = 0;
+  double dqi = 0;
+  std::vector<std::vector<double>> q = _new_mbc.q;
+  std::vector<std::vector<double>> old_q = _old_mbc.q;
+  unsigned int j = 0;
+  for (size_t i = 0; i < std::size(q); ++i)
+  {
+    if (std::size(q.at(i)) != 1)
+    {
+      //Ignore floating base (size = 6) and empty dofs (size = 0)
+      continue;
+    }    
+    dqi = q.at(i).at(0) - old_q.at(i).at(0);
+    dm_sum += gradient(j, 0) * dqi;
+    j+=1;
+  }
+  return current_m - dm_sum;
+}
+void Get_In_Position_Task::compare_configs(const Eigen::VectorXd &gradient, mc_control::fsm::Controller & ctl_)
+{
+  std::vector<double> q_encoders = ctl_.robot().encoderValues();
+  auto q_mbc = ctl_.robot().mbc().q;
+  std::vector<double> q_dot_encoders = ctl_.robot().encoderVelocities();
+  auto q_dot_mbc = ctl_.robot().mbc().alpha;
+  auto ref_joint_order = ctl_.robot().refJointOrder();
+  std::map<std::string, double> q_mbc_map;
+  std::map<std::string, double> q_dot_mbc_map;
+  std::map<std::string, double> q_encoders_map;
+  std::map<std::string, double> q_dot_encoders_map;
+  std::map<std::string, double> q_dot_encoders_derivative_map;
+  std::map<std::string, double> q_dot_mbc_derivative_map;
+  std::map<std::string, double> q_mbc_difference_map;
+  std::map<std::string, double> q_encoders_difference_map;
+  Eigen::VectorXd reorg_gradient = reorganized_gradient(gradient, ctl_);
 
+  for(size_t i = 1; i < std::size(q_mbc); ++i)
+  {
+    if (q_mbc.at(i).empty()) {
+      q_mbc_map[ctl_.robot().mb().joint(i).name()] = 0;
+      q_dot_mbc_map[ctl_.robot().mb().joint(i).name()] = 0;
+      q_mbc_difference_map[ctl_.robot().mb().joint(i).name()] = 0;
+      q_dot_mbc_derivative_map[ctl_.robot().mb().joint(i).name()] = 0;
+
+    }
+    else {
+      q_mbc_map[ctl_.robot().mb().joint(i).name()] = q_mbc.at(i).at(0);
+      q_dot_mbc_map[ctl_.robot().mb().joint(i).name()] = q_dot_mbc.at(i).at(0);
+      q_mbc_difference_map[ctl_.robot().mb().joint(i).name()] = q_mbc.at(i).at(0) - _old_mbc.q.at(i).at(0);
+      q_dot_mbc_derivative_map[ctl_.robot().mb().joint(i).name()] = (q_mbc.at(i).at(0) - _old_mbc.q.at(i).at(0))/ctl_.solver().dt();
+    }
+  }
+
+  for(size_t i = 0; i < std::size(q_dot_encoders); ++i)
+  {
+    q_encoders_map[ref_joint_order.at(i)] = q_encoders.at(i);
+    q_dot_encoders_map[ref_joint_order.at(i)] = q_dot_encoders.at(i);
+    q_encoders_difference_map[ref_joint_order.at(i)] = q_encoders.at(i) - _old_q_encoders.at(i);
+    q_dot_encoders_derivative_map[ref_joint_order.at(i)] = (q_encoders.at(i) - _old_q_encoders.at(i))/ctl_.solver().dt();
+  }
+
+  mc_rtc::log::info("Q"); 
+
+  for(const std::string &jointName : ref_joint_order)
+  {
+    mc_rtc::log::info("({}) q_mbc, q_encoders =  [{}, {}]", 
+      jointName, 
+      q_mbc_map.at(jointName),
+      q_encoders_map.at(jointName)
+      );
+  }
+  mc_rtc::log::info("---------------------"); 
+  mc_rtc::log::info("Q_difference"); 
+
+  for(const std::string &jointName : ref_joint_order)
+  {
+    mc_rtc::log::info("({}) q_mbc_difference, q_encoders_difference =  [{}, {}]", 
+      jointName, 
+      q_mbc_difference_map.at(jointName),
+      q_encoders_difference_map.at(jointName)); 
+  }
+  mc_rtc::log::info("---------------------"); 
+  mc_rtc::log::info("Q_DOT"); 
+
+  uint8_t i = 0;
+  for(const std::string &jointName : ref_joint_order)
+  {
+    mc_rtc::log::info("({}) q_dot_mbc, q_dot_mbc_der, q_dot_encoders, q_dot_encoders_der, grad_m =  [{}, {}, {}, {}, {}]", 
+      jointName, 
+      q_dot_mbc_map.at(jointName),
+      q_dot_mbc_derivative_map.at(jointName),
+      q_dot_encoders_map.at(jointName),
+      q_dot_encoders_derivative_map.at(jointName),
+      reorg_gradient(i, 0));
+    ++i;
+  }
+  _old_q_encoders = q_encoders;
+}
+const double Get_In_Position_Task::emass_time_derivative_with_encoders(const Eigen::VectorXd &gradient, mc_control::fsm::Controller & ctl_) const
+{
+  Eigen::VectorXd reorg_gradient = reorganized_gradient(gradient, ctl_);
+  std::vector<double> q_dot_encoders = ctl_.robot().encoderVelocities();
+
+  double dmdt = 0;
+  for(size_t i = 0; i < std::size(q_dot_encoders); ++i)
+  {
+    dmdt += reorg_gradient(i, 0)*q_dot_encoders.at(i);
+    // mc_rtc::log::info("({}) reorg_grad[{}] * qdot_encoders[{}] = {} * {}",ctl_.robot().refJointOrder().at(i), i, i,reorg_gradient(i, 0), q_dot_encoders.at(i) );
+  }
+  return dmdt;
+}
+
+const Eigen::VectorXd Get_In_Position_Task::reorganized_gradient(const Eigen::VectorXd &gradient, mc_control::fsm::Controller & ctl_) const
+{
+  // Reorganize the gradient to multiply it by qdot from encoders
+  Eigen::VectorXd res(std::size(ctl_.robot().encoderVelocities()), 1);
+  res.setOnes();
+
+  std::map<std::string, double> res_map;
+  unsigned int j = 0;
+  for(size_t i = 0; i < std::size(ctl_.robot().mbc().alpha); ++i)
+  {
+    if(std::size(ctl_.robot().mbc().alpha.at(i))!=1)
+    {
+      res_map[ctl_.robot().mb().joint(i).name()] = 0;
+      continue;
+    }
+    res_map[ctl_.robot().mb().joint(i).name()] = gradient(j, 0);
+    ++j;
+  }
+  for(size_t i = 0; i < std::size(ctl_.robot().refJointOrder()); ++i)
+  {
+    res(i, 0) = res_map.at(ctl_.robot().refJointOrder().at(i));
+  }
+  // mc_rtc::log::info("grad size = {}", std::size(gradient));
+  // for(size_t i = 0; i < std::size(ctl_.robot().encoderVelocities()); ++i)
+  // {
+  //   if(i >= 0 && i < 6)
+  //   {
+  //     res(i, 0) = gradient(i+12, 0);
+  //   }
+  //   else if (i >= 6 && i < 12) 
+  //   {  
+  //     res(i, 0) = gradient(i, 0);
+  //   }
+  //   else if (i >= 12 && i < 17) 
+  //   {
+  //     res(i, 0) = gradient(i+6, 0);
+  //   }
+  //   else if (i >= 17 && i < 26) 
+  //   {
+  //     res(i, 0) = gradient(i+15, 0);
+  //   }
+  //   else if (i>= 26 && i < 35) 
+  //   {
+  //     res(i, 0) = 0;
+  //   }
+  //   else if (i >= 35 && i < 44) 
+  //   {
+  //     res(i, 0) = gradient(i-12, 0);
+  //   }
+  //   else if(i >= 44 && i < std::size(ctl_.robot().encoderVelocities()))
+  //   {
+  //     res(i, 0) = 0;
+  //   }
+  // }
+  return res;
+}
+
+const double Get_In_Position_Task::emass_time_derivative_with_mbc_q_derivative(
+  const Eigen::VectorXd &gradient, 
+  mc_control::fsm::Controller & ctl_) const
+{
+  Hammering_FSM_Controller &ctl = static_cast<Hammering_FSM_Controller &>(ctl_);
+
+  double dmdt = 0;
+  double delta_q_i = 0;
+  unsigned int j = 0;
+  std::vector<std::vector<double>> q = _new_mbc.q;
+  std::vector<std::vector<double>> old_q = _old_mbc.q;
+  for (size_t i = 0; i < std::size(q); ++i)
+  {
+    if (std::size(q.at(i)) != 1)
+    {
+      //Ignore floating base (size = 6) and empty dofs (size = 0)
+      continue;
+    }    
+    delta_q_i = q.at(i).at(0) - old_q.at(i).at(0);
+    dmdt += gradient(j,0) * (delta_q_i / ctl.solver().dt());
+    // mc_rtc::log::info("({}) grad[{}] * dq[{}]/dt = {} * {}",ctl.robot().mb().joint(i).name(), j, i, gradient(j, 0), dqi/ctl.solver().dt());
+    j+=1;
+  }
+  return dmdt;
+}
+const double Get_In_Position_Task::emass_time_derivative_with_mbc_alpha(const Eigen::VectorXd &gradient, mc_control::fsm::Controller & ctl_) const
+{
+  double dmdt = 0;
+  unsigned int j = 0;
+  std::vector<std::vector<double>> qdot = _new_mbc.alpha;
+  
+  for (size_t i = 0; i < std::size(qdot); ++i)
+  {
+    if (std::size(qdot.at(i)) != 1)
+    {
+      //Ignore floating base and empty dofs
+      continue;
+    }    
+    dmdt += gradient(j, 0)*qdot.at(i).at(0);
+
+    j+=1;
+  }
+
+  return dmdt;
+}
 void Get_In_Position_Task::load_params()
 {
   std::string magic_values_key = "magic_values";

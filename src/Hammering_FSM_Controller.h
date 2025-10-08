@@ -12,7 +12,11 @@
 #include <geometry_msgs/msg/vector3_stamped.hpp>
 #include "rclcpp/rclcpp.hpp" //including ros2
 #include <mc_rtc_ros/ros.h>
+#include <vector>
 #include "api.h"
+
+
+
 typedef Eigen::Vector3d Point;
 typedef Point point_t;
 typedef ndcurves::curve_constraints<point_t> curve_constraints_t;
@@ -31,7 +35,6 @@ struct Hammering_FSM_Controller_DLLAPI Hammering_FSM_Controller : public mc_cont
     // ROS
     rclcpp::Subscription<geometry_msgs::msg::Vector3Stamped>::SharedPtr subForce;
     mc_rtc::NodeHandlePtr nh; 
-    void nail_force_sensor_callback(const std::shared_ptr<const geometry_msgs::msg::Vector3Stamped> &force);
 
     // Hammer
     const Eigen::Vector3d normal_vector_to_align_in_hammerhead_frame = {1, 0, 0}; 
@@ -49,8 +52,10 @@ struct Hammering_FSM_Controller_DLLAPI Hammering_FSM_Controller : public mc_cont
     double projected_momentum_of_hammer_tip = 0.0f;
     double vector_orientation_error = 0.0f;
 
-    std::shared_ptr<mc_tasks::PostureTask> base_posture_task;
-// -----------------------------------------------------------------------------  
+    std::vector<std::vector<double>> base_posture_vector;
+
+
+    // ------------------------------ Parameters ---------------------------------------------  
     // Parameters loaded in the load_parameters function, parameters are found in the Hammering_FSM_Controller.in.yaml file
     // Don't ask me why there is a '.in' in the name of the file, I don't know 
     
@@ -61,19 +66,16 @@ struct Hammering_FSM_Controller_DLLAPI Hammering_FSM_Controller : public mc_cont
     const std::string hammer_head_frame_name = "Hammer_Head";
     const std::string nail_frame_name = "nail";
     
-    // timestep
-    double _timestep = 1;
-
     // quality of life
     
     bool _bezier_curve_verbose_active = false;
     bool _jacobian_verbose_active = false;
-
     
     // gui
     
     std::string stop_hammering_button_name = "undefined";
 
+    // Minimum force to detect an impact on the nail
     double magic_force_threshold = 1;
     
 
@@ -87,5 +89,10 @@ struct Hammering_FSM_Controller_DLLAPI Hammering_FSM_Controller : public mc_cont
     @brief Adds some graphs to the logs of mc_log_ui
      */
     void add_logs();
+
+    /**
+    @brief Store the force vector retrieved from the nail sensor plugin
+    */
+    void nail_force_sensor_callback(const std::shared_ptr<const geometry_msgs::msg::Vector3Stamped> &force);
 
 };

@@ -1,5 +1,4 @@
 #include "Hammering_FSM_Controller.h"
-#include <mc_rbdyn/RobotLoader.h>
 
 Hammering_FSM_Controller::Hammering_FSM_Controller(mc_rbdyn::RobotModulePtr rm, double dt, const mc_rtc::Configuration & config)
 : mc_control::fsm::Controller(rm, dt, config)
@@ -20,7 +19,14 @@ Hammering_FSM_Controller::Hammering_FSM_Controller(mc_rbdyn::RobotModulePtr rm, 
                   std::bind(&Hammering_FSM_Controller::nail_force_sensor_callback, this, std::placeholders::_1));
   }
   nail_rot = robot(nail_robot_name).frame(nail_frame_name).position().rotation();
+
+  // Nail normal vector (n) expressed in world frame 
   nail_normal_vector_world_frame = (nail_rot.transpose()*normal_vector_nail_frame).normalized();
+
+  // Store the initial posture of the robot
+  std::shared_ptr<mc_tasks::PostureTask> FSMPostureTask = getPostureTask(robot().name());
+  base_posture_vector = FSMPostureTask->posture();
+
   mc_rtc::log::success("Hammering_FSM_Controller init done ");
 }
 
@@ -43,15 +49,6 @@ void Hammering_FSM_Controller::nail_force_sensor_callback(const std::shared_ptr<
   nail_force_vector.y() = force->vector.y;
   nail_force_vector.z() = force->vector.z;
 
-  // ctl.impact_detected = abs(force->vector.x) >= ctl.magic_force_norm_threshold || 
-  // abs(force->vector.y) >= ctl.magic_force_norm_threshold || 
-  // abs(force->vector.z) >= ctl.magic_force_norm_threshold;
-  // if(ctl.impact_detected)
-  // {
-  //   mc_rtc::log::info("force.x = {}", force->vector.x);
-  //   mc_rtc::log::info("force.y = {}", force->vector.y);
-  //   mc_rtc::log::info("force.z = {}", force->vector.z);
-  // }
 }
 
 void Hammering_FSM_Controller::load_parameters()
@@ -59,7 +56,6 @@ void Hammering_FSM_Controller::load_parameters()
   std::string global_controller = "global_controller_params";
   // ------------------------ Loading timestep ---------------------------
   std::string timestep_key = "timestep";
-  _timestep = config_(global_controller)(timestep_key);
 
   // ------------------------ Loading gui parameters ---------------------------
 

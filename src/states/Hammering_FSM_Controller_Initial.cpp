@@ -21,7 +21,8 @@ void Hammering_FSM_Controller_Initial::start(mc_control::fsm::Controller & ctl_)
 bool Hammering_FSM_Controller_Initial::run(mc_control::fsm::Controller & ctl_)
 {
   auto & ctl = static_cast<Hammering_FSM_Controller &>(ctl_);
-  
+  output("BUTTON_CLICKED");
+  return true;
   if (_positionning_hammer_clicked)
   {
       output("BUTTON_CLICKED");

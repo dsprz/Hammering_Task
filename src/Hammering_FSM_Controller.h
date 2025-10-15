@@ -29,6 +29,7 @@ struct Hammering_FSM_Controller_DLLAPI Hammering_FSM_Controller : public mc_cont
 
     void reset(const mc_control::ControllerResetData & reset_data) override;
 
+const double compute_effective_mass_with_mbc();
 
 
     bool impact_detected = false;
@@ -87,7 +88,7 @@ struct Hammering_FSM_Controller_DLLAPI Hammering_FSM_Controller : public mc_cont
 
     /**
     @brief Adds some graphs to the logs of mc_log_ui
-     */
+    */
     void add_logs();
 
     /**

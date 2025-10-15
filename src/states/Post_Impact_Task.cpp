@@ -29,6 +29,7 @@ bool Post_Impact_Task::run(mc_control::fsm::Controller & ctl_)
     auto & ctl = static_cast<Hammering_FSM_Controller &>(ctl_);
 
     // Find a better condition than that
+    return false;
     return _postureTask->eval().norm() < _magic_posture_task_epsilon && _postureTask->speed().norm() < 0.03;
 }
 

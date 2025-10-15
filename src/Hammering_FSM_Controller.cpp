@@ -1,4 +1,5 @@
 #include "Hammering_FSM_Controller.h"
+#include <RBDyn/MultiBodyConfig.h>
 
 Hammering_FSM_Controller::Hammering_FSM_Controller(mc_rbdyn::RobotModulePtr rm, double dt, const mc_rtc::Configuration & config)
 : mc_control::fsm::Controller(rm, dt, config)
@@ -8,6 +9,8 @@ Hammering_FSM_Controller::Hammering_FSM_Controller(mc_rbdyn::RobotModulePtr rm, 
   datastore().make<std::string>("ControlMode", "Torque");
   datastore().make<std::string>("Coriolis", "Yes"); 
   load_parameters();
+
+  effective_mass = compute_effective_mass_with_mbc();
   add_logs();
   nh = mc_rtc::ROSBridge::get_node_handle();
   // Not the cleanest but at leat mc_mujoco does not crash
@@ -41,6 +44,34 @@ void Hammering_FSM_Controller::reset(const mc_control::ControllerResetData & res
   mc_control::fsm::Controller::reset(reset_data);
 }
 
+
+const double Hammering_FSM_Controller::compute_effective_mass_with_mbc(){
+    
+  // If you dont put this line the gradient is 0 everywhere because M and J are not updating
+  rbd::MultiBodyConfig mbc = robot().mbc();
+  robot().forwardKinematics(robot().mbc());                                                                                                    
+
+  //  Access Full Jacobian of the robot
+  rbd::MultiBody robot_mb = robot().mb();
+  rbd::Jacobian jac(robot_mb, hammer_head_frame_name);
+  Eigen::MatrixXd world_frame_jacobian = jac.jacobian(robot_mb, mbc);
+  Eigen::MatrixXd full_world_frame_jacobian(6, robot().mb().nrDof());
+  jac.fullJacobian(robot_mb, world_frame_jacobian, full_world_frame_jacobian);
+
+  // Access linear part of the Jacobian
+  const Eigen::MatrixXd linear_jacobian = full_world_frame_jacobian.bottomRows(3);
+
+  // Access Mass matrix
+  rbd::ForwardDynamics fd(robot_mb);
+  fd.computeH(robot_mb, mbc);
+  Eigen::MatrixXd M = fd.H();
+
+  // Compute Lambda
+  const Eigen::Matrix3d LAMBDA = linear_jacobian*M.inverse()*linear_jacobian.transpose();
+
+  return 1/(nail_normal_vector_world_frame.transpose()*LAMBDA*nail_normal_vector_world_frame);
+
+}
 
 void Hammering_FSM_Controller::nail_force_sensor_callback(const std::shared_ptr<const geometry_msgs::msg::Vector3Stamped> &force)
 {
@@ -106,5 +137,8 @@ void Hammering_FSM_Controller::add_logs()
 
     logger().addLogEntry("Vector orientation error", this, [&, this]()
     {return vector_orientation_error;});
+
+    // logger().addLogEntry("Normal force applied to the nail", this, [&, this]()
+    // {return vector_orientation_error;});
 }
 
